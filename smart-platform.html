@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>منصة ذكية</title>
+<title>بصمة — مدعومة بالذكاء الاصطناعي</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -12,7 +12,7 @@
   --bg:#f8f7f4;--bg2:#ffffff;--bg3:#f0ede8;
   --txt:#181816;--txt2:#6b6964;--txt3:#a8a5a0;
   --bdr:#e2dfd8;--bdr2:#ccc9c2;
-  --acc:#534AB7;--acc-l:#EEEDFE;--acc-d:#3C3489;
+  --acc:#6b5fcd;--acc-l:#F0EEFF;--acc-d:#4a3d9a;
   --grn:#0F6E56;--grn-l:#E1F5EE;
   --red:#993C1D;--red-l:#FAECE7;
   --amb:#BA7517;--amb-l:#FAEEDA;
@@ -96,7 +96,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 .radio-list{display:flex;flex-direction:column;gap:5px;}
 .radio-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;font-size:12px;transition:all .12s;}
 .radio-item:hover{background:var(--bg3);}
-.radio-item.sel{border-color:#7F77DD;background:var(--acc-l);}
+.radio-item.sel{border-color:#9b8fe8;background:var(--acc-l);}
 .rdot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--bdr2);flex-shrink:0;}
 .rdot.sel{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px #fff;}
 .chip-row{display:flex;flex-wrap:wrap;gap:5px;}
@@ -106,7 +106,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 .mod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
 .mod-card{border:1px solid var(--bdr);border-radius:var(--r);padding:10px;cursor:pointer;transition:all .12s;}
 .mod-card:hover{border-color:var(--acc);}
-.mod-card.sel{border-color:#7F77DD;border-width:1.5px;background:var(--acc-l);}
+.mod-card.sel{border-color:#9b8fe8;border-width:1.5px;background:var(--acc-l);}
 .mod-icon{font-size:15px;margin-bottom:4px;}
 .mod-name{font-size:12px;font-weight:500;}
 .mod-name.sel{color:var(--acc-d);}
@@ -307,7 +307,9 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ══ LOGIN ═══════════════════════════════════════════════════════════════ -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
-    <div class="login-logo">منصة ذكية</div>
+    <div style="text-align:center;margin-bottom:16px;">
+      <img src="https://cdn.files.salla.network/theme/780764171/9b2bb6fc-cf78-454a-a05e-6b464f4d2221.webp" alt="بصمة" style="max-width:180px;max-height:70px;object-fit:contain;"/>
+    </div>
     <div class="login-sub">مدعومة بـ Claude AI</div>
 
     <div id="loginForm">
@@ -332,7 +334,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ══ SIDEBAR ══════════════════════════════════════════════════════════════ -->
 <div class="sidebar">
-  <div class="logo"><div class="logo-name">منصة ذكية</div><div class="logo-sub">مدعومة بـ Claude AI</div></div>
+  <div class="logo" style="padding:12px 16px;">
+    <img src="https://cdn.files.salla.network/theme/780764171/9b2bb6fc-cf78-454a-a05e-6b464f4d2221.webp" alt="بصمة" style="width:100%;max-height:52px;object-fit:contain;object-position:right;"/>
+    <div class="logo-sub" style="margin-top:4px;">مدعومة بـ Claude AI</div>
+  </div>
   <div class="nav" id="sideNav">
     <div class="nav-sec">الرئيسية</div>
     <div class="nav-item active" id="nav-dashboard" onclick="go('dashboard',this)"><span class="nav-icon">◈</span>لوحة التحكم</div>
@@ -346,6 +351,11 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span>لوحة KPI</div>
     <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span>خطة 90 يوم</div>
     <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span>Visual Identity</div>
+    <div class="nav-sec">خدمات بصمة</div>
+    <div class="nav-item" id="nav-content-writer" onclick="go('content-writer',this)"><span class="nav-icon">✍️</span>كتابة المحتوى</div>
+    <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span>الخطة الشهرية</div>
+    <div class="nav-item" id="nav-voiceover" onclick="go('voiceover',this)"><span class="nav-icon">🎙️</span>فويس أوفر</div>
+    <div class="nav-item" id="nav-scheduler" onclick="go('scheduler',this)"><span class="nav-icon">🗓️</span>جدول المحتوى</div>
     <div class="nav-sec">Design Studio</div>
     <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span>Chat with Claude</div>
     <div class="nav-item" id="nav-mockup" onclick="go('mockup',this)"><span class="nav-icon">🖼️</span>Design Mockups</div>
@@ -400,7 +410,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
           </div>
           <button class="btn primary" style="width:100%;" onclick="go('input',null)">+ بدء إدخال جديد</button>
         </div>
-        <div class="card" style="background:var(--acc-l);border-color:#7F77DD;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
           <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:6px;">🔑 API Key</div>
           <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:10px;" id="d-key-status">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
           <button class="btn primary" style="width:100%;font-size:11px;" onclick="go('settings',null)">⚙ الإعدادات</button>
@@ -459,7 +469,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       <div class="tool-card" onclick="go('crm',null)"><div style="font-size:28px;margin-bottom:10px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">إدارة العملاء والصفقات والمتابعات</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
       <div class="tool-card" onclick="go('kpi',null)"><div style="font-size:28px;margin-bottom:10px;">📊</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">لوحة KPI</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">مؤشرات أداء مخصصة لشركتك</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
       <div class="tool-card" onclick="go('plan',null)"><div style="font-size:28px;margin-bottom:10px;">📋</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">خطة العمل 90 يوم</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">خطة تنفيذية مبنية على توصيات الذكاء</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
-      <div class="tool-card" onclick="go('brand',null)" style="border:1.5px solid #7F77DD;background:var(--acc-l);"><div style="font-size:28px;margin-bottom:10px;">🎨</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;color:var(--acc-d);">Visual Identity Studio</div><div style="font-size:12px;color:var(--acc-d);line-height:1.7;">Logo concepts, brand colors, fonts & full guidelines</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
+      <div class="tool-card" onclick="go('brand',null)" style="border:1.5px solid #9b8fe8;background:var(--acc-l);"><div style="font-size:28px;margin-bottom:10px;">🎨</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;color:var(--acc-d);">Visual Identity Studio</div><div style="font-size:12px;color:var(--acc-d);line-height:1.7;">Logo concepts, brand colors, fonts & full guidelines</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
       <div class="tool-card" onclick="go('chat',null)" style="border:1.5px solid #1D9E75;background:var(--grn-l);"><div style="font-size:28px;margin-bottom:10px;">💬</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;color:var(--grn);">Chat with Claude</div><div style="font-size:12px;color:var(--grn);line-height:1.7;">Ask anything — design, strategy, marketing, analysis</div><div style="margin-top:10px;"><span class="pill green">New ✨</span></div></div>
       <div class="tool-card" onclick="go('mockup',null)"><div style="font-size:28px;margin-bottom:10px;">🖼️</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">Design Mockups</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">Landing pages, social media, emails, business cards & slides</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
       <div class="tool-card" onclick="go('uiux',null)"><div style="font-size:28px;margin-bottom:10px;">✏️</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">UI/UX Advisor</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">Get AI feedback on your designs, colors, layouts & UX</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
@@ -637,7 +647,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
     <!-- Mockup type selector -->
     <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:20px;">
-      <div class="tool-card sel" id="mtype-landing" onclick="selectMockupType('landing',this)" style="text-align:center;padding:14px 8px;border-color:#7F77DD;background:var(--acc-l);">
+      <div class="tool-card sel" id="mtype-landing" onclick="selectMockupType('landing',this)" style="text-align:center;padding:14px 8px;border-color:#9b8fe8;background:var(--acc-l);">
         <div style="font-size:24px;margin-bottom:6px;">🌐</div>
         <div style="font-size:11px;font-weight:500;color:var(--acc-d);">Landing Page</div>
       </div>
@@ -669,7 +679,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
         </div>
         <div class="field"><div class="field-label">Main Message / Goal</div><input class="input" id="mk-message" placeholder="e.g. Generate leads, sell products, showcase portfolio..."/></div>
         <div class="two-fields">
-          <div class="field"><div class="field-label">Primary Color</div><input class="input" id="mk-color1" placeholder="e.g. #534AB7 or Navy Blue"/></div>
+          <div class="field"><div class="field-label">Primary Color</div><input class="input" id="mk-color1" placeholder="e.g. #6b5fcd or Navy Blue"/></div>
           <div class="field"><div class="field-label">Secondary Color</div><input class="input" id="mk-color2" placeholder="e.g. #1D9E75 or Gold"/></div>
         </div>
         <div class="field"><div class="field-label">Style Preference</div>
@@ -859,6 +869,314 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-row">
       <button class="btn primary" onclick="saveEditUser()">✓ Save Changes</button>
       <button class="btn" onclick="closeModal('editUserModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───── CONTENT WRITER ─────────────────────────────────────────── -->
+<div class="page" id="page-content-writer">
+  <div class="topbar">
+    <div class="breadcrumb">خدمات بصمة › <b>كتابة المحتوى</b></div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">✍️ كتابة المحتوى بالذكاء الاصطناعي</div>
+      <div style="font-size:12px;color:var(--txt2);">ولّد محتوى احترافياً لمنصات التواصل، المدونات، الإعلانات وأكثر</div>
+    </div>
+    <div class="two-col" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">إعدادات المحتوى</span></div>
+        <div class="field"><div class="field-label">نوع المحتوى <span class="req">*</span></div>
+          <select class="input" id="cw-type">
+            <option value="instagram">منشور إنستجرام</option>
+            <option value="twitter">تغريدة تويتر X</option>
+            <option value="snapchat">قصة سناب شات</option>
+            <option value="tiktok">كابشن تيك توك</option>
+            <option value="linkedin">منشور لينكد إن</option>
+            <option value="blog">مقال مدونة</option>
+            <option value="ad">إعلان مدفوع</option>
+            <option value="email">رسالة بريد إلكتروني</option>
+            <option value="whatsapp">رسالة واتساب تسويقية</option>
+            <option value="product">وصف منتج</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">الموضوع أو الفكرة الرئيسية <span class="req">*</span></div>
+          <textarea class="input" id="cw-topic" rows="3" placeholder="مثال: إطلاق منتج جديد، عرض موسمي، نصيحة، قصة نجاح..."></textarea>
+        </div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">القطاع / المجال</div>
+            <input class="input" id="cw-industry" placeholder="مثال: مطعم، عيادة، متجر..."/>
+          </div>
+          <div class="field"><div class="field-label">الأسلوب</div>
+            <select class="input" id="cw-tone">
+              <option value="professional">احترافي</option>
+              <option value="friendly">ودّي وعفوي</option>
+              <option value="funny">فكاهي</option>
+              <option value="motivational">تحفيزي</option>
+              <option value="educational">تعليمي</option>
+              <option value="luxury">فاخر وراقي</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="cw-audience" placeholder="مثال: نساء 25-40، رجال أعمال، أمهات..."/>
+        </div>
+        <div class="field"><div class="field-label">الكلمات المفتاحية (اختياري)</div>
+          <input class="input" id="cw-keywords" placeholder="كلمات تريد تضمينها مفصولة بفاصلة..."/>
+        </div>
+        <div class="field"><div class="field-label">عدد النسخ</div>
+          <select class="input" id="cw-count">
+            <option value="1">نسخة واحدة</option>
+            <option value="3" selected>3 نسخ متنوعة</option>
+            <option value="5">5 نسخ</option>
+          </select>
+        </div>
+        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateContent()">🤖 ولّد المحتوى</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:8px;">💡 نصائح لمحتوى أفضل</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--acc-d);">
+            <div>✓ كن محدداً في الموضوع</div>
+            <div>✓ حدد جمهورك بدقة</div>
+            <div>✓ اختر الأسلوب المناسب للمنصة</div>
+            <div>✓ أضف كلمات مفتاحية لنتائج أفضل</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">📊 إحصائيات اليوم</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>محتوى تم توليده</span><span id="cw-count-stat" style="font-weight:500;">0</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>آخر نوع</span><span id="cw-last-type" style="font-weight:500;">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cwOutput"></div>
+  </div>
+</div>
+
+<!-- ───── MONTHLY PLAN ────────────────────────────────────────────── -->
+<div class="page" id="page-monthly-plan">
+  <div class="topbar">
+    <div class="breadcrumb">خدمات بصمة › <b>الخطة الشهرية</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportMonthlyPlan()">⬇ تصدير PDF</button>
+    </div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">📅 الخطة الشهرية للمحتوى</div>
+      <div style="font-size:12px;color:var(--txt2);">خطة نشر شاملة لمدة شهر كامل مع مواضيع وأفكار لكل منشور</div>
+    </div>
+    <div class="card" style="margin-bottom:14px;max-width:620px;">
+      <div class="card-hdr"><span class="card-title">إعداد الخطة الشهرية</span></div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">اسم النشاط / الشركة <span class="req">*</span></div>
+          <input class="input" id="mp-name" placeholder="مثال: مطعم نور"/>
+        </div>
+        <div class="field"><div class="field-label">القطاع <span class="req">*</span></div>
+          <input class="input" id="mp-industry" placeholder="مثال: مطاعم، عيادات، ملابس..."/>
+        </div>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">المنصات المستهدفة</div>
+          <div class="chip-row" id="mp-platforms">
+            <div class="chip sel" onclick="this.classList.toggle('sel')">إنستجرام</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">تويتر X</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">سناب شات</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">تيك توك</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">لينكد إن</div>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الشهر</div>
+          <input class="input" id="mp-month" placeholder="مثال: يونيو 2026"/>
+        </div>
+      </div>
+      <div class="field"><div class="field-label">أهداف الشهر</div>
+        <textarea class="input" id="mp-goals" rows="2" placeholder="مثال: زيادة المتابعين، الترويج لمنتج جديد، رمضان..."></textarea>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">عدد المنشورات أسبوعياً</div>
+          <select class="input" id="mp-frequency">
+            <option value="3">3 منشورات</option>
+            <option value="5" selected>5 منشورات</option>
+            <option value="7">يومي (7)</option>
+            <option value="14">يومين (14)</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">الأسلوب العام</div>
+          <select class="input" id="mp-tone">
+            <option>احترافي</option>
+            <option>ودّي</option>
+            <option>تعليمي</option>
+            <option>تحفيزي</option>
+            <option>متنوع</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateMonthlyPlan()">🤖 ولّد الخطة الشهرية</button>
+    </div>
+    <div id="mpOutput"></div>
+  </div>
+</div>
+
+<!-- ───── VOICE OVER ───────────────────────────────────────────────── -->
+<div class="page" id="page-voiceover">
+  <div class="topbar">
+    <div class="breadcrumb">خدمات بصمة › <b>فويس أوفر</b></div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🎙️ كتابة نص الفويس أوفر</div>
+      <div style="font-size:12px;color:var(--txt2);">ولّد نصوص فويس أوفر احترافية للإعلانات والفيديوهات والمحتوى المرئي</div>
+    </div>
+    <div class="two-col" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">إعدادات الفويس أوفر</span></div>
+        <div class="field"><div class="field-label">نوع الفيديو <span class="req">*</span></div>
+          <select class="input" id="vo-type">
+            <option value="ad">إعلان تجاري (15-30 ثانية)</option>
+            <option value="promo">فيديو ترويجي (30-60 ثانية)</option>
+            <option value="explainer">فيديو شرح (60-90 ثانية)</option>
+            <option value="social">فيديو سوشيال ميديا (15-60 ثانية)</option>
+            <option value="documentary">وثائقي/معرفي (2-5 دقائق)</option>
+            <option value="intro">مقدمة قناة (10-20 ثانية)</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">موضوع الفيديو / المنتج <span class="req">*</span></div>
+          <textarea class="input" id="vo-topic" rows="3" placeholder="مثال: إعلان عن افتتاح مطعم جديد في الرياض يقدم مأكولات يمنية أصيلة..."></textarea>
+        </div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">أسلوب الصوت</div>
+            <select class="input" id="vo-style">
+              <option>رسمي وجاد</option>
+              <option>ودّي وحيوي</option>
+              <option>حماسي</option>
+              <option>هادئ وفاخر</option>
+              <option>إخباري</option>
+              <option>عاطفي</option>
+            </select>
+          </div>
+          <div class="field"><div class="field-label">اللهجة</div>
+            <select class="input" id="vo-dialect">
+              <option>فصحى راقية</option>
+              <option>خليجية</option>
+              <option>سعودية</option>
+              <option>مصرية</option>
+              <option>شامية</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="vo-audience" placeholder="مثال: عائلات سعودية، شباب 18-30..."/>
+        </div>
+        <div class="field"><div class="field-label">نقاط رئيسية يجب ذكرها</div>
+          <textarea class="input" id="vo-points" rows="2" placeholder="مثال: العنوان، الموعد، رقم التواصل، العرض الخاص..."></textarea>
+        </div>
+        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateVoiceover()">🤖 ولّد نص الفويس أوفر</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:10px;">⏱️ معدلات القراءة</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;">
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 15 ثانية:</b> ~37 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 30 ثانية:</b> ~75 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو دقيقة:</b> ~150 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو 3 دقائق:</b> ~450 كلمة</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:500;margin-bottom:8px;">📌 نصائح الفويس أوفر</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--txt2);">
+            <div>• ابدأ بجملة تجذب الانتباه</div>
+            <div>• استخدم جمل قصيرة وواضحة</div>
+            <div>• ضع CTA في النهاية دائماً</div>
+            <div>• تجنب الكلمات الصعبة النطق</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="voOutput"></div>
+  </div>
+</div>
+
+<!-- ───── CONTENT SCHEDULER ───────────────────────────────────────── -->
+<div class="page" id="page-scheduler">
+  <div class="topbar">
+    <div class="breadcrumb">خدمات بصمة › <b>جدول المحتوى</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportSchedule()">⬇ تصدير CSV</button>
+      <button class="btn primary" onclick="addSchedulePost()">+ إضافة منشور</button>
+    </div>
+  </div>
+  <div class="page-body" id="schedulerBody">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🗓️ جدول المحتوى</div>
+      <div style="font-size:12px;color:var(--txt2);">تنظيم ومتابعة خطة نشر المحتوى لجميع المنصات</div>
+    </div>
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;">
+      <div class="metric"><div class="m-label">إجمالي المنشورات</div><div class="m-val" id="sch-total">0</div></div>
+      <div class="metric"><div class="m-label">تم النشر</div><div class="m-val up" id="sch-published">0</div></div>
+      <div class="metric"><div class="m-label">قيد الإعداد</div><div class="m-val" id="sch-draft" style="color:var(--amb);">0</div></div>
+      <div class="metric"><div class="m-label">مجدولة</div><div class="m-val" id="sch-scheduled" style="color:var(--acc);">0</div></div>
+    </div>
+    <!-- Schedule table -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">جدول المنشورات</span></div>
+      <div style="overflow-x:auto;">
+        <table class="crm-table" id="scheduleTable">
+          <thead><tr>
+            <th>التاريخ</th><th>المنصة</th><th>الموضوع</th><th>الأسلوب</th><th>الحالة</th><th>إجراء</th>
+          </tr></thead>
+          <tbody id="scheduleBody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;">لا توجد منشورات — اضغط "+ إضافة منشور" أو "ولّد بالذكاء" لإنشاء جدول تلقائي</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Generate schedule -->
+    <div class="card" style="margin-top:14px;">
+      <div class="card-hdr"><span class="card-title">🤖 ولّد جدول تلقائي بالذكاء الاصطناعي</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+        <div class="field" style="flex:1;min-width:150px;margin-bottom:0;"><div class="field-label">اسم النشاط</div><input class="input" id="sg-name" placeholder="مثال: مطعم نور"/></div>
+        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">عدد الأسابيع</div>
+          <select class="input" id="sg-weeks"><option value="2">أسبوعان</option><option value="4" selected>شهر كامل</option></select>
+        </div>
+        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">منشورات/أسبوع</div>
+          <select class="input" id="sg-per-week"><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option></select>
+        </div>
+        <button class="btn primary" style="padding:8px 16px;flex-shrink:0;" onclick="generateSchedule()">🤖 ولّد الجدول</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADD SCHEDULE POST MODAL ── -->
+<div class="modal-overlay" id="addPostModal">
+  <div class="modal-box">
+    <div class="modal-title">إضافة منشور للجدول</div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">التاريخ <span class="req">*</span></div><input class="input" type="date" id="sp-date"/></div>
+      <div class="field"><div class="field-label">المنصة <span class="req">*</span></div>
+        <select class="input" id="sp-platform">
+          <option>إنستجرام</option><option>تويتر X</option><option>سناب شات</option>
+          <option>تيك توك</option><option>لينكد إن</option><option>فيسبوك</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">الموضوع <span class="req">*</span></div><input class="input" id="sp-topic" placeholder="موضوع المنشور..."/></div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">الأسلوب</div>
+        <select class="input" id="sp-tone"><option>احترافي</option><option>ودّي</option><option>تعليمي</option><option>ترفيهي</option></select>
+      </div>
+      <div class="field"><div class="field-label">الحالة</div>
+        <select class="input" id="sp-status"><option value="draft">قيد الإعداد</option><option value="scheduled">مجدول</option><option value="published">تم النشر</option></select>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">ملاحظات</div><input class="input" id="sp-notes" placeholder="أي تفاصيل إضافية..."/></div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="saveSchedulePost()">✓ إضافة</button>
+      <button class="btn" onclick="closeModal('addPostModal')">إلغاء</button>
     </div>
   </div>
 </div>
@@ -1072,6 +1390,10 @@ function go(id, navEl){
   if(id==='settings') initSettings()
   if(id==='dashboard') updateDashboard()
   if(id==='crm') renderCRM()
+  if(id==='content-writer') initContentWriter()
+  if(id==='monthly-plan') initMonthlyPlan()
+  if(id==='voiceover') initVoiceover()
+  if(id==='scheduler') initScheduler()
   if(id==='admin') renderAdminPanel()
 }
 
@@ -1109,7 +1431,7 @@ function updateDashboard(){
 
   if(!submissions.length) return
   const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
-  const bgs={report:'#EEEDFE',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const bgs={report:'#F0EEFF',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
   const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
   let h='<div style="display:flex;flex-direction:column;gap:7px;">'
   submissions.slice(-4).reverse().forEach(s=>{
@@ -1243,7 +1565,7 @@ async function callAI(type, data, key){
 {"summary":"ملخص تنفيذي 3-4 جمل","metrics":[{"label":"...","value":"...","change":"...","changeType":"up"}],"insights":[{"type":"opportunity","text":"...","tag":"فرصة"}],"recommendations":[{"rank":1,"text":"...","priority":"high"}],"monthlyTrend":[{"month":"يناير","value":40},{"month":"فبراير","value":55},{"month":"مارس","value":48},{"month":"أبريل","value":70},{"month":"مايو","value":65},{"month":"يونيو","value":85}],"categoryBreakdown":[{"name":"...","value":40}]}`,
     dashboard:`أنت محلل KPI. أرجع JSON فقط.
 بيانات: ${data.companyName}, ${data.sector}, إيرادات=${data.revenue}, طلبات=${data.orders}
-{"kpis":[{"label":"...","value":"...","change":"...","changeType":"up"}],"channels":[{"name":"...","percentage":40,"color":"#534AB7"}],"healthMetrics":[{"label":"...","value":"...","barPercentage":75,"color":"#1D9E75"}]}`,
+{"kpis":[{"label":"...","value":"...","change":"...","changeType":"up"}],"channels":[{"name":"...","percentage":40,"color":"#6b5fcd"}],"healthMetrics":[{"label":"...","value":"...","barPercentage":75,"color":"#1D9E75"}]}`,
     marketing:`أنت خبير تسويق رقمي خليجي. ولّد محتوى تسويقياً عربياً جذاباً. أرجع JSON فقط.
 الشركة: ${data.companyName}, القطاع: ${data.sector}
 {"posts":[{"platform":"إنستجرام","type":"منشور","content":"...","hashtags":["#..."]},{"platform":"سناب شات","type":"قصة","content":"...","hashtags":["#..."]},{"platform":"تويتر X","type":"تغريدة","content":"...","hashtags":["#..."]},{"platform":"جوجل","type":"إعلان","headline":"...","content":"...","hashtags":[]}],"schedule":{"bestDays":"...","bestTimes":"...","audience":"..."}}`,
@@ -1301,7 +1623,7 @@ function viewSub(id,key){const sub=submissions.find(s=>s.id===id);if(sub)showOut
 // ══════════════════════════════════════════════════════════════════════════════
 // RENDER FUNCTIONS
 // ══════════════════════════════════════════════════════════════════════════════
-const IC={opportunity:{bg:'#E1F5EE',c:'#085041',i:'▲'},warning:{bg:'#FAEEDA',c:'#633806',i:'!'},info:{bg:'#EEEDFE',c:'#3C3489',i:'★'}}
+const IC={opportunity:{bg:'#E1F5EE',c:'#085041',i:'▲'},warning:{bg:'#FAEEDA',c:'#633806',i:'!'},info:{bg:'#F0EEFF',c:'#4a3d9a',i:'★'}}
 const PRI_CLS={high:'pri-h',medium:'pri-m',low:'pri-l'}
 const PRI_LBL={high:'أولوية عالية',medium:'أولوية متوسطة',low:'أولوية منخفضة'}
 
@@ -1320,9 +1642,9 @@ function renderReport(d){
     const bc=document.getElementById(id)
     const pc=document.getElementById(id2)
     const months=(d.monthlyTrend||[{month:'يناير',value:40},{month:'فبراير',value:55},{month:'مارس',value:48},{month:'أبريل',value:70},{month:'مايو',value:65},{month:'يونيو',value:85}])
-    if(bc&&!bc._c){bc._c=new Chart(bc,{type:'bar',data:{labels:months.map(m=>m.month),datasets:[{data:months.map(m=>m.value),backgroundColor:'rgba(83,74,183,0.75)',borderColor:'#534AB7',borderWidth:0,borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false}}}}})}
+    if(bc&&!bc._c){bc._c=new Chart(bc,{type:'bar',data:{labels:months.map(m=>m.month),datasets:[{data:months.map(m=>m.value),backgroundColor:'rgba(107,95,205,0.75)',borderColor:'#6b5fcd',borderWidth:0,borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false}}}}})}
     const cats=d.categoryBreakdown||[{name:'المنتج الرئيسي',value:40},{name:'ثانوي',value:30},{name:'خدمات',value:20},{name:'أخرى',value:10}]
-    if(pc&&!pc._c){pc._c=new Chart(pc,{type:'doughnut',data:{labels:cats.map(c=>c.name),datasets:[{data:cats.map(c=>c.value),backgroundColor:['#534AB7','#1D9E75','#D85A30','#EF9F27','#378ADD'],borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10}}},cutout:'55%'}})}
+    if(pc&&!pc._c){pc._c=new Chart(pc,{type:'doughnut',data:{labels:cats.map(c=>c.name),datasets:[{data:cats.map(c=>c.value),backgroundColor:['#6b5fcd','#1D9E75','#D85A30','#EF9F27','#378ADD'],borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10}}},cutout:'55%'}})}
   },300)
   return `
   <div class="out-hdr"><div><div class="out-title">التقرير الإداري الشامل</div><div class="meta-row"><span class="pill green">مكتمل</span><span class="pill gray">تقرير شامل</span></div></div>${outActionRow('report','التقرير الإداري')}</div>
@@ -1347,8 +1669,8 @@ function renderDashboard(d){
   setTimeout(()=>{
     const cc=document.getElementById(lid)
     const rc=document.getElementById(rid)
-    if(cc&&!cc._c){cc._c=new Chart(cc,{type:'bar',data:{labels:(d.channels||[]).map(c=>c.name),datasets:[{data:(d.channels||[]).map(c=>c.percentage),backgroundColor:['#534AB7','#1D9E75','#EF9F27','#B4B2A9'],borderRadius:6,borderWidth:0}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:100,grid:{color:'rgba(0,0,0,0.05)'}},y:{grid:{display:false}}}}})}
-    if(rc&&!rc._c){const hm=d.healthMetrics||[];rc._c=new Chart(rc,{type:'radar',data:{labels:hm.map(h=>h.label),datasets:[{data:hm.map(h=>h.barPercentage),backgroundColor:'rgba(83,74,183,0.18)',borderColor:'#534AB7',borderWidth:2,pointBackgroundColor:'#534AB7',pointRadius:4}]},options:{scales:{r:{beginAtZero:true,max:100,ticks:{display:false},grid:{color:'rgba(0,0,0,0.08)'}}},plugins:{legend:{display:false}}}})}
+    if(cc&&!cc._c){cc._c=new Chart(cc,{type:'bar',data:{labels:(d.channels||[]).map(c=>c.name),datasets:[{data:(d.channels||[]).map(c=>c.percentage),backgroundColor:['#6b5fcd','#1D9E75','#EF9F27','#B4B2A9'],borderRadius:6,borderWidth:0}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:100,grid:{color:'rgba(0,0,0,0.05)'}},y:{grid:{display:false}}}}})}
+    if(rc&&!rc._c){const hm=d.healthMetrics||[];rc._c=new Chart(rc,{type:'radar',data:{labels:hm.map(h=>h.label),datasets:[{data:hm.map(h=>h.barPercentage),backgroundColor:'rgba(107,95,205,0.18)',borderColor:'#6b5fcd',borderWidth:2,pointBackgroundColor:'#6b5fcd',pointRadius:4}]},options:{scales:{r:{beginAtZero:true,max:100,ticks:{display:false},grid:{color:'rgba(0,0,0,0.08)'}}},plugins:{legend:{display:false}}}})}
   },300)
   return `
   <div class="out-hdr"><div><div class="out-title">لوحة التحليل التفاعلية</div><div class="meta-row"><span class="pill green">مكتملة</span><span class="pill gray">KPI</span></div></div>${outActionRow('dashboard','لوحة التحليل')}</div>
@@ -1363,7 +1685,7 @@ function renderDashboard(d){
 }
 
 function renderMarketing(d){
-  const bg={'إنستجرام':'#EEEDFE','سناب شات':'#E1F5EE','تويتر X':'#E6F1FB','جوجل':'#FAECE7'}
+  const bg={'إنستجرام':'#F0EEFF','سناب شات':'#E1F5EE','تويتر X':'#E6F1FB','جوجل':'#FAECE7'}
   return `
   <div class="out-hdr"><div><div class="out-title">المحتوى التسويقي</div><div class="meta-row"><span class="pill green">مكتمل</span><span class="pill purple">عربي</span></div></div>${outActionRow('marketing','المحتوى التسويقي')}</div>
   <div class="post-grid">${(d.posts||[]).map((p,i)=>`<div class="post-card"><div class="post-hdr" style="background:${bg[p.platform]||'#F1EFE8'};"><span class="post-platform">${p.platform} — ${p.type}</span><button class="copy-btn" onclick="this.textContent='✓';setTimeout(()=>this.textContent='نسخ',2000);navigator.clipboard.writeText(document.getElementById('pt${i}')?.textContent||'').catch(()=>{})">نسخ</button></div><div class="post-body"><div class="post-text" id="pt${i}">${p.headline?`<b>${p.headline}</b>\n\n`:''}${p.content}</div>${(p.hashtags||[]).length?`<div class="hash-row">${p.hashtags.map(h=>`<span class="hashtag">${h}</span>`).join('')}</div>`:''}</div></div>`).join('')}</div>
@@ -1471,8 +1793,8 @@ async function regenOut(type){
 // CRM
 // ══════════════════════════════════════════════════════════════════════════════
 const STAGES=['عميل محتمل','تواصل أولي','عرض سعر','تفاوض','مغلق - رابح','مغلق - خاسر']
-const SBG={'عميل محتمل':'#EEEDFE','تواصل أولي':'#E6F1FB','عرض سعر':'#FAEEDA','تفاوض':'#FBEAF0','مغلق - رابح':'#E1F5EE','مغلق - خاسر':'#FAECE7'}
-const STC={'عميل محتمل':'#3C3489','تواصل أولي':'#0C447C','عرض سعر':'#633806','تفاوض':'#72243E','مغلق - رابح':'#085041','مغلق - خاسر':'#712B13'}
+const SBG={'عميل محتمل':'#F0EEFF','تواصل أولي':'#E6F1FB','عرض سعر':'#FAEEDA','تفاوض':'#FBEAF0','مغلق - رابح':'#E1F5EE','مغلق - خاسر':'#FAECE7'}
+const STC={'عميل محتمل':'#4a3d9a','تواصل أولي':'#0C447C','عرض سعر':'#633806','تفاوض':'#72243E','مغلق - رابح':'#085041','مغلق - خاسر':'#712B13'}
 
 function renderCRM(){
   const body=document.getElementById('crmBody')
@@ -1499,7 +1821,7 @@ function renderCRM(){
           <td style="font-weight:500;color:var(--grn);">${c.revenue?Number(c.revenue).toLocaleString()+' ريال':'—'}</td>
           <td><select onchange="updStage(${i},this.value)" style="font-size:11px;padding:3px 7px;border-radius:6px;border:1px solid var(--bdr2);background:${SBG[c.stage]||'#f0ede8'};color:${STC[c.stage]||'#181816'};font-family:inherit;cursor:pointer;">${STAGES.map(s=>`<option value="${s}" ${c.stage===s?'selected':''}>${s}</option>`).join('')}</select></td>
           <td><div style="display:flex;gap:4px;flex-wrap:wrap;">
-            <button class="btn xs" style="background:var(--acc-l);color:var(--acc-d);border-color:#7F77DD;" onclick="buildClientTool(${i},'report')">📄 تقرير</button>
+            <button class="btn xs" style="background:var(--acc-l);color:var(--acc-d);border-color:#9b8fe8;" onclick="buildClientTool(${i},'report')">📄 تقرير</button>
             <button class="btn xs" style="background:var(--grn-l);color:var(--grn);border-color:#5DCAA5;" onclick="buildClientTool(${i},'kpi')">📊 KPI</button>
             <button class="btn xs" style="background:var(--amb-l);color:var(--amb);border-color:#DCA030;" onclick="buildClientTool(${i},'plan')">📋 خطة</button>
           </div></td>
@@ -1608,7 +1930,7 @@ function addToReports(sub){
   const g=document.getElementById('reportsGrid')
   if(g.querySelector('[style*="grid-column"]')) g.innerHTML=''
   const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
-  const bgs={report:'#EEEDFE',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const bgs={report:'#F0EEFF',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
   const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
   Object.keys(sub.results).forEach(k=>{
     const div=document.createElement('div'); div.className='rep-card'
@@ -1641,8 +1963,8 @@ function openPrintWindow(title, content){
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;padding:20px;color:#181816;}
-.print-hdr{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:2px solid #534AB7;margin-bottom:18px;}
-.logo{font-size:16px;font-weight:600;color:#534AB7;}
+.print-hdr{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:2px solid #6b5fcd;margin-bottom:18px;}
+.logo{font-size:16px;font-weight:600;color:#6b5fcd;}
 .title{font-size:14px;font-weight:500;}
 .date{font-size:11px;color:#6b6964;margin-top:3px;}
 button,select,.copy-btn,.btn,.card-act{display:none!important;}
@@ -1657,7 +1979,7 @@ button,select,.copy-btn,.btn,.card-act{display:none!important;}
 .up{color:#0F6E56;}.down{color:#993C1D;}
 .pill{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;}
 .pill.green{background:#E1F5EE;color:#085041;}
-.pill.purple{background:#EEEDFE;color:#3C3489;}
+.pill.purple{background:#F0EEFF;color:#4a3d9a;}
 .pill.gray{background:#f0ede8;color:#6b6964;}
 .out-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
 .out-title{font-size:16px;font-weight:500;}
@@ -1671,7 +1993,7 @@ button,select,.copy-btn,.btn,.card-act{display:none!important;}
 .ins-text{font-size:11px;line-height:1.7;}
 .rec-list{display:flex;flex-direction:column;gap:6px;}
 .rec-item{display:flex;gap:8px;padding:8px;border:1px solid #e2dfd8;border-radius:8px;}
-.rec-num{width:20px;height:20px;border-radius:50%;background:#EEEDFE;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#3C3489;flex-shrink:0;}
+.rec-num{width:20px;height:20px;border-radius:50%;background:#F0EEFF;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#4a3d9a;flex-shrink:0;}
 .rec-text{font-size:11px;line-height:1.7;}
 .rec-pri{font-size:10px;margin-top:2px;}
 .pri-h{color:#993C1D;}.pri-m{color:#BA7517;}.pri-l{color:#0F6E56;}
@@ -1682,7 +2004,7 @@ button,select,.copy-btn,.btn,.card-act{display:none!important;}
 .post-body{padding:10px;}
 .post-text{font-size:11px;line-height:1.8;white-space:pre-line;}
 .hash-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
-.hashtag{font-size:10px;background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:999px;}
+.hashtag{font-size:10px;background:#F0EEFF;color:#4a3d9a;padding:1px 7px;border-radius:999px;}
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .kpi-card{border:1px solid #e2dfd8;border-radius:10px;padding:13px;}
 .plan-month{border:1px solid #e2dfd8;border-radius:10px;padding:13px;margin-bottom:10px;}
@@ -2282,7 +2604,7 @@ function selectMockupType(type, el){
     e.querySelector('div:last-child').style.color='var(--txt)'
   })
   el.classList.add('sel')
-  el.style.borderColor='#7F77DD'
+  el.style.borderColor='#9b8fe8'
   el.style.background='var(--acc-l)'
   el.querySelector('div:last-child').style.color='var(--acc-d)'
 
@@ -2303,7 +2625,7 @@ async function generateMockup(){
   const name = document.getElementById('mk-name')?.value?.trim()
   const industry = document.getElementById('mk-industry')?.value?.trim()||''
   const message = document.getElementById('mk-message')?.value?.trim()||''
-  const color1 = document.getElementById('mk-color1')?.value?.trim()||'#534AB7'
+  const color1 = document.getElementById('mk-color1')?.value?.trim()||'#6b5fcd'
   const color2 = document.getElementById('mk-color2')?.value?.trim()||'#1D9E75'
   const notes = document.getElementById('mk-notes')?.value?.trim()||''
   const style = mockupStyles.join(', ')||'Modern'
@@ -2864,6 +3186,276 @@ function resetToSuperadmin(){
   alert('Done! Login with Superadmin / admin123')
   location.reload()
 }
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CONTENT WRITER
+// ══════════════════════════════════════════════════════════════════════════════
+let cwGeneratedCount = 0
+function initContentWriter(){}
+
+async function generateContent(){
+  const type = document.getElementById('cw-type')?.value
+  const topic = document.getElementById('cw-topic')?.value?.trim()
+  const industry = document.getElementById('cw-industry')?.value?.trim()||''
+  const tone = document.getElementById('cw-tone')?.value||'احترافي'
+  const audience = document.getElementById('cw-audience')?.value?.trim()||''
+  const keywords = document.getElementById('cw-keywords')?.value?.trim()||''
+  const count = document.getElementById('cw-count')?.value||'3'
+  if(!topic){alert('يرجى إدخال موضوع المحتوى');return}
+  const key=getKey(); if(!key){alert('يرجى إضافة API Key');go('settings',null);return}
+  const typeNames={instagram:'منشور إنستجرام',twitter:'تغريدة تويتر X',snapchat:'قصة سناب شات',tiktok:'كابشن تيك توك',linkedin:'منشور لينكد إن',blog:'مقال مدونة',ad:'إعلان مدفوع',email:'رسالة بريد إلكتروني',whatsapp:'رسالة واتساب',product:'وصف منتج'}
+  const out=document.getElementById('cwOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin" style="font-size:26px;">✍️</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">جارٍ كتابة ${count} نسخ...</div></div>`
+  const prompt=`أنت كاتب محتوى عربي محترف متخصص في السوق الخليجي. اكتب ${count} نسخ متنوعة من ${typeNames[type]||type}.
+الموضوع: ${topic}
+القطاع: ${industry}
+الأسلوب: ${tone}
+الجمهور: ${audience}
+الكلمات المفتاحية: ${keywords}
+
+أرجع JSON فقط:
+{"copies":[{"version":"النسخة 1","content":"نص المنشور الكامل...","hashtags":["#...","#..."],"cta":"نص الدعوة للتصرف","wordCount":0,"tips":"نصيحة لهذه النسخة"}]}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:3000,messages:[{role:'user',content:prompt}]})})
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message)}
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    cwGeneratedCount+=data.copies?.length||0
+    const cws=document.getElementById('cw-count-stat'); if(cws)cws.textContent=cwGeneratedCount
+    const cwl=document.getElementById('cw-last-type'); if(cwl)cwl.textContent=typeNames[type]||type
+    out.innerHTML=`<div style="display:flex;flex-direction:column;gap:12px;">${(data.copies||[]).map((c,i)=>`
+    <div class="card">
+      <div class="card-hdr">
+        <span class="card-title">النسخة ${i+1} <span style="font-size:10px;color:var(--txt2);font-weight:400;">(${c.wordCount||''} كلمة)</span></span>
+        <button class="btn xs" onclick="navigator.clipboard.writeText(this.closest('.card').querySelector('.cw-text').textContent).catch(()=>{});this.textContent='✓ تم';setTimeout(()=>this.textContent='نسخ',2000)">نسخ</button>
+      </div>
+      <div class="cw-text" style="font-size:13px;line-height:1.9;white-space:pre-line;padding:10px;background:var(--bg3);border-radius:var(--r);margin-bottom:10px;">${c.content||''}</div>
+      ${c.hashtags?.length?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${c.hashtags.map(h=>`<span class="hashtag">${h}</span>`).join('')}</div>`:''}
+      ${c.cta?`<div style="font-size:11px;padding:7px 10px;background:var(--acc-l);border-radius:var(--r);color:var(--acc-d);margin-bottom:8px;">📣 CTA: ${c.cta}</div>`:''}
+      ${c.tips?`<div style="font-size:11px;color:var(--txt2);padding:7px 10px;background:var(--bg3);border-radius:var(--r);">💡 ${c.tips}</div>`:''}
+    </div>`).join('')}</div>`
+  }catch(e){out.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="generateContent()" style="margin-top:12px;">حاول مرة أخرى</button></div>`}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MONTHLY PLAN
+// ══════════════════════════════════════════════════════════════════════════════
+function initMonthlyPlan(){}
+function exportMonthlyPlan(){const el=document.getElementById('mpOutput');if(el?.innerHTML)openPrintWindow('الخطة الشهرية للمحتوى',el.innerHTML)}
+
+async function generateMonthlyPlan(){
+  const name=document.getElementById('mp-name')?.value?.trim()
+  const industry=document.getElementById('mp-industry')?.value?.trim()
+  if(!name||!industry){alert('يرجى إدخال اسم النشاط والقطاع');return}
+  const key=getKey(); if(!key){alert('يرجى إضافة API Key');go('settings',null);return}
+  const platforms=Array.from(document.querySelectorAll('#mp-platforms .chip.sel')).map(c=>c.textContent)
+  const month=document.getElementById('mp-month')?.value||'الشهر القادم'
+  const goals=document.getElementById('mp-goals')?.value||''
+  const freq=document.getElementById('mp-frequency')?.value||'5'
+  const tone=document.getElementById('mp-tone')?.value||'متنوع'
+  const out=document.getElementById('mpOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin" style="font-size:26px;">📅</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">جارٍ إنشاء الخطة الشهرية لـ ${name}...</div></div>`
+  const prompt=`أنت مخطط محتوى عربي محترف. أنشئ خطة محتوى شهرية شاملة.
+النشاط: ${name} | القطاع: ${industry} | المنصات: ${platforms.join('، ')} | الشهر: ${month} | الأهداف: ${goals} | منشورات/أسبوع: ${freq} | الأسلوب: ${tone}
+
+أرجع JSON فقط:
+{"month":"${month}","overview":"ملخص استراتيجية الشهر","themes":["محور أسبوع 1","محور أسبوع 2","محور أسبوع 3","محور أسبوع 4"],"weeks":[{"week":"الأسبوع الأول","theme":"...","posts":[{"day":"الأحد","platform":"إنستجرام","topic":"...","type":"صورة/فيديو/قصة/ريلز","caption":"...","hashtags":["#..."],"bestTime":"7-9م"}]}],"kpis":["مؤشر 1","مؤشر 2"],"tips":["نصيحة 1","نصيحة 2"]}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:4000,messages:[{role:'user',content:prompt}]})})
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message)}
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const platformColors={'إنستجرام':'#E1306C','تويتر X':'#1DA1F2','سناب شات':'#FFFC00','تيك توك':'#000000','لينكد إن':'#0077B5','فيسبوك':'#1877F2'}
+    out.innerHTML=`
+    <div style="background:var(--acc);padding:16px 20px;border-radius:var(--r2);margin-bottom:14px;">
+      <div style="font-size:16px;font-weight:600;color:#fff;margin-bottom:4px;">📅 الخطة الشهرية — ${data.month}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.85);">${data.overview||''}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;">
+      ${(data.themes||[]).map((t,i)=>`<div style="padding:10px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);text-align:center;"><div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">الأسبوع ${i+1}</div><div style="font-size:12px;font-weight:500;">${t}</div></div>`).join('')}
+    </div>
+    ${(data.weeks||[]).map(w=>`
+    <div class="card" style="margin-bottom:12px;">
+      <div style="font-size:13px;font-weight:500;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--bdr);">
+        ${w.week} — <span style="color:var(--acc);">${w.theme}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${(w.posts||[]).map(p=>`
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:9px;background:var(--bg3);border-radius:var(--r);">
+          <div style="flex-shrink:0;text-align:center;min-width:60px;">
+            <div style="font-size:11px;font-weight:500;">${p.day||''}</div>
+            <div style="font-size:10px;padding:2px 6px;border-radius:999px;background:${platformColors[p.platform]||'var(--acc)'};color:#fff;margin-top:3px;white-space:nowrap;">${p.platform||''}</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:500;margin-bottom:3px;">${p.topic||''} <span style="font-size:10px;color:var(--txt2);font-weight:400;">(${p.type||''})</span></div>
+            <div style="font-size:11px;color:var(--txt2);line-height:1.6;">${p.caption||''}</div>
+            ${p.hashtags?.length?`<div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:5px;">${p.hashtags.map(h=>`<span style="font-size:9px;color:var(--acc);background:var(--acc-l);padding:1px 6px;border-radius:999px;">${h}</span>`).join('')}</div>`:''}
+          </div>
+          <div style="font-size:10px;color:var(--txt2);flex-shrink:0;">⏰ ${p.bestTime||''}</div>
+        </div>`).join('')}
+      </div>
+    </div>`).join('')}
+    <div class="two-col">
+      <div class="card"><div class="card-hdr"><span class="card-title">📊 مؤشرات الأداء</span></div>${(data.kpis||[]).map(k=>`<div style="padding:7px;font-size:12px;display:flex;gap:7px;margin-bottom:4px;"><span style="color:var(--acc);">→</span>${k}</div>`).join('')}</div>
+      <div class="card"><div class="card-hdr"><span class="card-title">💡 نصائح الشهر</span></div>${(data.tips||[]).map(t=>`<div style="padding:7px;font-size:12px;display:flex;gap:7px;margin-bottom:4px;"><span style="color:var(--grn);">✓</span>${t}</div>`).join('')}</div>
+    </div>`
+  }catch(e){out.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="generateMonthlyPlan()" style="margin-top:12px;">حاول مرة أخرى</button></div>`}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// VOICE OVER
+// ══════════════════════════════════════════════════════════════════════════════
+function initVoiceover(){}
+
+async function generateVoiceover(){
+  const type=document.getElementById('vo-type')?.value
+  const topic=document.getElementById('vo-topic')?.value?.trim()
+  if(!topic){alert('يرجى إدخال موضوع الفيديو');return}
+  const key=getKey(); if(!key){alert('يرجى إضافة API Key');go('settings',null);return}
+  const style=document.getElementById('vo-style')?.value||'ودّي وحيوي'
+  const dialect=document.getElementById('vo-dialect')?.value||'فصحى راقية'
+  const audience=document.getElementById('vo-audience')?.value||''
+  const points=document.getElementById('vo-points')?.value||''
+  const out=document.getElementById('voOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin" style="font-size:26px;">🎙️</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">جارٍ كتابة نص الفويس أوفر...</div></div>`
+  const durations={'ad':'15-30 ثانية (37-75 كلمة)','promo':'30-60 ثانية (75-150 كلمة)','explainer':'60-90 ثانية (150-225 كلمة)','social':'15-60 ثانية','documentary':'2-5 دقائق (300-750 كلمة)','intro':'10-20 ثانية (25-50 كلمة)'}
+  const prompt=`أنت كاتب سيناريو ونصوص فويس أوفر محترف للسوق العربي.
+نوع الفيديو: ${type} (${durations[type]||''})
+الموضوع: ${topic}
+أسلوب الصوت: ${style}
+اللهجة: ${dialect}
+الجمهور: ${audience}
+نقاط رئيسية: ${points}
+
+أكتب نص فويس أوفر احترافي مع توجيهات للملقي. أرجع JSON فقط:
+{"title":"عنوان الفيديو","duration":"المدة التقريبية","wordCount":0,"script":"النص الكامل مع فقرات واضحة","directorNotes":[{"timestamp":"0:00-0:05","note":"توجيه للملقي"},{"timestamp":"0:05-0:15","note":"توجيه"}],"alternativeEnding":"نهاية بديلة","tips":"نصائح للتسجيل"}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message)}
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    out.innerHTML=`
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-hdr">
+        <div><span class="card-title">🎙️ ${data.title||'نص الفويس أوفر'}</span><div style="font-size:11px;color:var(--txt2);margin-top:2px;">⏱️ ${data.duration||''} · ${data.wordCount||''} كلمة</div></div>
+        <button class="btn sm" onclick="navigator.clipboard.writeText(document.getElementById('voScriptText').textContent).catch(()=>{});this.textContent='✓ تم';setTimeout(()=>this.textContent='نسخ النص',2000)">نسخ النص</button>
+      </div>
+      <div id="voScriptText" style="font-size:14px;line-height:2.1;white-space:pre-line;padding:16px;background:var(--bg3);border-radius:var(--r);border-right:3px solid var(--acc);margin-bottom:12px;font-family:'IBM Plex Sans Arabic',sans-serif;">${data.script||''}</div>
+      ${data.alternativeEnding?`<div style="padding:10px;background:var(--amb-l);border-radius:var(--r);margin-bottom:12px;"><div style="font-size:11px;font-weight:500;color:var(--amb);margin-bottom:4px;">🔄 نهاية بديلة:</div><div style="font-size:13px;line-height:1.8;">${data.alternativeEnding}</div></div>`:''}
+    </div>
+    <div class="two-col">
+      <div class="card"><div class="card-hdr"><span class="card-title">🎬 توجيهات المخرج</span></div>
+        ${(data.directorNotes||[]).map(n=>`<div style="display:flex;gap:9px;margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:var(--r);"><span style="font-size:10px;font-weight:600;color:var(--acc);white-space:nowrap;margin-top:1px;">${n.timestamp}</span><div style="font-size:11px;line-height:1.6;">${n.note}</div></div>`).join('')}
+      </div>
+      <div class="card"><div class="card-hdr"><span class="card-title">💡 نصائح التسجيل</span></div>
+        <div style="font-size:12px;line-height:1.8;color:var(--txt2);">${data.tips||''}</div>
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="generateVoiceover()" style="margin-top:12px;">حاول مرة أخرى</button></div>`}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CONTENT SCHEDULER
+// ══════════════════════════════════════════════════════════════════════════════
+let schedulePosts = JSON.parse(localStorage.getItem('sp_schedule')||'[]')
+function saveSchedule(){localStorage.setItem('sp_schedule',JSON.stringify(schedulePosts))}
+
+function initScheduler(){renderSchedule()}
+
+function renderSchedule(){
+  const body=document.getElementById('scheduleBody')
+  if(!body) return
+  const total=schedulePosts.length
+  const published=schedulePosts.filter(p=>p.status==='published').length
+  const draft=schedulePosts.filter(p=>p.status==='draft').length
+  const scheduled=schedulePosts.filter(p=>p.status==='scheduled').length
+  const st=document.getElementById('sch-total'); if(st)st.textContent=total
+  const sp=document.getElementById('sch-published'); if(sp)sp.textContent=published
+  const sd=document.getElementById('sch-draft'); if(sd)sd.textContent=draft
+  const ss=document.getElementById('sch-scheduled'); if(ss)ss.textContent=scheduled
+  const statusConfig={published:{bg:'var(--grn-l)',c:'var(--grn)',l:'تم النشر'},draft:{bg:'var(--amb-l)',c:'var(--amb)',l:'قيد الإعداد'},scheduled:{bg:'var(--acc-l)',c:'var(--acc-d)',l:'مجدول'}}
+  const platColors={'إنستجرام':'#E1306C','تويتر X':'#1DA1F2','سناب شات':'#FFC300','تيك توك':'#010101','لينكد إن':'#0077B5','فيسبوك':'#1877F2'}
+  if(!schedulePosts.length){body.innerHTML='<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;">لا توجد منشورات — اضغط "+ إضافة منشور" أو "ولّد بالذكاء"</td></tr>';return}
+  const sorted=[...schedulePosts].sort((a,b)=>new Date(a.date)-new Date(b.date))
+  body.innerHTML=sorted.map((p,i)=>{
+    const ri=schedulePosts.indexOf(p)
+    const sc=statusConfig[p.status]||statusConfig.draft
+    return`<tr>
+      <td style="font-size:12px;font-weight:500;">${p.date||'—'}</td>
+      <td><span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:${platColors[p.platform]||'var(--acc)'};color:#fff;">${p.platform||'—'}</span></td>
+      <td style="font-size:12px;">${p.topic||'—'}</td>
+      <td style="font-size:11px;color:var(--txt2);">${p.tone||'—'}</td>
+      <td><select onchange="updatePostStatus(${ri},this.value)" style="font-size:10px;padding:2px 6px;border-radius:6px;border:1px solid var(--bdr2);background:${sc.bg};color:${sc.c};font-family:inherit;">
+        <option value="draft" ${p.status==='draft'?'selected':''}>قيد الإعداد</option>
+        <option value="scheduled" ${p.status==='scheduled'?'selected':''}>مجدول</option>
+        <option value="published" ${p.status==='published'?'selected':''}>تم النشر</option>
+      </select></td>
+      <td><button class="btn xs" onclick="generatePostContent(${ri})">✍️ كتابة</button> <button class="btn xs red-btn" onclick="deletePost(${ri})">🗑</button></td>
+    </tr>`
+  }).join('')
+}
+
+function addSchedulePost(){
+  document.getElementById('sp-date').value=new Date().toISOString().split('T')[0]
+  openModal('addPostModal')
+}
+
+function saveSchedulePost(){
+  const date=document.getElementById('sp-date')?.value
+  const topic=document.getElementById('sp-topic')?.value?.trim()
+  if(!date||!topic){alert('يرجى إدخال التاريخ والموضوع');return}
+  schedulePosts.push({date,platform:document.getElementById('sp-platform')?.value,topic,tone:document.getElementById('sp-tone')?.value,status:document.getElementById('sp-status')?.value||'draft',notes:document.getElementById('sp-notes')?.value||''})
+  saveSchedule(); closeModal('addPostModal'); renderSchedule()
+}
+
+function updatePostStatus(i,status){schedulePosts[i].status=status;saveSchedule();renderSchedule()}
+function deletePost(i){if(confirm('حذف هذا المنشور؟')){schedulePosts.splice(i,1);saveSchedule();renderSchedule()}}
+
+async function generatePostContent(i){
+  const p=schedulePosts[i]
+  const key=getKey(); if(!key){alert('يرجى إضافة API Key');return}
+  const prompt=`اكتب محتوى منشور ${p.platform} عن: ${p.topic}. الأسلوب: ${p.tone||'احترافي'}. أرجع JSON: {"content":"...","hashtags":["#..."]}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:800,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    schedulePosts[i].content=data.content; schedulePosts[i].hashtags=data.hashtags
+    saveSchedule()
+    alert('✓ تم كتابة المحتوى! يمكنك نسخه من هنا:\n\n'+data.content)
+  }catch(e){alert('خطأ: '+e.message)}
+}
+
+async function generateSchedule(){
+  const name=document.getElementById('sg-name')?.value?.trim()
+  if(!name){alert('يرجى إدخال اسم النشاط');return}
+  const key=getKey(); if(!key){alert('يرجى إضافة API Key');return}
+  const weeks=parseInt(document.getElementById('sg-weeks')?.value||'4')
+  const perWeek=parseInt(document.getElementById('sg-per-week')?.value||'5')
+  const prompt=`أنشئ جدول نشر محتوى لـ ${name} لمدة ${weeks} أسابيع بمعدل ${perWeek} منشورات أسبوعياً. ابدأ من اليوم ${new Date().toISOString().split('T')[0]}. أرجع JSON: {"posts":[{"date":"YYYY-MM-DD","platform":"إنستجرام","topic":"...","tone":"احترافي","status":"scheduled"}]}`
+  const body=document.getElementById('schedulerBody')
+  const loadDiv=document.createElement('div')
+  loadDiv.className='loading-box'; loadDiv.style.padding='20px'
+  loadDiv.innerHTML='<div class="spin" style="font-size:22px;">🗓️</div><div style="font-size:12px;color:var(--txt2);margin-top:6px;">جارٍ توليد الجدول...</div>'
+  body.appendChild(loadDiv)
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:3000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    schedulePosts=[...schedulePosts,...(data.posts||[])]
+    saveSchedule()
+  }catch(e){alert('خطأ: '+e.message)}
+  loadDiv.remove(); renderSchedule()
+}
+
+function exportSchedule(){
+  const rows=[['التاريخ','المنصة','الموضوع','الأسلوب','الحالة','ملاحظات']]
+  schedulePosts.forEach(p=>rows.push([p.date,p.platform,p.topic,p.tone,p.status,p.notes||'']))
+  const csv=rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n')
+  const blob=new Blob([csv],{type:'text/csv'})
+  const url=URL.createObjectURL(blob)
+  const a=document.createElement('a'); a.href=url; a.download='content-schedule.csv'; a.click()
+  URL.revokeObjectURL(url)
+}
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════════════════
@@ -2872,4 +3464,3 @@ renderStep(1)
 </script>
 </body>
 </html>
-
