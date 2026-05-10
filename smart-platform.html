@@ -809,25 +809,55 @@ function getKey(){return localStorage.getItem('ant_key')||''}
 // AUTH
 // ══════════════════════════════════════════════════════════════════════════════
 function initAuth(){
-  let users = getUsers()
-  if(users.length===0){
-    users = [{username:'admin',password:'admin123',fullname:'المدير العام',role:'admin'}]
-    saveUsers(users)
+  try{
+    let users = getUsers()
+    if(!Array.isArray(users)||users.length===0){
+      users = [{username:'admin',password:'admin123',fullname:'Admin',role:'admin'}]
+      saveUsers(users)
+    }
+    const session = getSession()
+    if(session){
+      const u = users.find(x=>x.username===session)
+      if(u){ loginSuccess(u); return }
+      else { clearSession() }
+    }
+    const overlay = document.getElementById('loginOverlay')
+    if(overlay) overlay.style.display='flex'
+  }catch(e){
+    console.error('Auth error:',e)
+    const overlay = document.getElementById('loginOverlay')
+    if(overlay) overlay.style.display='flex'
   }
-  const session = getSession()
-  if(session){
-    const u = users.find(x=>x.username===session)
-    if(u){ loginSuccess(u); return }
-  }
-  document.getElementById('loginOverlay').style.display='flex'
 }
 
 function doLogin(){
-  const user = document.getElementById('li-user').value.trim()
-  const pass = document.getElementById('li-pass').value
-  const u = getUsers().find(x=>x.username===user && x.password===pass)
-  if(u){ setSession(u.username); loginSuccess(u) }
-  else { document.getElementById('loginErr').style.display='block' }
+  try{
+    const userEl = document.getElementById('li-user')
+    const passEl = document.getElementById('li-pass')
+    if(!userEl||!passEl) return
+    const user = userEl.value.trim()
+    const pass = passEl.value
+    if(!user||!pass){ 
+      const err=document.getElementById('loginErr')
+      if(err){err.textContent='Please enter username and password';err.style.display='block'}
+      return
+    }
+    let users = getUsers()
+    if(users.length===0){
+      users=[{username:'admin',password:'admin123',fullname:'Admin',role:'admin'}]
+      saveUsers(users)
+    }
+    const u = users.find(x=>x.username===user && x.password===pass)
+    if(u){ 
+      const err=document.getElementById('loginErr')
+      if(err) err.style.display='none'
+      setSession(u.username)
+      loginSuccess(u) 
+    } else { 
+      const err=document.getElementById('loginErr')
+      if(err){err.textContent='Incorrect username or password';err.style.display='block'}
+    }
+  }catch(e){console.error('Login error:',e)}
 }
 
 function loginSuccess(u){
@@ -2013,9 +2043,7 @@ Be concise, practical and actionable. When generating HTML designs, make them co
       .replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
       .replace(/\*(.*?)\*/g,'<i>$1</i>')
-      .replace(/`(.*?)`/g,'<code style="background:var(--bg3);padding:1px 5px;border-radius:4px;font-family:monospace;font-size:11px;">$1</code>')
-      .replace(/\n/g,'<br>').replace(/
-/g,'<br>')
+      .replace(/\n/g,'<br>')
 
     wrap.innerHTML += `
       <div style="display:flex;gap:10px;margin-bottom:16px;">
@@ -2023,7 +2051,7 @@ Be concise, practical and actionable. When generating HTML designs, make them co
         <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;max-width:85%;">
           <div style="font-size:13px;line-height:1.8;">${formatted}</div>
           <div style="margin-top:8px;display:flex;gap:6px;">
-            <button class="btn xs" onclick="navigator.clipboard.writeText(this.closest('.page').querySelector('.reply-text-${Date.now()}')?.textContent||'').catch(()=>{})">Copy</button>
+            <button class="btn xs" onclick="navigator.clipboard.writeText(this.closest('[style*=padding]')?.querySelector('[style*=line-height]')?.textContent||'').catch(()=>{});this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
           </div>
         </div>
       </div>`
@@ -2330,4 +2358,3 @@ renderStep(1)
 </script>
 </body>
 </html>
-
