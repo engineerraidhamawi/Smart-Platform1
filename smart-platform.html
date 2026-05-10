@@ -1,1 +1,2869 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>منصة ذكية</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#f8f7f4;--bg2:#ffffff;--bg3:#f0ede8;
+  --txt:#181816;--txt2:#6b6964;--txt3:#a8a5a0;
+  --bdr:#e2dfd8;--bdr2:#ccc9c2;
+  --acc:#534AB7;--acc-l:#EEEDFE;--acc-d:#3C3489;
+  --grn:#0F6E56;--grn-l:#E1F5EE;
+  --red:#993C1D;--red-l:#FAECE7;
+  --amb:#BA7517;--amb-l:#FAEEDA;
+  --r:8px;--r2:12px;--r3:16px;
+}
+body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;}
+.app{display:flex;height:100vh;position:relative;}
+
+/* ── Sidebar ── */
+.sidebar{width:205px;min-width:205px;background:var(--bg2);border-left:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;}
+.logo{padding:16px;border-bottom:1px solid var(--bdr);}
+.logo-name{font-size:14px;font-weight:600;color:var(--txt);}
+.logo-sub{font-size:10px;color:var(--txt3);margin-top:2px;}
+.nav{flex:1;padding:6px 5px;overflow-y:auto;}
+.nav-sec{font-size:9px;font-weight:600;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;padding:10px 8px 3px;}
+.nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r);margin:1px 0;font-size:12px;color:var(--txt2);cursor:pointer;transition:all .12s;}
+.nav-item:hover{background:var(--bg3);}
+.nav-item.active{background:var(--acc-l);color:var(--acc-d);font-weight:500;}
+.nav-item.disabled{opacity:.4;cursor:default;pointer-events:none;}
+.nav-icon{width:16px;text-align:center;font-size:13px;flex-shrink:0;}
+.sidebar-footer{padding:10px;border-top:1px solid var(--bdr);}
+.ava{width:30px;height:30px;border-radius:50%;background:var(--acc-l);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--acc-d);flex-shrink:0;}
+.role-badge{font-size:9px;padding:1px 7px;border-radius:999px;background:var(--bg3);color:var(--txt2);}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:10px 20px;display:flex;align-items:center;flex-shrink:0;gap:10px;}
+.breadcrumb{font-size:12px;color:var(--txt2);}
+.breadcrumb b{color:var(--txt);font-weight:500;}
+.tb-right{margin-right:auto;display:flex;gap:8px;}
+
+/* ── Buttons ── */
+.btn{font-family:inherit;font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--r);cursor:pointer;border:1px solid var(--bdr2);background:transparent;color:var(--txt);transition:all .12s;white-space:nowrap;}
+.btn:hover{background:var(--bg3);}
+.btn.primary{background:var(--acc);color:#fff;border-color:var(--acc);}
+.btn.primary:hover{opacity:.88;}
+.btn.primary:disabled{opacity:.4;cursor:default;}
+.btn.green{background:var(--grn);color:#fff;border-color:var(--grn);}
+.btn.green:hover{opacity:.88;}
+.btn.red-btn{background:var(--red-l);color:var(--red);border-color:#E8A090;}
+.btn.sm{font-size:11px;padding:4px 10px;}
+.btn.xs{font-size:10px;padding:3px 8px;}
+
+/* ── Pages ── */
+.page{display:none;flex:1;overflow:hidden;flex-direction:column;}
+.page.active{display:flex;}
+.page-body{flex:1;overflow-y:auto;padding:20px;}
+
+/* ── Cards ── */
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.card-title{font-size:13px;font-weight:500;}
+.card-act{font-size:11px;color:var(--acc);background:none;border:none;cursor:pointer;font-family:inherit;}
+
+/* ── Metrics ── */
+.metrics-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;}
+.metric{background:var(--bg3);border-radius:var(--r);padding:12px;}
+.m-label{font-size:10px;color:var(--txt2);margin-bottom:4px;}
+.m-val{font-size:20px;font-weight:500;}
+.m-chg{font-size:10px;margin-top:3px;}
+.up{color:var(--grn);}.down{color:var(--red);}
+
+/* ── Pills ── */
+.pill{display:inline-block;font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;}
+.pill.purple{background:var(--acc-l);color:var(--acc-d);}
+.pill.green{background:var(--grn-l);color:var(--grn);}
+.pill.gray{background:var(--bg3);color:var(--txt2);border:1px solid var(--bdr);}
+.pill.red{background:var(--red-l);color:var(--red);}
+.pill.amber{background:var(--amb-l);color:var(--amb);}
+
+/* ── Form ── */
+.field{margin-bottom:13px;}
+.field-label{font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:5px;display:flex;gap:3px;}
+.req{color:#D85A30;}
+.hint{font-size:10px;color:var(--txt3);margin-top:3px;}
+.input{width:100%;background:var(--bg2);border:1px solid var(--bdr2);border-radius:var(--r);padding:8px 12px;font-size:13px;color:var(--txt);font-family:inherit;outline:none;transition:border-color .12s;}
+.input:focus{border-color:var(--acc);}
+textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
+.two-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.three-fields{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.radio-list{display:flex;flex-direction:column;gap:5px;}
+.radio-item{display:flex;align-items:center;gap:9px;padding:8px 11px;border:1px solid var(--bdr);border-radius:var(--r);cursor:pointer;font-size:12px;transition:all .12s;}
+.radio-item:hover{background:var(--bg3);}
+.radio-item.sel{border-color:#7F77DD;background:var(--acc-l);}
+.rdot{width:13px;height:13px;border-radius:50%;border:1.5px solid var(--bdr2);flex-shrink:0;}
+.rdot.sel{border-color:var(--acc);background:var(--acc);box-shadow:inset 0 0 0 3px #fff;}
+.chip-row{display:flex;flex-wrap:wrap;gap:5px;}
+.chip{font-size:11px;padding:4px 11px;border:1px solid var(--bdr);border-radius:999px;cursor:pointer;color:var(--txt2);transition:all .12s;}
+.chip:hover{border-color:var(--acc);}
+.chip.sel{background:var(--acc-l);border-color:var(--acc);color:var(--acc-d);}
+.mod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.mod-card{border:1px solid var(--bdr);border-radius:var(--r);padding:10px;cursor:pointer;transition:all .12s;}
+.mod-card:hover{border-color:var(--acc);}
+.mod-card.sel{border-color:#7F77DD;border-width:1.5px;background:var(--acc-l);}
+.mod-icon{font-size:15px;margin-bottom:4px;}
+.mod-name{font-size:12px;font-weight:500;}
+.mod-name.sel{color:var(--acc-d);}
+.mod-desc{font-size:10px;color:var(--txt2);margin-top:2px;}
+.nav-row{display:flex;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--bdr);}
+
+/* ── Steps ── */
+.steps-layout{display:flex;flex:1;overflow:hidden;}
+.steps-side{width:200px;min-width:200px;background:var(--bg2);border-left:1px solid var(--bdr);padding:20px 14px;overflow-y:auto;}
+.step-item{display:flex;gap:9px;}
+.step-left{display:flex;flex-direction:column;align-items:center;}
+.step-circle{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;border:1px solid var(--bdr2);background:var(--bg3);color:var(--txt2);flex-shrink:0;}
+.step-circle.done{background:var(--grn-l);border-color:#5DCAA5;color:var(--grn);}
+.step-circle.active{background:var(--acc);border-color:var(--acc);color:#fff;}
+.step-line{width:1px;height:26px;background:var(--bdr);margin:3px 0;}
+.step-lbl{font-size:11px;font-weight:500;color:var(--txt2);padding-top:2px;}
+.step-lbl.on{color:var(--txt);}
+.step-sub{font-size:10px;color:var(--txt3);margin-top:1px;padding-bottom:14px;}
+.form-area{flex:1;overflow-y:auto;padding:24px 28px;}
+.step-title{font-size:16px;font-weight:500;margin-bottom:4px;}
+.step-desc{font-size:12px;color:var(--txt2);line-height:1.7;margin-bottom:16px;}
+.summary-card{background:var(--bg3);border-radius:var(--r2);padding:13px;}
+.sum-title{font-size:10px;font-weight:600;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px;}
+.sum-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--bdr);}
+.sum-row:last-child{border-bottom:none;}
+.sum-key{font-size:11px;color:var(--txt2);}
+.sum-val{font-size:11px;font-weight:500;}
+.pill-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;}
+
+/* ── Output tabs ── */
+.out-tabs-bar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;gap:2px;flex-shrink:0;overflow-x:auto;}
+.out-tab{padding:11px 16px;font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .12s;}
+.out-tab:hover{color:var(--txt);}
+.out-tab.active{color:var(--acc);border-bottom-color:var(--acc);}
+.out-tab.disabled{opacity:.35;cursor:default;}
+.out-page{display:none;flex:1;overflow-y:auto;padding:18px 22px;flex-direction:column;gap:12px;}
+.out-page.active{display:flex;}
+
+/* ── Output content ── */
+.out-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.out-title{font-size:16px;font-weight:500;}
+.meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;}
+.action-row{display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;}
+.two-col{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px;}
+.three-col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.insight-list{display:flex;flex-direction:column;gap:7px;}
+.insight-item{display:flex;gap:9px;padding:9px;background:var(--bg3);border-radius:var(--r);}
+.ins-icon{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.ins-text{font-size:12px;line-height:1.7;flex:1;}
+.rec-list{display:flex;flex-direction:column;gap:7px;}
+.rec-item{display:flex;gap:9px;padding:9px 11px;border:1px solid var(--bdr);border-radius:var(--r);}
+.rec-num{width:22px;height:22px;border-radius:50%;background:var(--acc-l);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--acc-d);flex-shrink:0;margin-top:1px;}
+.rec-text{font-size:12px;line-height:1.7;}
+.rec-pri{font-size:10px;margin-top:2px;}
+.pri-h{color:var(--red);}.pri-m{color:var(--amb);}.pri-l{color:var(--grn);}
+.post-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.post-card{border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;}
+.post-hdr{padding:8px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--bdr);}
+.post-platform{font-size:11px;font-weight:500;}
+.copy-btn{font-size:10px;font-family:inherit;background:transparent;border:1px solid var(--bdr);border-radius:5px;padding:2px 8px;cursor:pointer;color:var(--txt2);}
+.copy-btn:hover{background:var(--bg3);}
+.post-body{padding:11px;}
+.post-text{font-size:12px;line-height:1.8;white-space:pre-line;}
+.hash-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:7px;}
+.hashtag{font-size:10px;font-weight:500;color:var(--acc);background:var(--acc-l);padding:2px 8px;border-radius:999px;}
+.ch-list{display:flex;flex-direction:column;gap:9px;}
+.ch-row{display:flex;align-items:center;gap:9px;}
+.ch-name{font-size:11px;color:var(--txt2);width:80px;flex-shrink:0;}
+.ch-bar{flex:1;height:6px;background:var(--bg3);border-radius:999px;overflow:hidden;}
+.ch-pct{font-size:11px;font-weight:500;width:32px;}
+.health-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.health-card{background:var(--bg3);border-radius:var(--r);padding:9px 11px;}
+.h-label{font-size:10px;color:var(--txt2);margin-bottom:3px;}
+.h-val{font-size:15px;font-weight:500;}
+.h-bar{height:4px;background:var(--bdr);border-radius:999px;margin-top:5px;overflow:hidden;}
+
+/* ── Processing ── */
+.processing{display:none;position:fixed;inset:0;background:rgba(248,247,244,.96);z-index:500;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+.processing.show{display:flex;}
+.proc-icon{font-size:32px;animation:spin 1.5s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.proc-title{font-size:16px;font-weight:500;}
+.proc-sub{font-size:12px;color:var(--txt2);}
+.prog-track{width:320px;height:4px;background:var(--bdr);border-radius:999px;overflow:hidden;}
+.prog-fill{height:4px;background:var(--acc);border-radius:999px;transition:width .4s;}
+.prog-label{font-size:11px;color:var(--txt2);}
+
+/* ── Loading inline ── */
+.loading-box{text-align:center;padding:48px;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.loading-box .spin{font-size:28px;animation:spin 1.2s linear infinite;}
+
+/* ── CRM Table ── */
+.crm-table{width:100%;border-collapse:collapse;font-size:12px;}
+.crm-table th{padding:9px 12px;text-align:right;font-weight:500;border-bottom:1px solid var(--bdr);background:var(--bg3);font-size:11px;}
+.crm-table td{padding:9px 12px;border-bottom:1px solid var(--bdr);}
+.crm-table tr:hover td{background:var(--bg3);}
+
+/* ── Users Table ── */
+.users-table{width:100%;border-collapse:collapse;font-size:12px;}
+.users-table th{padding:9px 12px;text-align:right;font-weight:500;border-bottom:1px solid var(--bdr);background:var(--bg3);}
+.users-table td{padding:9px 12px;border-bottom:1px solid var(--bdr);vertical-align:middle;}
+
+/* ── KPI cards ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.kpi-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;}
+
+/* ── Plan ── */
+.plan-month{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;margin-bottom:12px;}
+.plan-task{display:flex;align-items:flex-start;gap:9px;padding:9px;background:var(--bg3);border-radius:var(--r);margin-bottom:6px;}
+
+/* ── Login ── */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;}
+.login-box{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r3);padding:36px;width:100%;max-width:380px;}
+.login-logo{font-size:18px;font-weight:600;text-align:center;margin-bottom:4px;}
+.login-sub{font-size:11px;color:var(--txt3);text-align:center;margin-bottom:24px;}
+.login-err{color:var(--red);font-size:12px;margin-top:10px;text-align:center;display:none;}
+.login-link{font-size:12px;color:var(--acc);cursor:pointer;text-align:center;margin-top:12px;display:block;}
+
+/* ── Modal ── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:800;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--bg2);border-radius:var(--r3);padding:26px;width:100%;max-width:460px;margin:16px;}
+.modal-title{font-size:15px;font-weight:500;margin-bottom:4px;}
+.modal-sub{font-size:12px;color:var(--txt2);margin-bottom:16px;}
+
+/* ── Reports grid ── */
+.reports-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.rep-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:13px;cursor:pointer;transition:all .12s;}
+.rep-card:hover{border-color:var(--acc);transform:translateY(-2px);}
+.rep-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;}
+
+/* ── Tools grid ── */
+.tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+.tool-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:16px;cursor:pointer;transition:all .12s;}
+.tool-card:hover{border-color:var(--acc);transform:translateY(-2px);}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px;}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══ PROCESSING OVERLAY ══════════════════════════════════════════════════ -->
+<div class="processing" id="procOverlay">
+  <div class="proc-icon">⚙</div>
+  <div class="proc-title">جارٍ التوليد...</div>
+  <div class="proc-sub" id="procSub">الذكاء الاصطناعي يحلل بياناتك</div>
+  <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  <div class="prog-label" id="progLabel">0%</div>
+</div>
+
+<!-- ══ SHARE MODAL ════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="shareModal">
+  <div class="modal-box">
+    <div class="modal-title">🔗 مشاركة التقرير</div>
+    <div class="modal-sub">انسخ الرابط أو أرسله مباشرة</div>
+    <div style="background:var(--bg3);border-radius:var(--r);padding:10px 12px;font-size:11px;word-break:break-all;margin-bottom:12px;font-family:monospace;" id="shareUrlText"></div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;">
+      <button class="btn primary" style="flex:1;" onclick="copyShareUrl()">📋 نسخ الرابط</button>
+      <button class="btn" onclick="closeModal('shareModal')">إغلاق</button>
+    </div>
+    <div id="copyDone" style="display:none;text-align:center;color:var(--grn);font-size:12px;margin-bottom:10px;">✓ تم النسخ!</div>
+    <div style="border-top:1px solid var(--bdr);padding-top:12px;">
+      <div style="font-size:11px;color:var(--txt2);margin-bottom:8px;">إرسال عبر:</div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn green" style="flex:1;font-size:12px;" onclick="shareWA()">💬 واتساب</button>
+        <button class="btn primary" style="flex:1;font-size:12px;" onclick="shareEmail()">📧 إيميل</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADD USER MODAL ══════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="addUserModal">
+  <div class="modal-box">
+    <div class="modal-title">إضافة مستخدم جديد</div>
+    <div class="modal-sub">أدخل بيانات المستخدم الجديد</div>
+    <div class="field"><div class="field-label">اسم المستخدم <span class="req">*</span></div><input class="input" id="nu-username" placeholder="مثال: ahmed2026"/></div>
+    <div class="field"><div class="field-label">كلمة المرور <span class="req">*</span></div><input class="input" type="password" id="nu-password" placeholder="6 أحرف على الأقل"/></div>
+    <div class="field"><div class="field-label">الاسم الكامل</div><input class="input" id="nu-fullname" placeholder="مثال: أحمد محمد"/></div>
+    <div class="field"><div class="field-label">الدور</div>
+      <div class="radio-list" style="flex-direction:row;gap:6px;">
+        <div class="radio-item sel" id="role-admin" onclick="selectRole('admin')" style="flex:1;"><div class="rdot sel" id="rdot-admin"></div><div><div style="font-size:11px;font-weight:500;">مدير عام</div><div style="font-size:10px;color:var(--txt2);">صلاحية كاملة</div></div></div>
+        <div class="radio-item" id="role-analyst" onclick="selectRole('analyst')" style="flex:1;"><div class="rdot" id="rdot-analyst"></div><div><div style="font-size:11px;font-weight:500;">محلل</div><div style="font-size:10px;color:var(--txt2);">عرض فقط</div></div></div>
+        <div class="radio-item" id="role-employee" onclick="selectRole('employee')" style="flex:1;"><div class="rdot" id="rdot-employee"></div><div><div style="font-size:11px;font-weight:500;">موظف</div><div style="font-size:10px;color:var(--txt2);">إدخال فقط</div></div></div>
+      </div>
+    </div>
+    <div id="addUserErr" class="login-err"></div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="saveNewUser()">✓ إضافة المستخدم</button>
+      <button class="btn" onclick="closeModal('addUserModal')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOGIN ═══════════════════════════════════════════════════════════════ -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="login-logo">منصة ذكية</div>
+    <div class="login-sub">مدعومة بـ Claude AI</div>
+
+    <div id="loginForm">
+      <div class="field"><div class="field-label">اسم المستخدم</div><input class="input" id="li-user" placeholder="أدخل اسم المستخدم" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <div class="field"><div class="field-label">كلمة المرور</div><input class="input" type="password" id="li-pass" placeholder="أدخل كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()"/></div>
+      <button class="btn primary" style="width:100%;padding:10px;" onclick="doLogin()">تسجيل الدخول</button>
+      <div class="login-err" id="loginErr">اسم المستخدم أو كلمة المرور غير صحيحة</div>
+      <span class="login-link" onclick="showRegForm()">إنشاء حساب جديد ↗</span>
+      <span class="login-link" style="color:var(--txt3);font-size:10px;margin-top:4px;" onclick="resetToSuperadmin()">Reset to Superadmin account</span>
+    </div>
+
+    <div id="regForm" style="display:none;">
+      <div class="field"><div class="field-label">اسم المستخدم <span class="req">*</span></div><input class="input" id="re-user" placeholder="اختر اسماً"/></div>
+      <div class="field"><div class="field-label">كلمة المرور <span class="req">*</span></div><input class="input" type="password" id="re-pass" placeholder="6 أحرف على الأقل"/></div>
+      <div class="field"><div class="field-label">تأكيد كلمة المرور</div><input class="input" type="password" id="re-pass2" placeholder="أعد كتابة كلمة المرور" onkeydown="if(event.key==='Enter')doReg()"/></div>
+      <button class="btn primary" style="width:100%;padding:10px;" onclick="doReg()">إنشاء الحساب</button>
+      <div class="login-err" id="regErr"></div>
+      <span class="login-link" onclick="showLoginForm()">← العودة لتسجيل الدخول</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SIDEBAR ══════════════════════════════════════════════════════════════ -->
+<div class="sidebar">
+  <div class="logo"><div class="logo-name">منصة ذكية</div><div class="logo-sub">مدعومة بـ Claude AI</div></div>
+  <div class="nav" id="sideNav">
+    <div class="nav-sec">الرئيسية</div>
+    <div class="nav-item active" id="nav-dashboard" onclick="go('dashboard',this)"><span class="nav-icon">◈</span>لوحة التحكم</div>
+    <div class="nav-item" id="nav-input" onclick="go('input',this)"><span class="nav-icon">⊕</span>إدخال جديد</div>
+    <div class="nav-sec">المخرجات</div>
+    <div class="nav-item" id="nav-reports" onclick="go('reports',this)"><span class="nav-icon">▤</span>التقارير</div>
+    <div class="nav-item" id="nav-outputs" onclick="go('outputs',this)"><span class="nav-icon">▦</span>المخرجات</div>
+    <div class="nav-sec">الأدوات</div>
+    <div class="nav-item" id="nav-tools" onclick="go('tools',this)"><span class="nav-icon">🛠</span>أدواتي</div>
+    <div class="nav-item" id="nav-crm" onclick="go('crm',this)"><span class="nav-icon">👥</span>نظام CRM</div>
+    <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span>لوحة KPI</div>
+    <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span>خطة 90 يوم</div>
+    <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span>Visual Identity</div>
+    <div class="nav-sec">Design Studio</div>
+    <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span>Chat with Claude</div>
+    <div class="nav-item" id="nav-mockup" onclick="go('mockup',this)"><span class="nav-icon">🖼️</span>Design Mockups</div>
+    <div class="nav-item" id="nav-uiux" onclick="go('uiux',this)"><span class="nav-icon">✏️</span>UI/UX Advisor</div>
+    <div class="nav-sec">الإعدادات</div>
+    <div class="nav-item" id="nav-admin" onclick="go('admin',this)" style="display:none;"><span class="nav-icon">👑</span>Admin Panel</div>
+    <div class="nav-item" id="nav-settings" onclick="go('settings',this)"><span class="nav-icon">◌</span>الإعدادات</div>
+  </div>
+  <div class="sidebar-footer">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="ava" id="sideAva">م</div>
+      <div>
+        <div style="font-size:11px;font-weight:500;" id="sideUsername">—</div>
+        <div class="role-badge" id="sideRole">—</div>
+      </div>
+    </div>
+    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:8px;width:100%;text-align:right;">تسجيل الخروج ↩</button>
+  </div>
+</div>
+
+<!-- ══ MAIN ════════════════════════════════════════════════════════════════ -->
+<div class="main">
+
+<!-- ───── DASHBOARD ──────────────────────────────────────────────── -->
+<div class="page active" id="page-dashboard">
+  <div class="topbar">
+    <div class="breadcrumb"><b>لوحة التحكم</b></div>
+    <div class="tb-right">
+      <button class="btn primary" onclick="go('input',null)">+ إدخال جديد</button>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="metrics-row">
+      <div class="metric"><div class="m-label">مخرجات هذا الشهر</div><div class="m-val" id="d-total">0</div><div class="m-chg up">ابدأ الآن</div></div>
+      <div class="metric"><div class="m-label">تقارير مكتملة</div><div class="m-val" id="d-reports">0</div><div class="m-chg">جاهز</div></div>
+      <div class="metric"><div class="m-label">عملاء CRM</div><div class="m-val" id="d-clients">0</div><div class="m-chg">إدارة العملاء</div></div>
+      <div class="metric"><div class="m-label">API</div><div class="m-val" id="d-api" style="font-size:13px;">غير مفعّل</div><div class="m-chg" id="d-api-sub" style="color:var(--red);">اذهب للإعدادات</div></div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">آخر المخرجات</span><button class="card-act" onclick="go('reports',null)">عرض الكل</button></div>
+        <div id="d-recent"><div style="text-align:center;padding:28px;color:var(--txt2);font-size:12px;">لا توجد مخرجات بعد<br><span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)">ابدأ إدخالاً جديداً ↗</span></div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">البدء السريع</span></div>
+          <div class="mod-grid" style="margin-bottom:10px;">
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▤</div><div class="mod-name" style="font-size:10px;">تقرير إداري</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">✦</div><div class="mod-name" style="font-size:10px;">محتوى تسويقي</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▦</div><div class="mod-name" style="font-size:10px;">لوحة تحليل</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">◉</div><div class="mod-name" style="font-size:10px;">دراسة تحليلية</div></div>
+          </div>
+          <button class="btn primary" style="width:100%;" onclick="go('input',null)">+ بدء إدخال جديد</button>
+        </div>
+        <div class="card" style="background:var(--acc-l);border-color:#7F77DD;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:6px;">🔑 API Key</div>
+          <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:10px;" id="d-key-status">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
+          <button class="btn primary" style="width:100%;font-size:11px;" onclick="go('settings',null)">⚙ الإعدادات</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── INPUT WIZARD ────────────────────────────────────────────── -->
+<div class="page" id="page-input">
+  <div class="topbar"><div class="breadcrumb">الرئيسية › <b>إدخال جديد</b></div><div class="tb-right"><button class="btn" onclick="go('dashboard',null)">إلغاء</button></div></div>
+  <div class="steps-layout">
+    <div class="steps-side">
+      <div class="step-item"><div class="step-left"><div class="step-circle done" id="sc0">✓</div><div class="step-line"></div></div><div><div class="step-lbl on" id="sl0">معلومات النشاط</div><div class="step-sub">نوع الشركة</div></div></div>
+      <div class="step-item"><div class="step-left"><div class="step-circle active" id="sc1">2</div><div class="step-line"></div></div><div><div class="step-lbl on" id="sl1">البيانات والأرقام</div><div class="step-sub">بيانات مالية</div></div></div>
+      <div class="step-item"><div class="step-left"><div class="step-circle" id="sc2">3</div><div class="step-line"></div></div><div><div class="step-lbl" id="sl2">اختيار المخرجات</div><div class="step-sub">ماذا تريد؟</div></div></div>
+      <div class="step-item"><div class="step-left"><div class="step-circle" id="sc3">4</div></div><div><div class="step-lbl" id="sl3">مراجعة وإرسال</div></div></div>
+    </div>
+    <div class="form-area" id="formArea"></div>
+  </div>
+</div>
+
+<!-- ───── OUTPUTS ─────────────────────────────────────────────────── -->
+<div class="page" id="page-outputs">
+  <div class="topbar">
+    <div class="breadcrumb">المخرجات › <b id="outTitle">النتائج</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="go('input',null)">+ طلب جديد</button>
+    </div>
+  </div>
+  <div class="out-tabs-bar" id="outTabsBar">
+    <div class="out-tab active" id="otab-report" onclick="switchOut('report')">▤ التقرير الإداري</div>
+    <div class="out-tab" id="otab-dashboard" onclick="switchOut('dashboard')">▦ لوحة التحليل</div>
+    <div class="out-tab" id="otab-marketing" onclick="switchOut('marketing')">✦ المحتوى التسويقي</div>
+    <div class="out-tab" id="otab-study" onclick="switchOut('study')">◉ الدراسة التحليلية</div>
+  </div>
+  <div id="out-report" class="out-page active"><div class="loading-box"><div style="font-size:13px;color:var(--txt2);">لم يتم توليد التقرير بعد</div><button class="btn primary" style="margin-top:8px;" onclick="go('input',null)">ابدأ إدخالاً جديداً ↗</button></div></div>
+  <div id="out-dashboard" class="out-page"><div class="loading-box"><div style="font-size:13px;color:var(--txt2);">لم يتم توليد لوحة التحليل بعد</div></div></div>
+  <div id="out-marketing" class="out-page"><div class="loading-box"><div style="font-size:13px;color:var(--txt2);">لم يتم توليد المحتوى بعد</div></div></div>
+  <div id="out-study" class="out-page"><div class="loading-box"><div style="font-size:13px;color:var(--txt2);">لم يتم توليد الدراسة بعد</div></div></div>
+</div>
+
+<!-- ───── REPORTS ─────────────────────────────────────────────────── -->
+<div class="page" id="page-reports">
+  <div class="topbar"><div class="breadcrumb">المخرجات › <b>جميع التقارير</b></div><div class="tb-right"><button class="btn primary" onclick="go('input',null)">+ إدخال جديد</button></div></div>
+  <div class="page-body"><div class="reports-grid" id="reportsGrid"><div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--txt2);">لا توجد تقارير — <span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)">ابدأ الآن</span></div></div></div>
+</div>
+
+<!-- ───── TOOLS ───────────────────────────────────────────────────── -->
+<div class="page" id="page-tools">
+  <div class="topbar"><div class="breadcrumb"><b>🛠 أدواتي الذكية</b></div></div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">الأدوات الذكية</div><div style="font-size:12px;color:var(--txt2);">كل أداة تُبنى تلقائياً بواسطة Claude AI بناءً على بيانات شركتك</div></div>
+    <div class="tools-grid">
+      <div class="tool-card" onclick="go('crm',null)"><div style="font-size:28px;margin-bottom:10px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">إدارة العملاء والصفقات والمتابعات</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
+      <div class="tool-card" onclick="go('kpi',null)"><div style="font-size:28px;margin-bottom:10px;">📊</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">لوحة KPI</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">مؤشرات أداء مخصصة لشركتك</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
+      <div class="tool-card" onclick="go('plan',null)"><div style="font-size:28px;margin-bottom:10px;">📋</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">خطة العمل 90 يوم</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">خطة تنفيذية مبنية على توصيات الذكاء</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
+      <div class="tool-card" onclick="go('brand',null)" style="border:1.5px solid #7F77DD;background:var(--acc-l);"><div style="font-size:28px;margin-bottom:10px;">🎨</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;color:var(--acc-d);">Visual Identity Studio</div><div style="font-size:12px;color:var(--acc-d);line-height:1.7;">Logo concepts, brand colors, fonts & full guidelines</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
+      <div class="tool-card" onclick="go('chat',null)" style="border:1.5px solid #1D9E75;background:var(--grn-l);"><div style="font-size:28px;margin-bottom:10px;">💬</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;color:var(--grn);">Chat with Claude</div><div style="font-size:12px;color:var(--grn);line-height:1.7;">Ask anything — design, strategy, marketing, analysis</div><div style="margin-top:10px;"><span class="pill green">New ✨</span></div></div>
+      <div class="tool-card" onclick="go('mockup',null)"><div style="font-size:28px;margin-bottom:10px;">🖼️</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">Design Mockups</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">Landing pages, social media, emails, business cards & slides</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
+      <div class="tool-card" onclick="go('uiux',null)"><div style="font-size:28px;margin-bottom:10px;">✏️</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">UI/UX Advisor</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">Get AI feedback on your designs, colors, layouts & UX</div><div style="margin-top:10px;"><span class="pill purple">New ✨</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── CRM ──────────────────────────────────────────────────────── -->
+<div class="page" id="page-crm">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b>نظام CRM</b></div><div class="tb-right"><button class="btn primary" onclick="showAddClientForm()">+ إضافة عميل</button></div></div>
+  <div class="page-body" id="crmBody">
+    <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">أضف عملاءك وولّد لكل منهم تقارير وأدوات مخصصة</div><button class="btn primary" onclick="showAddClientForm()">+ إضافة أول عميل</button></div>
+  </div>
+</div>
+
+<!-- ───── KPI ──────────────────────────────────────────────────────── -->
+<div class="page" id="page-kpi">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b>لوحة KPI</b></div><div class="tb-right"><button class="btn" onclick="buildKPI()">🔄 إعادة توليد</button><button class="btn" onclick="exportPDF('kpi','لوحة KPI')">⬇ PDF</button><button class="btn primary" onclick="openShare('kpi','لوحة KPI')">🔗 مشاركة</button></div></div>
+  <div class="page-body" id="kpiBody">
+    <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">📊</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">لوحة KPI المخصصة</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">اضغط "توليد" لبناء مؤشرات أداء مخصصة لشركتك</div><button class="btn primary" style="padding:10px 24px;" onclick="buildKPI()">🤖 توليد KPI بالذكاء الاصطناعي</button></div>
+  </div>
+</div>
+
+<!-- ───── PLAN ─────────────────────────────────────────────────────── -->
+<div class="page" id="page-plan">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b>خطة العمل 90 يوم</b></div><div class="tb-right"><button class="btn" onclick="buildPlan()">🔄 إعادة توليد</button><button class="btn" onclick="exportPDF('plan','خطة العمل 90 يوم')">⬇ PDF</button><button class="btn primary" onclick="openShare('plan','خطة العمل 90 يوم')">🔗 مشاركة</button></div></div>
+  <div class="page-body" id="planBody">
+    <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">📋</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">خطة العمل التنفيذية</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">اضغط "توليد" لبناء خطة 90 يوم مبنية على توصيات الذكاء</div><button class="btn primary" style="padding:10px 24px;" onclick="buildPlan()">🤖 توليد الخطة بالذكاء الاصطناعي</button></div>
+  </div>
+</div>
+
+<!-- ───── SETTINGS ─────────────────────────────────────────────────── -->
+<div class="page" id="page-settings">
+  <div class="topbar"><div class="breadcrumb"><b>الإعدادات</b></div></div>
+  <div class="page-body" style="display:flex;flex-direction:column;gap:14px;max-width:700px;">
+
+    <!-- API Key — Admin Only -->
+    <div class="card" id="apiKeyCard">
+      <div class="card-hdr"><span class="card-title">🔑 Anthropic API Key</span><span class="pill purple" style="font-size:10px;">Admin Only</span></div>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Enter your API key from <b>console.anthropic.com</b> — saved in your browser only.</p>
+      <div class="field"><input class="input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/><div class="hint">Starts with sk-ant-api03-</div></div>
+      <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveKey()">✓ Save Key</button><button class="btn" onclick="clearKey()">Delete</button></div>
+      <div id="keyMsg" style="margin-top:9px;font-size:12px;"></div>
+    </div>
+
+    <!-- My Account -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">👤 حسابي</span></div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">اسم المستخدم الجديد</div><input class="input" id="my-newuser" placeholder="اترك فارغاً للإبقاء الحالي"/></div>
+        <div class="field"><div class="field-label">كلمة المرور الجديدة</div><input class="input" type="password" id="my-newpass" placeholder="اترك فارغاً للإبقاء الحالي"/></div>
+      </div>
+      <div class="field"><div class="field-label">كلمة المرور الحالية <span class="req">*</span></div><input class="input" type="password" id="my-currpass" placeholder="أدخل كلمة المرور الحالية للتأكيد"/></div>
+      <button class="btn primary" onclick="updateMyAccount()">✓ حفظ التغييرات</button>
+      <div id="myAccMsg" style="margin-top:9px;font-size:12px;"></div>
+    </div>
+
+    <!-- Users Management -->
+    <div class="card" id="usersSection">
+      <div class="card-hdr"><span class="card-title">👥 إدارة المستخدمين</span><button class="btn sm primary" onclick="openModal('addUserModal')">+ إضافة مستخدم</button></div>
+      <table class="users-table" id="usersTable">
+        <thead><tr><th>المستخدم</th><th>الدور</th><th>الصلاحية</th><th>إجراء</th></tr></thead>
+        <tbody id="usersTableBody"></tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ───── VISUAL IDENTITY STUDIO ──────────────────────────────── -->
+<div class="page" id="page-brand">
+  <div class="topbar">
+    <div class="breadcrumb">Tools › <b>Visual Identity Studio</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="buildBrand()">🔄 Regenerate</button>
+      <button class="btn" onclick="exportBrandPDF()">⬇ Download PDF</button>
+      <button class="btn primary" onclick="openShare('brand','Visual Identity Guide')">🔗 Share</button>
+    </div>
+  </div>
+  <div class="page-body" id="brandBody">
+    <div class="loading-box">
+      <div style="font-size:40px;margin-bottom:14px;">🎨</div>
+      <div style="font-size:15px;font-weight:500;margin-bottom:6px;">Visual Identity Studio</div>
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:6px;line-height:1.7;">
+        Generate a complete brand identity for your company —<br>
+        logos, colors, fonts, and full brand guidelines.
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:16px;max-width:500px;margin:16px auto 0;text-align:right;">
+        <div style="font-size:12px;font-weight:500;margin-bottom:10px;">Tell us about your brand</div>
+        <div class="field">
+          <div class="field-label">Company Name <span class="req">*</span></div>
+          <input class="input" id="br-name" placeholder="e.g. Nova Consulting"/>
+        </div>
+        <div class="field">
+          <div class="field-label">Industry <span class="req">*</span></div>
+          <input class="input" id="br-industry" placeholder="e.g. Technology, Healthcare, Retail..."/>
+        </div>
+        <div class="field">
+          <div class="field-label">Brand Personality (pick what fits)</div>
+          <div class="chip-row" id="br-personality-chips">
+            <div class="chip" onclick="toggleBrandChip(this)">Modern</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Traditional</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Bold</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Minimal</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Luxurious</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Friendly</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Professional</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Creative</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Trustworthy</div>
+            <div class="chip" onclick="toggleBrandChip(this)">Energetic</div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-label">Target Audience</div>
+          <input class="input" id="br-audience" placeholder="e.g. Young professionals, SME owners, Families..."/>
+        </div>
+        <div class="field">
+          <div class="field-label">Brand Colors Preference (optional)</div>
+          <input class="input" id="br-colors" placeholder="e.g. Blue and gold, Earth tones, Vibrant..."/>
+        </div>
+        <button class="btn primary" style="width:100%;padding:11px;margin-top:4px;font-size:13px;" onclick="buildBrand()">
+          🤖 Generate Visual Identity
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── CHAT WITH CLAUDE ────────────────────────────────────── -->
+<div class="page" id="page-chat">
+  <div class="topbar">
+    <div class="breadcrumb">Design Studio › <b>Chat with Claude</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <!-- Chat messages -->
+    <div style="flex:1;overflow-y:auto;padding:16px 20px;" id="chatMessages">
+      <div style="max-width:680px;margin:0 auto;">
+        <!-- Welcome message -->
+        <div style="display:flex;gap:10px;margin-bottom:16px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+          <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;max-width:85%;">
+            <div style="font-size:13px;line-height:1.7;">Hello! I'm Claude, your AI design and business assistant. I can help you with:</div>
+            <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
+              <div onclick="sendQuickMsg('Design a landing page layout for my business')" style="padding:7px 12px;background:var(--acc-l);border-radius:var(--r);font-size:12px;color:var(--acc-d);cursor:pointer;transition:opacity .12s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">🖼️ Design a landing page layout</div>
+              <div onclick="sendQuickMsg('Suggest brand colors and fonts for my company')" style="padding:7px 12px;background:var(--acc-l);border-radius:var(--r);font-size:12px;color:var(--acc-d);cursor:pointer;transition:opacity .12s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">🎨 Suggest brand colors and fonts</div>
+              <div onclick="sendQuickMsg('Review my marketing strategy and give me recommendations')" style="padding:7px 12px;background:var(--acc-l);border-radius:var(--r);font-size:12px;color:var(--acc-d);cursor:pointer;transition:opacity .12s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">📊 Review my marketing strategy</div>
+              <div onclick="sendQuickMsg('Write a tagline for my brand')" style="padding:7px 12px;background:var(--acc-l);border-radius:var(--r);font-size:12px;color:var(--acc-d);cursor:pointer;transition:opacity .12s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">✍️ Write a tagline for my brand</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Chat input -->
+    <div style="border-top:1px solid var(--bdr);padding:14px 20px;background:var(--bg2);flex-shrink:0;">
+      <div style="max-width:680px;margin:0 auto;display:flex;gap:10px;align-items:flex-end;">
+        <textarea id="chatInput" class="input" style="flex:1;min-height:44px;max-height:120px;resize:none;line-height:1.6;padding:10px 13px;" placeholder="Ask Claude anything — design, strategy, marketing, analysis..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"></textarea>
+        <button class="btn primary" style="padding:10px 16px;flex-shrink:0;" onclick="sendChat()" id="chatSendBtn">Send ↗</button>
+      </div>
+      <div style="max-width:680px;margin:6px auto 0;font-size:10px;color:var(--txt3);">Press Enter to send · Shift+Enter for new line</div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── DESIGN MOCKUPS ──────────────────────────────────────── -->
+<div class="page" id="page-mockup">
+  <div class="topbar">
+    <div class="breadcrumb">Design Studio › <b>Design Mockups</b></div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">Design Mockup Generator</div><div style="font-size:12px;color:var(--txt2);">Generate professional design templates powered by Claude AI</div></div>
+
+    <!-- Mockup type selector -->
+    <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:20px;">
+      <div class="tool-card sel" id="mtype-landing" onclick="selectMockupType('landing',this)" style="text-align:center;padding:14px 8px;border-color:#7F77DD;background:var(--acc-l);">
+        <div style="font-size:24px;margin-bottom:6px;">🌐</div>
+        <div style="font-size:11px;font-weight:500;color:var(--acc-d);">Landing Page</div>
+      </div>
+      <div class="tool-card" id="mtype-social" onclick="selectMockupType('social',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📱</div>
+        <div style="font-size:11px;font-weight:500;">Social Media</div>
+      </div>
+      <div class="tool-card" id="mtype-email" onclick="selectMockupType('email',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📧</div>
+        <div style="font-size:11px;font-weight:500;">Email Template</div>
+      </div>
+      <div class="tool-card" id="mtype-card" onclick="selectMockupType('card',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">💼</div>
+        <div style="font-size:11px;font-weight:500;">Business Card</div>
+      </div>
+      <div class="tool-card" id="mtype-slide" onclick="selectMockupType('slide',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📊</div>
+        <div style="font-size:11px;font-weight:500;">Presentation Slide</div>
+      </div>
+    </div>
+
+    <!-- Input form -->
+    <div class="card" style="margin-bottom:16px;">
+      <div class="card-hdr"><span class="card-title" id="mockupFormTitle">Landing Page Details</span></div>
+      <div id="mockupForm">
+        <div class="two-fields">
+          <div class="field"><div class="field-label">Company/Brand Name <span class="req">*</span></div><input class="input" id="mk-name" placeholder="e.g. Nova Consulting"/></div>
+          <div class="field"><div class="field-label">Industry/Niche</div><input class="input" id="mk-industry" placeholder="e.g. Technology, Food, Fashion..."/></div>
+        </div>
+        <div class="field"><div class="field-label">Main Message / Goal</div><input class="input" id="mk-message" placeholder="e.g. Generate leads, sell products, showcase portfolio..."/></div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">Primary Color</div><input class="input" id="mk-color1" placeholder="e.g. #534AB7 or Navy Blue"/></div>
+          <div class="field"><div class="field-label">Secondary Color</div><input class="input" id="mk-color2" placeholder="e.g. #1D9E75 or Gold"/></div>
+        </div>
+        <div class="field"><div class="field-label">Style Preference</div>
+          <div class="chip-row">
+            <div class="chip sel" onclick="toggleMockupChip(this)">Modern</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Minimal</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Bold</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Elegant</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Playful</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Corporate</div>
+            <div class="chip" onclick="toggleMockupChip(this)">Dark Mode</div>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Additional Notes (optional)</div><textarea class="input" id="mk-notes" rows="2" placeholder="Any specific requirements, sections needed, or references..."></textarea></div>
+        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateMockup()">🤖 Generate Design</button>
+      </div>
+    </div>
+
+    <!-- Output area -->
+    <div id="mockupOutput"></div>
+  </div>
+</div>
+
+<!-- ───── UI/UX ADVISOR ───────────────────────────────────────── -->
+<div class="page" id="page-uiux">
+  <div class="topbar">
+    <div class="breadcrumb">Design Studio › <b>UI/UX Advisor</b></div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">UI/UX Design Advisor</div><div style="font-size:12px;color:var(--txt2);">Get expert AI feedback on your designs, colors, layouts and user experience</div></div>
+
+    <div class="two-col" style="margin-bottom:16px;">
+      <!-- Input panel -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">Describe Your Design</span></div>
+        <div class="field"><div class="field-label">What are you designing?</div>
+          <select class="input" id="ux-type">
+            <option value="website">Website / Landing Page</option>
+            <option value="app">Mobile App</option>
+            <option value="dashboard">Dashboard / Platform</option>
+            <option value="brand">Brand Identity</option>
+            <option value="presentation">Presentation</option>
+            <option value="social">Social Media Graphics</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">Describe your current design <span class="req">*</span></div>
+          <textarea class="input" id="ux-desc" rows="4" placeholder="Describe your design in detail — colors you're using, layout, typography, overall style, target audience..."></textarea>
+        </div>
+        <div class="field"><div class="field-label">What specific feedback do you need?</div>
+          <div class="chip-row" id="ux-feedback-chips">
+            <div class="chip sel" onclick="this.classList.toggle('sel')">Color Harmony</div>
+            <div class="chip sel" onclick="this.classList.toggle('sel')">Typography</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Layout & Spacing</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">User Experience</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Brand Consistency</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Accessibility</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Mobile Responsiveness</div>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Target Audience</div>
+          <input class="input" id="ux-audience" placeholder="e.g. Young professionals, Families, B2B clients..."/>
+        </div>
+        <button class="btn primary" style="width:100%;padding:10px;" onclick="getUXAdvice()">🤖 Get Design Feedback</button>
+      </div>
+
+      <!-- Quick tips panel -->
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">💡 Design Quick Tips</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="padding:9px;background:var(--acc-l);border-radius:var(--r);font-size:11px;color:var(--acc-d);line-height:1.6;">🎨 <b>60-30-10 Rule:</b> Use your primary color for 60%, secondary for 30%, accent for 10% of your design.</div>
+            <div style="padding:9px;background:var(--grn-l);border-radius:var(--r);font-size:11px;color:var(--grn);line-height:1.6;">✍️ <b>Font Pairing:</b> Use max 2-3 fonts. Pair a serif heading with a sans-serif body for classic elegance.</div>
+            <div style="padding:9px;background:var(--amb-l);border-radius:var(--r);font-size:11px;color:var(--amb);line-height:1.6;">📐 <b>White Space:</b> Don't fear empty space — it makes designs breathe and feel premium.</div>
+            <div style="padding:9px;background:var(--red-l);border-radius:var(--r);font-size:11px;color:var(--red);line-height:1.6;">👁️ <b>Contrast:</b> Text should have at least 4.5:1 contrast ratio with background for readability.</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🔍 Quick Color Check</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="field" style="margin-bottom:0;"><div class="field-label">Check any color combination</div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="cc-bg" value="#ffffff" style="width:44px;height:36px;border:1px solid var(--bdr2);border-radius:var(--r);cursor:pointer;padding:2px;"/>
+                <input type="color" id="cc-text" value="#181816" style="width:44px;height:36px;border:1px solid var(--bdr2);border-radius:var(--r);cursor:pointer;padding:2px;"/>
+                <button class="btn sm" onclick="checkContrast()">Check Contrast</button>
+              </div>
+            </div>
+            <div id="contrastResult" style="display:none;padding:9px;border-radius:var(--r);font-size:12px;"></div>
+            <div id="contrastPreview" style="display:none;padding:12px;border-radius:var(--r);font-size:13px;font-weight:500;text-align:center;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UX Advice output -->
+    <div id="uxOutput"></div>
+  </div>
+</div>
+
+<!-- ───── ADMIN PANEL ────────────────────────────────────────────── -->
+<div class="page" id="page-admin">
+  <div class="topbar">
+    <div class="breadcrumb"><b>👑 Admin Panel</b></div>
+    <div class="tb-right">
+      <button class="btn primary" onclick="openModal('addUserModal')">+ Add User</button>
+      <button class="btn" onclick="exportUsers()">⬇ Export Users</button>
+    </div>
+  </div>
+  <div class="page-body">
+
+    <!-- Stats row -->
+    <div class="metrics-row" style="margin-bottom:14px;">
+      <div class="metric"><div class="m-label">Total Users</div><div class="m-val" id="ap-total">0</div></div>
+      <div class="metric"><div class="m-label">Active</div><div class="m-val up" id="ap-active">0</div></div>
+      <div class="metric"><div class="m-label">Suspended</div><div class="m-val down" id="ap-suspended">0</div></div>
+      <div class="metric"><div class="m-label">Expiring Soon</div><div class="m-val" id="ap-expiring" style="color:var(--amb);">0</div></div>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <input class="input" id="ap-search" placeholder="Search by username or name..." style="flex:1;min-width:200px;" oninput="renderAdminPanel()"/>
+        <select class="input" id="ap-filter-role" style="width:160px;" onchange="renderAdminPanel()">
+          <option value="">All Roles</option>
+          <option value="admin">Admin</option>
+          <option value="analyst">Analyst</option>
+          <option value="employee">Employee</option>
+        </select>
+        <select class="input" id="ap-filter-status" style="width:160px;" onchange="renderAdminPanel()">
+          <option value="">All Status</option>
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+          <option value="expired">Expired</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">User Accounts</span></div>
+      <div style="overflow-x:auto;">
+        <table class="users-table" id="adminUsersTable">
+          <thead><tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Expiry Date</th>
+            <th>Days Left</th>
+            <th>Last Login</th>
+            <th>Actions</th>
+          </tr></thead>
+          <tbody id="adminUsersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── EDIT USER MODAL ── -->
+<div class="modal-overlay" id="editUserModal">
+  <div class="modal-box" style="max-width:500px;">
+    <div class="modal-title" id="editUserTitle">Edit User</div>
+    <div class="modal-sub" id="editUserSub">Update user details</div>
+    <input type="hidden" id="eu-index"/>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">Username</div><input class="input" id="eu-username"/></div>
+      <div class="field"><div class="field-label">Full Name</div><input class="input" id="eu-fullname"/></div>
+    </div>
+    <div class="field"><div class="field-label">New Password <span style="font-size:10px;color:var(--txt3);">(leave empty to keep current)</span></div><input class="input" type="password" id="eu-password" placeholder="Leave empty to keep current"/></div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">Role</div>
+        <select class="input" id="eu-role">
+          <option value="admin">Admin</option>
+          <option value="analyst">Analyst</option>
+          <option value="employee">Employee</option>
+        </select>
+      </div>
+      <div class="field"><div class="field-label">Status</div>
+        <select class="input" id="eu-status">
+          <option value="active">Active</option>
+          <option value="suspended">Suspended</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">Expiry Date <span style="font-size:10px;color:var(--txt3);">(leave empty for no expiry)</span></div><input class="input" type="date" id="eu-expiry"/></div>
+    <div id="editUserErr" style="color:var(--red);font-size:12px;margin-bottom:8px;display:none;"></div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="saveEditUser()">✓ Save Changes</button>
+      <button class="btn" onclick="closeModal('editUserModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════════════════════════════════════════
+const WORKER_URL = 'https://dark-fire-ce6a.engineer-raid-hamawi.workers.dev'
+const MODEL = 'claude-sonnet-4-5'
+const ROLE_LABELS = {admin:'مدير عام', analyst:'محلل', employee:'موظف'}
+const ROLE_PERMS = {
+  admin: {canInput:true, canView:true, canEdit:true, canManageUsers:true},
+  analyst: {canInput:false, canView:true, canEdit:false, canManageUsers:false},
+  employee: {canInput:true, canView:false, canEdit:false, canManageUsers:false}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════════════════════════════════
+let currentUser = null
+let fd = {companyName:'',sector:'',size:'',description:'',period:'آخر 6 أشهر',revenue:'',orders:'',avgOrder:'',returnRate:'',competitors:'',modules:['report','marketing'],language:'arabic',detailLevel:'full',websiteUrl:'',websiteAnalysis:''}
+let submissions = []
+let crmClients = []
+let currentStep = 1
+let selectedRole = 'admin'
+let shareContent = {url:'', title:'', body:''}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// STORAGE HELPERS
+// ══════════════════════════════════════════════════════════════════════════════
+function getUsers(){try{return JSON.parse(localStorage.getItem('sp_users')||'[]')}catch{return[]}}
+function saveUsers(u){localStorage.setItem('sp_users',JSON.stringify(u))}
+function getSession(){return localStorage.getItem('sp_session')}
+function setSession(u){localStorage.setItem('sp_session',u)}
+function clearSession(){localStorage.removeItem('sp_session')}
+function saveCRM(){localStorage.setItem('sp_crm',JSON.stringify(crmClients))}
+function loadCRM(){try{crmClients=JSON.parse(localStorage.getItem('sp_crm')||'[]')}catch{crmClients=[]}}
+function getKey(){return localStorage.getItem('ant_key')||''}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════════════════════════════
+function initAuth(){
+  try{
+    let users = getUsers()
+    if(!Array.isArray(users)) users = []
+
+    // Migrate old users to new structure
+    users = users.map(u=>({
+      ...u,
+      status: u.status||'active',
+      expiryDate: u.expiryDate||'',
+      lastLogin: u.lastLogin||'',
+      createdAt: u.createdAt||new Date().toISOString(),
+      isSuperAdmin: u.isSuperAdmin||u.username==='Superadmin'
+    }))
+
+    // Remove old 'admin' default account if Superadmin doesn't exist yet
+    const hasSuperadmin = users.some(u=>u.isSuperAdmin||u.username==='Superadmin')
+    if(!hasSuperadmin){
+      // Remove the old default admin account
+      users = users.filter(u=>u.username!=='admin'||u.password!=='admin123')
+      // Add Superadmin
+      users.unshift({
+        username:'Superadmin',
+        password:'admin123',
+        fullname:'Super Admin',
+        role:'admin',
+        status:'active',
+        expiryDate:'',
+        lastLogin:'',
+        createdAt:new Date().toISOString(),
+        isSuperAdmin:true
+      })
+    }
+
+    // Also ensure any existing user named 'Superadmin' is marked as super admin
+    users = users.map(u=>({...u, isSuperAdmin: u.isSuperAdmin||u.username==='Superadmin'}))
+
+    saveUsers(users)
+    const session = getSession()
+    if(session){
+      const u = users.find(x=>x.username===session)
+      if(u){ loginSuccess(u); return }
+      else { clearSession() }
+    }
+    const overlay = document.getElementById('loginOverlay')
+    if(overlay) overlay.style.display='flex'
+  }catch(e){
+    console.error('Auth error:',e)
+    const overlay = document.getElementById('loginOverlay')
+    if(overlay) overlay.style.display='flex'
+  }
+}
+
+function doLogin(){
+  try{
+    const userEl = document.getElementById('li-user')
+    const passEl = document.getElementById('li-pass')
+    if(!userEl||!passEl) return
+    const user = userEl.value.trim()
+    const pass = passEl.value
+    if(!user||!pass){ 
+      const err=document.getElementById('loginErr')
+      if(err){err.textContent='Please enter username and password';err.style.display='block'}
+      return
+    }
+    let users = getUsers()
+    if(users.length===0){
+      users=[{username:'admin',password:'admin123',fullname:'Admin',role:'admin'}]
+      saveUsers(users)
+    }
+    const u = users.find(x=>x.username===user && x.password===pass)
+    if(u){ 
+      const err=document.getElementById('loginErr')
+      if(err) err.style.display='none'
+      setSession(u.username)
+      loginSuccess(u) 
+    } else { 
+      const err=document.getElementById('loginErr')
+      if(err){err.textContent='Incorrect username or password';err.style.display='block'}
+    }
+  }catch(e){console.error('Login error:',e)}
+}
+
+function loginSuccess(u){
+  // Check if suspended
+  if(u.status==='suspended'){
+    const err=document.getElementById('loginErr')
+    if(err){err.textContent='Your account has been suspended. Please contact the admin.';err.style.display='block'}
+    clearSession()
+    return
+  }
+  // Check if expired
+  if(u.expiryDate){
+    const expiry = new Date(u.expiryDate)
+    const now = new Date()
+    if(now > expiry && !u.isSuperAdmin){
+      const err=document.getElementById('loginErr')
+      if(err){err.textContent='Your subscription has expired. Please contact the admin to renew.';err.style.display='block'}
+      clearSession()
+      return
+    }
+  }
+  // Update last login
+  const users = getUsers()
+  const idx = users.findIndex(x=>x.username===u.username)
+  if(idx>-1){users[idx].lastLogin=new Date().toISOString();saveUsers(users)}
+
+  currentUser = {...u, lastLogin: new Date().toISOString()}
+  document.getElementById('loginOverlay').style.display='none'
+  document.getElementById('sideUsername').textContent = u.fullname||u.username
+  document.getElementById('sideAva').textContent = (u.fullname||u.username).charAt(0).toUpperCase()
+  document.getElementById('sideRole').textContent = u.isSuperAdmin?'Super Admin':ROLE_LABELS[u.role]||u.role
+  // Show admin panel nav for superadmin only
+  const adminNav = document.getElementById('nav-admin')
+  if(adminNav) adminNav.style.display = u.isSuperAdmin?'flex':'none'
+  applyRolePermissions(u.role)
+  loadCRM()
+  updateDashboard()
+  renderUsersTable()
+  initSettings()
+}
+
+function applyRolePermissions(role){
+  const p = ROLE_PERMS[role]||ROLE_PERMS.employee
+  if(!p.canInput) document.getElementById('nav-input').classList.add('disabled')
+  if(!p.canView){
+    document.getElementById('nav-reports').classList.add('disabled')
+    document.getElementById('nav-outputs').classList.add('disabled')
+    document.getElementById('nav-kpi').classList.add('disabled')
+    document.getElementById('nav-plan').classList.add('disabled')
+  }
+  if(!p.canManageUsers) document.getElementById('usersSection').style.display='none'
+}
+
+function logout(){ clearSession(); location.reload() }
+
+function showRegForm(){ document.getElementById('loginForm').style.display='none'; document.getElementById('regForm').style.display='block' }
+function showLoginForm(){ document.getElementById('regForm').style.display='none'; document.getElementById('loginForm').style.display='block' }
+
+function doReg(){
+  const u=document.getElementById('re-user').value.trim()
+  const p=document.getElementById('re-pass').value
+  const p2=document.getElementById('re-pass2').value
+  const err=document.getElementById('regErr')
+  if(u.length<3){err.textContent='اسم المستخدم يجب أن يكون 3 أحرف على الأقل';err.style.display='block';return}
+  if(p.length<6){err.textContent='كلمة المرور يجب أن تكون 6 أحرف على الأقل';err.style.display='block';return}
+  if(p!==p2){err.textContent='كلمتا المرور غير متطابقتين';err.style.display='block';return}
+  const users=getUsers()
+  if(users.find(x=>x.username===u)){err.textContent='اسم المستخدم مستخدم بالفعل';err.style.display='block';return}
+  const newU={username:u,password:p,fullname:u,role:'employee'}
+  users.push(newU); saveUsers(users); setSession(u); loginSuccess(newU)
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════════════════════════
+function go(id, navEl){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
+  document.getElementById('page-'+id)?.classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'))
+  if(navEl) navEl.classList.add('active')
+  else { const n=document.getElementById('nav-'+id); if(n) n.classList.add('active') }
+  if(id==='input') renderStep(currentStep)
+  if(id==='settings') initSettings()
+  if(id==='dashboard') updateDashboard()
+  if(id==='crm') renderCRM()
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════════════════════════════════
+function updateDashboard(){
+  const total = submissions.reduce((a,s)=>a+Object.keys(s.results).length,0)
+  const reports = submissions.reduce((a,s)=>a+(s.results.report?1:0),0)
+  document.getElementById('d-total').textContent = total
+  document.getElementById('d-reports').textContent = reports
+  document.getElementById('d-clients').textContent = crmClients.length
+  // Show expiry warning
+  if(currentUser && currentUser.expiryDate && !currentUser.isSuperAdmin){
+    const expiry = new Date(currentUser.expiryDate)
+    const now = new Date()
+    const daysLeft = Math.ceil((expiry-now)/(1000*60*60*24))
+    const warningEl = document.getElementById('expiryWarning')
+    if(warningEl){
+      if(daysLeft<=7 && daysLeft>0){
+        warningEl.style.display='block'
+        warningEl.innerHTML=`<div style="background:var(--amb-l);border:1px solid #DCA030;border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--amb);margin-bottom:12px;">⚠️ Your subscription expires in <b>${daysLeft} day${daysLeft===1?'':'s'}</b>. Please contact the admin to renew.</div>`
+      } else if(daysLeft<=0){
+        warningEl.style.display='block'
+        warningEl.innerHTML=`<div style="background:var(--red-l);border:1px solid #E8A090;border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:12px;">🔴 Your subscription has expired. Please contact the admin to renew.</div>`
+      } else { warningEl.style.display='none' }
+    }
+  }
+  const hk = !!getKey()
+  document.getElementById('d-api').textContent = hk?'✓ مفعّل':'غير مفعّل'
+  document.getElementById('d-api').style.color = hk?'var(--grn)':'var(--red)'
+  document.getElementById('d-api-sub').textContent = hk?'جاهز للإنتاج':'اذهب للإعدادات'
+  document.getElementById('d-api-sub').style.color = hk?'var(--grn)':'var(--red)'
+  document.getElementById('d-key-status').textContent = hk?'المفتاح مفعّل — جاهز للإنتاج ✓':'أضف مفتاحك لتفعيل الذكاء الاصطناعي'
+
+  if(!submissions.length) return
+  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+  const bgs={report:'#EEEDFE',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+  let h='<div style="display:flex;flex-direction:column;gap:7px;">'
+  submissions.slice(-4).reverse().forEach(s=>{
+    Object.keys(s.results).slice(0,1).forEach(k=>{
+      h+=`<div style="display:flex;align-items:center;gap:9px;padding:8px 9px;background:var(--bg3);border-radius:var(--r);cursor:pointer;" onclick="viewSub(${s.id},'${k}')">
+        <div style="width:28px;height:28px;border-radius:7px;background:${bgs[k]};display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">${icons[k]}</div>
+        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${labels[k]} — ${s.formData.companyName}</div><div style="font-size:10px;color:var(--txt2);">مكتمل ✓</div></div>
+        <span class="pill green">✓</span></div>`
+    })
+  })
+  document.getElementById('d-recent').innerHTML = h+'</div>'
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// INPUT WIZARD
+// ══════════════════════════════════════════════════════════════════════════════
+function goStep(n){
+  if(currentStep===1) saveS1()
+  if(currentStep===2) saveS2()
+  currentStep=n
+  document.querySelectorAll('[id^=sc]').forEach((c,i)=>{c.className='step-circle'+(i<n?' done':i===n?' active':'');c.textContent=i<n?'✓':i+1})
+  document.querySelectorAll('[id^=sl]').forEach((l,i)=>{l.className='step-lbl'+(i<=n?' on':'')})
+  renderStep(n)
+}
+
+function renderStep(n){ const a=document.getElementById('formArea'); if(a){if(n===1)a.innerHTML=s1(); if(n===2)a.innerHTML=s2(); if(n===3)a.innerHTML=s3(); if(n===4)a.innerHTML=s4()} }
+
+const SECTORS=['تجارة إلكترونية','مطاعم وأغذية','خدمات احترافية','تقنية وبرمجيات','عقارات','صحة وعافية','تعليم وتدريب','أخرى']
+const SIZES=['أقل من 10 موظفين','10–50 موظف','50–200 موظف','أكثر من 200 موظف']
+const PERIODS=['الربع الأول 2026','آخر 6 أشهر','السنة المالية 2025']
+const MODS=[{key:'report',icon:'▤',label:'التقرير الإداري',desc:'تقرير شامل مع توصيات'},{key:'dashboard',icon:'▦',label:'لوحة التحليل',desc:'مؤشرات KPI'},{key:'marketing',icon:'✦',label:'المحتوى التسويقي',desc:'منشورات وإعلانات'},{key:'study',icon:'◉',label:'الدراسة التحليلية',desc:'تحليل سوق ومنافسين'}]
+const ML={report:'التقرير الإداري',dashboard:'لوحة التحليل',marketing:'المحتوى التسويقي',study:'الدراسة التحليلية'}
+const MT={report:'~2 دقيقة',dashboard:'~1 دقيقة',marketing:'~2 دقيقة',study:'~3 دقائق'}
+
+function s1(){return`<div class="step-title">معلومات النشاط التجاري</div><div class="step-desc">أخبرنا عن شركتك لتوليد مخرجات مخصصة.</div>
+<div class="field"><div class="field-label">اسم الشركة <span class="req">*</span></div><input class="input" id="f-name" value="${fd.companyName}" placeholder="مثال: متجر الأناقة العصرية"/></div>
+<div class="two-fields">
+  <div class="field"><div class="field-label">القطاع <span class="req">*</span></div><div class="chip-row">${SECTORS.map(s=>`<div class="chip${fd.sector===s?' sel':''}" onclick="pc('sector','${s}',this)">${s}</div>`).join('')}</div></div>
+  <div class="field"><div class="field-label">حجم الشركة</div><div class="radio-list">${SIZES.map(s=>`<div class="radio-item${fd.size===s?' sel':''}" onclick="pr('size','${s}',this)"><div class="rdot${fd.size===s?' sel':''}"></div><span>${s}</span></div>`).join('')}</div></div>
+</div>
+<div class="field">
+  <div class="field-label">Company Website URL <span style="font-size:10px;color:var(--txt3);font-weight:400;">(optional — AI will analyze the website automatically)</span></div>
+  <div style="display:flex;gap:8px;align-items:flex-start;">
+    <input class="input" id="f-url" value="${fd.websiteUrl||''}" placeholder="https://www.yourcompany.com" style="flex:1;"/>
+    <button class="btn" id="analyzeBtn" onclick="analyzeWebsite()" style="white-space:nowrap;flex-shrink:0;">🔍 Analyze</button>
+  </div>
+  <div class="hint">Paste your website URL and click Analyze — the AI will extract company info, services, colors, tone and more</div>
+  <div id="urlAnalysisResult" style="margin-top:10px;display:none;"></div>
+</div>
+<div class="field"><div class="field-label">وصف موجز</div><textarea class="input" id="f-desc" placeholder="صف نشاطك...">${fd.description}</textarea></div>
+<div class="field"><div class="field-label">الفترة الزمنية <span class="req">*</span></div><div class="radio-list">${PERIODS.map(p=>`<div class="radio-item${fd.period===p?' sel':''}" onclick="pr('period','${p}',this)"><div class="rdot${fd.period===p?' sel':''}"></div><span>${p}</span></div>`).join('')}</div></div>
+<div class="nav-row"><button class="btn primary" onclick="saveS1();goStep(2)">التالي ←</button></div>`}
+
+function s2(){return`<div class="step-title">البيانات والأرقام</div><div class="step-desc">أدخل بياناتك المالية الرئيسية.</div>
+<div class="two-fields">
+  <div class="field"><div class="field-label">إجمالي الإيرادات (ريال)</div><input class="input" id="f-rev" type="number" value="${fd.revenue}" placeholder="485000"/></div>
+  <div class="field"><div class="field-label">عدد الطلبات</div><input class="input" id="f-ord" type="number" value="${fd.orders}" placeholder="1240"/></div>
+</div>
+<div class="two-fields">
+  <div class="field"><div class="field-label">متوسط قيمة الطلب (ريال)</div><input class="input" id="f-avg" type="number" value="${fd.avgOrder}" placeholder="391"/></div>
+  <div class="field"><div class="field-label">نسبة الإرجاع ٪</div><input class="input" id="f-ret" type="number" value="${fd.returnRate}" placeholder="8.3"/></div>
+</div>
+<div class="field"><div class="field-label">المنافسون (اختياري)</div><input class="input" id="f-comp" value="${fd.competitors}" placeholder="أسماء مفصولة بفاصلة..."/></div>
+<div class="nav-row"><button class="btn primary" onclick="saveS2();goStep(3)">التالي ←</button><button class="btn" onclick="goStep(1)">→ السابق</button></div>`}
+
+function s3(){return`<div class="step-title">اختيار المخرجات</div><div class="step-desc">حدد ما تريد توليده.</div>
+<div class="field"><div class="field-label">وحدات الإنتاج <span class="req">*</span></div><div class="mod-grid">${MODS.map(m=>`<div class="mod-card${fd.modules.includes(m.key)?' sel':''}" onclick="tm('${m.key}',this)"><div class="mod-icon">${m.icon}</div><div class="mod-name${fd.modules.includes(m.key)?' sel':''}">${m.label}</div><div class="mod-desc">${m.desc}</div></div>`).join('')}</div></div>
+<div class="field"><div class="field-label">لغة المخرجات</div><div class="radio-list" style="flex-direction:row;gap:7px;">${[['arabic','عربي'],['english','English'],['both','ثنائي']].map(([v,l])=>`<div class="radio-item${fd.language===v?' sel':''}" style="flex:1;" onclick="pr('language','${v}',this)"><div class="rdot${fd.language===v?' sel':''}"></div><span>${l}</span></div>`).join('')}</div></div>
+<div class="field"><div class="field-label">مستوى التفاصيل</div><div class="radio-list">${[['summary','ملخص تنفيذي','2-4 صفحات'],['full','تقرير شامل','تحليل مفصل'],['extended','موسع','للمستثمرين']].map(([v,l,s])=>`<div class="radio-item${fd.detailLevel===v?' sel':''}" onclick="pr('detailLevel','${v}',this)"><div class="rdot${fd.detailLevel===v?' sel':''}"></div><div><div>${l}</div><div style="font-size:10px;color:var(--txt2);">${s}</div></div></div>`).join('')}</div></div>
+<div class="nav-row"><button class="btn primary" onclick="goStep(4)">مراجعة وإرسال ←</button><button class="btn" onclick="goStep(2)">→ السابق</button></div>`}
+
+function s4(){const hk=!!getKey(); return`<div class="step-title">مراجعة وإرسال</div>
+${!hk?`<div style="background:var(--red-l);border:1px solid #E8A090;border-radius:var(--r);padding:10px 13px;font-size:12px;color:var(--red);margin-bottom:12px;">⚠ لم يتم إدخال API Key — <span style="cursor:pointer;text-decoration:underline;" onclick="go('settings',null)">اضغط هنا لإضافته</span></div>`:''}
+<div class="summary-card"><div class="sum-title">ملخص الطلب</div>
+<div class="sum-row"><span class="sum-key">الشركة</span><span class="sum-val">${fd.companyName||'—'}</span></div>
+<div class="sum-row"><span class="sum-key">القطاع</span><span class="sum-val">${fd.sector||'—'}</span></div>
+<div class="sum-row"><span class="sum-key">الفترة</span><span class="sum-val">${fd.period}</span></div>
+<div class="sum-row"><span class="sum-key">الإيرادات</span><span class="sum-val">${fd.revenue?Number(fd.revenue).toLocaleString()+' ريال':'—'}</span></div>
+<div class="sum-row"><span class="sum-key">المخرجات</span></div>
+<div class="pill-row">${fd.modules.map(m=>`<span class="pill purple">${ML[m]}</span>`).join('')}</div></div>
+<div class="summary-card" style="margin-top:9px;"><div class="sum-title">وقت المعالجة المتوقع</div>${fd.modules.map(m=>`<div class="sum-row"><span class="sum-key">${ML[m]}</span><span class="sum-val" style="color:var(--grn);">${MT[m]}</span></div>`).join('')}</div>
+<div class="nav-row">
+  <button class="btn primary" onclick="submitForm()" ${!hk?'disabled':''}>🚀 بدء التوليد</button>
+  <button class="btn" onclick="goStep(3)">→ تعديل</button>
+  ${!hk?`<button class="btn primary" onclick="go('settings',null)">⚙ إضافة API Key</button>`:''}
+</div>`}
+
+function saveS1(){fd.companyName=document.getElementById('f-name')?.value?.trim()||fd.companyName;fd.description=document.getElementById('f-desc')?.value||fd.description;fd.websiteUrl=document.getElementById('f-url')?.value?.trim()||fd.websiteUrl||''}
+function saveS2(){fd.revenue=document.getElementById('f-rev')?.value||fd.revenue;fd.orders=document.getElementById('f-ord')?.value||fd.orders;fd.avgOrder=document.getElementById('f-avg')?.value||fd.avgOrder;fd.returnRate=document.getElementById('f-ret')?.value||fd.returnRate;fd.competitors=document.getElementById('f-comp')?.value||fd.competitors}
+function pc(k,v,el){fd[k]=v;el.closest('.chip-row').querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
+function pr(k,v,el){fd[k]=v;el.closest('.radio-list').querySelectorAll('.radio-item').forEach(r=>{r.classList.remove('sel');r.querySelector('.rdot')?.classList.remove('sel')});el.classList.add('sel');el.querySelector('.rdot')?.classList.add('sel')}
+function tm(k,el){const i=fd.modules.indexOf(k);if(i>-1)fd.modules.splice(i,1);else fd.modules.push(k);el.classList.toggle('sel');el.querySelector('.mod-name')?.classList.toggle('sel')}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SUBMIT & CALL AI
+// ══════════════════════════════════════════════════════════════════════════════
+async function submitForm(){
+  saveS1(); saveS2()
+  if(!fd.companyName||fd.companyName.trim()===''){alert('يرجى إدخال اسم الشركة');goStep(1);return}
+  if(!fd.modules.length){alert('اختر وحدة واحدة على الأقل');goStep(3);return}
+  const key=getKey()
+  if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+
+  showProc('بدء التوليد...')
+  const results={}, t0=Date.now()
+  const steps=fd.modules.map(k=>({key:k,label:`توليد ${ML[k]}...`}))
+
+  try{
+    for(let i=0;i<steps.length;i++){
+      const s=steps[i]
+      setProc(Math.round((i/steps.length)*88),s.label)
+      results[s.key] = await callAI(s.key,fd,key)
+    }
+    setProc(100,'مكتمل! 🎉')
+    await sleep(600)
+
+    const sub={id:Date.now(),formData:{...fd},results,elapsed:Math.round((Date.now()-t0)/1000)}
+    submissions.push(sub)
+    addToReports(sub)
+    hideProc()
+    currentStep=1; goStep(1)
+    showOutputs(sub)
+  }catch(e){hideProc();alert('خطأ: '+e.message)}
+}
+
+async function callAI(type, data, key){
+  const prompts={
+    report:`أنت محلل أعمال خليجي متخصص. ولّد تقريراً إدارياً شاملاً باللغة العربية. أرجع JSON فقط بدون markdown أو نص إضافي.
+بيانات الشركة: الاسم=${data.companyName}, القطاع=${data.sector}, الحجم=${data.size}, الإيرادات=${data.revenue}, الطلبات=${data.orders}, الفترة=${data.period}, الوصف=${data.description}, الموقع=${data.websiteUrl||''}${data.websiteAnalysis?', تحليل الموقع='+data.websiteAnalysis:''}
+الشكل المطلوب:
+{"summary":"ملخص تنفيذي 3-4 جمل","metrics":[{"label":"...","value":"...","change":"...","changeType":"up"}],"insights":[{"type":"opportunity","text":"...","tag":"فرصة"}],"recommendations":[{"rank":1,"text":"...","priority":"high"}],"monthlyTrend":[{"month":"يناير","value":40},{"month":"فبراير","value":55},{"month":"مارس","value":48},{"month":"أبريل","value":70},{"month":"مايو","value":65},{"month":"يونيو","value":85}],"categoryBreakdown":[{"name":"...","value":40}]}`,
+    dashboard:`أنت محلل KPI. أرجع JSON فقط.
+بيانات: ${data.companyName}, ${data.sector}, إيرادات=${data.revenue}, طلبات=${data.orders}
+{"kpis":[{"label":"...","value":"...","change":"...","changeType":"up"}],"channels":[{"name":"...","percentage":40,"color":"#534AB7"}],"healthMetrics":[{"label":"...","value":"...","barPercentage":75,"color":"#1D9E75"}]}`,
+    marketing:`أنت خبير تسويق رقمي خليجي. ولّد محتوى تسويقياً عربياً جذاباً. أرجع JSON فقط.
+الشركة: ${data.companyName}, القطاع: ${data.sector}
+{"posts":[{"platform":"إنستجرام","type":"منشور","content":"...","hashtags":["#..."]},{"platform":"سناب شات","type":"قصة","content":"...","hashtags":["#..."]},{"platform":"تويتر X","type":"تغريدة","content":"...","hashtags":["#..."]},{"platform":"جوجل","type":"إعلان","headline":"...","content":"...","hashtags":[]}],"schedule":{"bestDays":"...","bestTimes":"...","audience":"..."}}`,
+    study:`أنت محلل سوق استراتيجي. أرجع JSON فقط.
+الشركة: ${data.companyName}, القطاع: ${data.sector}, المنافسون: ${data.competitors}
+{"marketSize":"...","growthRate":"...","targetAudience":"...","opportunities":["...","...","..."],"threats":["...","..."],"recommendations":["...","...","..."]}`,
+    kpi:`أنت خبير استراتيجي. أنشئ 8 مؤشرات KPI مخصصة. أرجع JSON فقط.
+الشركة=${data.companyName}, القطاع=${data.sector}, الإيرادات=${data.revenue}, الحجم=${data.size}
+{"kpis":[{"name":"...","current":"...","target":"...","unit":"...","frequency":"شهري","status":"on-track","description":"...","actions":["...","..."]}]}`,
+    plan:`أنت مستشار أعمال. أنشئ خطة عمل تنفيذية 90 يوم. أرجع JSON فقط.
+الشركة=${data.companyName}, القطاع=${data.sector}, الإيرادات=${data.revenue}, الحجم=${data.size}, الأهداف=${data.goals||''}, التحديات=${data.challenges||''}
+{"objective":"...","months":[{"month":"الشهر الأول (1-30 يوم)","focus":"...","tasks":[{"task":"...","priority":"high","owner":"...","kpi":"..."}],"milestone":"..."},{"month":"الشهر الثاني (31-60 يوم)","focus":"...","tasks":[{"task":"...","priority":"medium","owner":"...","kpi":"..."}],"milestone":"..."},{"month":"الشهر الثالث (61-90 يوم)","focus":"...","tasks":[{"task":"...","priority":"low","owner":"...","kpi":"..."}],"milestone":"..."}],"expectedResults":["...","...","..."]}`
+  }
+
+  const r = await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2500,messages:[{role:'user',content:prompts[type]}]})})
+  if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'خطأ في الاتصال')}
+  const d=await r.json()
+  const text=d.content?.[0]?.text||''
+  try{return JSON.parse(text.replace(/```json|```/g,'').trim())}
+  catch{throw new Error('خطأ في معالجة الاستجابة — حاول مرة أخرى')}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// OUTPUTS
+// ══════════════════════════════════════════════════════════════════════════════
+function showOutputs(sub){
+  go('outputs',null)
+  document.getElementById('outTitle').textContent = sub.formData.companyName
+  document.querySelectorAll('.out-tab').forEach(t=>{
+    const key=t.id.replace('otab-','')
+    t.classList.toggle('disabled',!sub.results[key])
+  })
+  const first=Object.keys(sub.results)[0]
+  if(first) switchOut(first)
+  Object.keys(sub.results).forEach(k=>{
+    const el=document.getElementById('out-'+k)
+    if(el){
+      if(k==='report') el.innerHTML=renderReport(sub.results[k])
+      else if(k==='dashboard') el.innerHTML=renderDashboard(sub.results[k])
+      else if(k==='marketing') el.innerHTML=renderMarketing(sub.results[k])
+      else if(k==='study') el.innerHTML=renderStudy(sub.results[k])
+    }
+  })
+}
+
+function switchOut(type){
+  document.querySelectorAll('.out-tab').forEach(t=>t.classList.remove('active'))
+  document.querySelectorAll('.out-page').forEach(p=>p.classList.remove('active'))
+  document.getElementById('otab-'+type)?.classList.add('active')
+  document.getElementById('out-'+type)?.classList.add('active')
+}
+
+function viewSub(id,key){const sub=submissions.find(s=>s.id===id);if(sub)showOutputs(sub)}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ══════════════════════════════════════════════════════════════════════════════
+const IC={opportunity:{bg:'#E1F5EE',c:'#085041',i:'▲'},warning:{bg:'#FAEEDA',c:'#633806',i:'!'},info:{bg:'#EEEDFE',c:'#3C3489',i:'★'}}
+const PRI_CLS={high:'pri-h',medium:'pri-m',low:'pri-l'}
+const PRI_LBL={high:'أولوية عالية',medium:'أولوية متوسطة',low:'أولوية منخفضة'}
+
+function outActionRow(type,title){
+  return `<div class="action-row">
+    <button class="btn sm" onclick="regenOut('${type}')">🔄 إعادة توليد</button>
+    <button class="btn sm" onclick="exportPDF('${type}','${title}')">⬇ PDF</button>
+    <button class="btn sm primary" onclick="openShare('${type}','${title}')">🔗 مشاركة</button>
+  </div>`
+}
+
+function renderReport(d){
+  const id='rChart'+Date.now()
+  const id2='pChart'+Date.now()
+  setTimeout(()=>{
+    const bc=document.getElementById(id)
+    const pc=document.getElementById(id2)
+    const months=(d.monthlyTrend||[{month:'يناير',value:40},{month:'فبراير',value:55},{month:'مارس',value:48},{month:'أبريل',value:70},{month:'مايو',value:65},{month:'يونيو',value:85}])
+    if(bc&&!bc._c){bc._c=new Chart(bc,{type:'bar',data:{labels:months.map(m=>m.month),datasets:[{data:months.map(m=>m.value),backgroundColor:'rgba(83,74,183,0.75)',borderColor:'#534AB7',borderWidth:0,borderRadius:6}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.05)'}},x:{grid:{display:false}}}}})}
+    const cats=d.categoryBreakdown||[{name:'المنتج الرئيسي',value:40},{name:'ثانوي',value:30},{name:'خدمات',value:20},{name:'أخرى',value:10}]
+    if(pc&&!pc._c){pc._c=new Chart(pc,{type:'doughnut',data:{labels:cats.map(c=>c.name),datasets:[{data:cats.map(c=>c.value),backgroundColor:['#534AB7','#1D9E75','#D85A30','#EF9F27','#378ADD'],borderWidth:0}]},options:{plugins:{legend:{position:'bottom',labels:{font:{size:11},padding:10}}},cutout:'55%'}})}
+  },300)
+  return `
+  <div class="out-hdr"><div><div class="out-title">التقرير الإداري الشامل</div><div class="meta-row"><span class="pill green">مكتمل</span><span class="pill gray">تقرير شامل</span></div></div>${outActionRow('report','التقرير الإداري')}</div>
+  <div style="background:var(--bg3);border-radius:var(--r);padding:12px;font-size:12px;color:var(--txt2);line-height:1.8;">${d.summary||''}</div>
+  <div class="metrics-row">${(d.metrics||[]).map(m=>`<div class="metric"><div class="m-label">${m.label}</div><div class="m-val">${m.value}</div><div class="m-chg ${m.changeType==='up'?'up':'down'}">▲ ${m.change}</div></div>`).join('')}</div>
+  <div class="two-col">
+    <div class="card"><div class="card-hdr"><span class="card-title">📊 المبيعات الشهرية</span></div><canvas id="${id}" height="160"></canvas></div>
+    <div class="card"><div class="card-hdr"><span class="card-title">🥧 توزيع الفئات</span></div><canvas id="${id2}" height="160"></canvas></div>
+  </div>
+  <div class="card"><div class="card-hdr"><span class="card-title">أبرز الرؤى</span></div><div class="insight-list">${(d.insights||[]).map(ins=>{const c=IC[ins.type]||IC.info;return`<div class="insight-item"><div class="ins-icon" style="background:${c.bg};color:${c.c};">${c.i}</div><div class="ins-text">${ins.text}<br><span style="font-size:10px;color:var(--txt2);">${ins.tag||''}</span></div></div>`}).join('')}</div></div>
+  <div class="card"><div class="card-hdr"><span class="card-title">التوصيات التنفيذية</span></div><div class="rec-list">${(d.recommendations||[]).map(r=>{
+    const t=r.text||''
+    let btn=''
+    if(t.includes('CRM')||t.includes('عملاء'))btn=`<button class="btn xs" onclick="go('crm',null)" style="margin-top:4px;">👥 إنشاء CRM ↗</button>`
+    else if(t.includes('KPI')||t.includes('مؤشر'))btn=`<button class="btn xs" onclick="go('kpi',null)" style="margin-top:4px;">📊 إنشاء KPI ↗</button>`
+    else if(t.includes('خطة')||t.includes('تنفيذ'))btn=`<button class="btn xs" onclick="go('plan',null)" style="margin-top:4px;">📋 إنشاء الخطة ↗</button>`
+    return`<div class="rec-item"><div class="rec-num">${r.rank}</div><div><div class="rec-text">${r.text}</div><div class="rec-pri ${PRI_CLS[r.priority]||'pri-l'}">${PRI_LBL[r.priority]||r.priority}</div>${btn}</div></div>`}).join('')}</div></div>`
+}
+
+function renderDashboard(d){
+  const lid='lChart'+Date.now(), rid='rChart'+Date.now()
+  setTimeout(()=>{
+    const cc=document.getElementById(lid)
+    const rc=document.getElementById(rid)
+    if(cc&&!cc._c){cc._c=new Chart(cc,{type:'bar',data:{labels:(d.channels||[]).map(c=>c.name),datasets:[{data:(d.channels||[]).map(c=>c.percentage),backgroundColor:['#534AB7','#1D9E75','#EF9F27','#B4B2A9'],borderRadius:6,borderWidth:0}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,max:100,grid:{color:'rgba(0,0,0,0.05)'}},y:{grid:{display:false}}}}})}
+    if(rc&&!rc._c){const hm=d.healthMetrics||[];rc._c=new Chart(rc,{type:'radar',data:{labels:hm.map(h=>h.label),datasets:[{data:hm.map(h=>h.barPercentage),backgroundColor:'rgba(83,74,183,0.18)',borderColor:'#534AB7',borderWidth:2,pointBackgroundColor:'#534AB7',pointRadius:4}]},options:{scales:{r:{beginAtZero:true,max:100,ticks:{display:false},grid:{color:'rgba(0,0,0,0.08)'}}},plugins:{legend:{display:false}}}})}
+  },300)
+  return `
+  <div class="out-hdr"><div><div class="out-title">لوحة التحليل التفاعلية</div><div class="meta-row"><span class="pill green">مكتملة</span><span class="pill gray">KPI</span></div></div>${outActionRow('dashboard','لوحة التحليل')}</div>
+  <div class="metrics-row">${(d.kpis||[]).map(k=>`<div class="metric"><div class="m-label">${k.label}</div><div class="m-val">${k.value}</div><div class="m-chg ${k.changeType==='up'?'up':'down'}">${k.change}</div></div>`).join('')}</div>
+  <div class="two-col">
+    <div class="card"><div class="card-hdr"><span class="card-title">📊 أداء القنوات</span></div><canvas id="${lid}" height="180"></canvas></div>
+    <div class="card"><div class="card-hdr"><span class="card-title">🕸️ مؤشرات الأداء</span></div><canvas id="${rid}" height="180"></canvas></div>
+  </div>
+  <div class="card"><div class="card-hdr"><span class="card-title">صحة النشاط التجاري</span></div>
+    <div class="health-grid">${(d.healthMetrics||[]).map(h=>`<div class="health-card"><div class="h-label">${h.label}</div><div class="h-val">${h.value}</div><div class="h-bar"><div style="width:${h.barPercentage}%;height:100%;background:${h.color};border-radius:999px;"></div></div></div>`).join('')}</div>
+  </div>`
+}
+
+function renderMarketing(d){
+  const bg={'إنستجرام':'#EEEDFE','سناب شات':'#E1F5EE','تويتر X':'#E6F1FB','جوجل':'#FAECE7'}
+  return `
+  <div class="out-hdr"><div><div class="out-title">المحتوى التسويقي</div><div class="meta-row"><span class="pill green">مكتمل</span><span class="pill purple">عربي</span></div></div>${outActionRow('marketing','المحتوى التسويقي')}</div>
+  <div class="post-grid">${(d.posts||[]).map((p,i)=>`<div class="post-card"><div class="post-hdr" style="background:${bg[p.platform]||'#F1EFE8'};"><span class="post-platform">${p.platform} — ${p.type}</span><button class="copy-btn" onclick="this.textContent='✓';setTimeout(()=>this.textContent='نسخ',2000);navigator.clipboard.writeText(document.getElementById('pt${i}')?.textContent||'').catch(()=>{})">نسخ</button></div><div class="post-body"><div class="post-text" id="pt${i}">${p.headline?`<b>${p.headline}</b>\n\n`:''}${p.content}</div>${(p.hashtags||[]).length?`<div class="hash-row">${p.hashtags.map(h=>`<span class="hashtag">${h}</span>`).join('')}</div>`:''}</div></div>`).join('')}</div>
+  <div class="card"><div class="card-hdr"><span class="card-title">توصيات الجدولة</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;">
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;font-weight:500;margin-bottom:3px;">أفضل الأيام</div><div style="font-size:12px;color:var(--txt2);">${d.schedule?.bestDays||'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;font-weight:500;margin-bottom:3px;">أفضل الأوقات</div><div style="font-size:12px;color:var(--txt2);">${d.schedule?.bestTimes||'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;font-weight:500;margin-bottom:3px;">الجمهور</div><div style="font-size:12px;color:var(--txt2);">${d.schedule?.audience||'—'}</div></div>
+    </div>
+  </div>`
+}
+
+function renderStudy(d){
+  return `
+  <div class="out-hdr"><div><div class="out-title">الدراسة التحليلية</div><div class="meta-row"><span class="pill green">مكتملة</span></div></div>${outActionRow('study','الدراسة التحليلية')}</div>
+  <div class="two-col">
+    <div class="card"><div class="card-hdr"><span class="card-title">نظرة عامة على السوق</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">حجم السوق</div><div style="font-size:14px;font-weight:500;margin-top:2px;">${d.marketSize||'—'}</div></div>
+        <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">معدل النمو</div><div style="font-size:14px;font-weight:500;margin-top:2px;">${d.growthRate||'—'}</div></div>
+        <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">الجمهور المستهدف</div><div style="font-size:14px;font-weight:500;margin-top:2px;">${d.targetAudience||'—'}</div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card"><div class="card-hdr"><span class="card-title">الفرص</span></div><div style="display:flex;flex-direction:column;gap:5px;">${(d.opportunities||[]).map(o=>`<div style="display:flex;gap:7px;font-size:12px;"><span style="color:var(--grn);">✓</span>${o}</div>`).join('')}</div></div>
+      <div class="card"><div class="card-hdr"><span class="card-title">التحديات</span></div><div style="display:flex;flex-direction:column;gap:5px;">${(d.threats||[]).map(t=>`<div style="display:flex;gap:7px;font-size:12px;"><span style="color:var(--red);">!</span>${t}</div>`).join('')}</div></div>
+    </div>
+  </div>
+  <div class="card"><div class="card-hdr"><span class="card-title">التوصيات الاستراتيجية</span></div>
+    <div class="rec-list">${(d.recommendations||[]).map((r,i)=>`<div class="rec-item"><div class="rec-num">${i+1}</div><div class="rec-text">${r}</div></div>`).join('')}</div>
+  </div>`
+}
+
+function renderKPIContent(data){
+  const sc={'on-track':{bg:'#E1F5EE',c:'#085041',l:'✓ في المسار'},'at-risk':{bg:'#FAEEDA',c:'#633806',l:'⚠ يحتاج متابعة'},'off-track':{bg:'#FAECE7',c:'#712B13',l:'✕ خارج المسار'}}
+  return `<div class="kpi-grid">${(data.kpis||[]).map(k=>{const s=sc[k.status]||sc['on-track'];return`<div class="kpi-card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;"><div style="font-size:13px;font-weight:500;">${k.name}</div><span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;background:${s.bg};color:${s.c};white-space:nowrap;">${s.l}</span></div>
+    <div style="display:flex;gap:16px;margin-bottom:10px;">
+      <div><div style="font-size:10px;color:var(--txt2);">الحالي</div><div style="font-size:18px;font-weight:500;">${k.current} <span style="font-size:10px;color:var(--txt2);">${k.unit||''}</span></div></div>
+      <div><div style="font-size:10px;color:var(--txt2);">الهدف</div><div style="font-size:18px;font-weight:500;color:var(--acc);">${k.target} <span style="font-size:10px;color:var(--txt2);">${k.unit||''}</span></div></div>
+      <div><div style="font-size:10px;color:var(--txt2);">التكرار</div><div style="font-size:12px;margin-top:4px;">${k.frequency||'شهري'}</div></div>
+    </div>
+    <div style="font-size:11px;color:var(--txt2);line-height:1.6;margin-bottom:8px;">${k.description||''}</div>
+    ${(k.actions||[]).length?`<div style="font-size:10px;font-weight:500;color:var(--txt2);margin-bottom:4px;">خطوات التحسين:</div>${k.actions.map(a=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:3px;"><span style="color:var(--acc);">←</span>${a}</div>`).join('')}`:''}
+  </div>`}).join('')}</div>`
+}
+
+function renderPlanContent(data){
+  const pc={high:{bg:'#FAECE7',c:'#712B13',l:'عالية'},medium:{bg:'#FAEEDA',c:'#633806',l:'متوسطة'},low:{bg:'#E1F5EE',c:'#085041',l:'منخفضة'}}
+  return `
+  <div style="margin-bottom:14px;background:var(--acc-l);border-radius:var(--r);padding:11px 14px;font-size:12px;color:var(--acc-d);font-weight:500;">🎯 الهدف: ${data.objective||''}</div>
+  ${(data.months||[]).map((m,mi)=>`<div class="plan-month">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">${mi+1}</div>
+      <div><div style="font-size:13px;font-weight:500;">${m.month}</div><div style="font-size:11px;color:var(--acc);">التركيز: ${m.focus}</div></div>
+    </div>
+    ${(m.tasks||[]).map(t=>{const p=pc[t.priority]||pc.low;return`<div class="plan-task"><span style="font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;background:${p.bg};color:${p.c};flex-shrink:0;">${p.l}</span><div><div style="font-size:12px;">${t.task}</div><div style="font-size:10px;color:var(--txt2);margin-top:2px;">المسؤول: ${t.owner||'—'} · KPI: ${t.kpi||'—'}</div></div></div>`}).join('')}
+    <div style="background:var(--grn-l);color:var(--grn);padding:8px 12px;border-radius:var(--r);font-size:11px;font-weight:500;margin-top:8px;">🏁 المعلم: ${m.milestone}</div>
+  </div>`).join('')}
+  <div class="card"><div class="card-hdr"><span class="card-title">النتائج المتوقعة بعد 90 يوم</span></div>${(data.expectedResults||[]).map(r=>`<div style="display:flex;gap:8px;font-size:12px;margin-bottom:6px;"><span style="color:var(--grn);">✓</span>${r}</div>`).join('')}</div>`
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// TOOLS - KPI & PLAN
+// ══════════════════════════════════════════════════════════════════════════════
+async function buildKPI(){
+  const key=getKey()
+  if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  const body=document.getElementById('kpiBody')
+  body.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:13px;color:var(--txt2);">الذكاء الاصطناعي يبني مؤشرات KPI مخصصة...</div></div>`
+  try{
+    const data=await callAI('kpi',fd,key)
+    body.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;"><div><div style="font-size:15px;font-weight:500;">مؤشرات KPI — ${fd.companyName||'شركتك'}</div><div style="font-size:12px;color:var(--txt2);margin-top:2px;">${new Date().toLocaleDateString('ar-SA')}</div></div></div>`+renderKPIContent(data)
+  }catch(e){body.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="buildKPI()" style="margin-top:12px;">حاول مرة أخرى</button></div>`}
+}
+
+async function buildPlan(){
+  const key=getKey()
+  if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  const body=document.getElementById('planBody')
+  body.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:13px;color:var(--txt2);">الذكاء الاصطناعي يبني خطة العمل...</div></div>`
+  try{
+    const data=await callAI('plan',fd,key)
+    body.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;"><div style="font-size:15px;font-weight:500;">خطة العمل 90 يوم — ${fd.companyName||'شركتك'}</div></div>`+renderPlanContent(data)
+  }catch(e){body.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="buildPlan()" style="margin-top:12px;">حاول مرة أخرى</button></div>`}
+}
+
+async function regenOut(type){
+  const key=getKey()
+  if(!key){alert('يرجى إضافة API Key أولاً');return}
+  const el=document.getElementById('out-'+type)
+  if(!el) return
+  el.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:13px;color:var(--txt2);">جارٍ إعادة التوليد...</div></div>`
+  try{
+    const data=await callAI(type,fd,key)
+    if(type==='report') el.innerHTML=renderReport(data)
+    else if(type==='dashboard') el.innerHTML=renderDashboard(data)
+    else if(type==='marketing') el.innerHTML=renderMarketing(data)
+    else if(type==='study') el.innerHTML=renderStudy(data)
+    if(submissions.length) submissions[submissions.length-1].results[type]=data
+  }catch(e){el.innerHTML=`<div class="loading-box"><div style="color:var(--red);">خطأ: ${e.message}</div><button class="btn primary" onclick="regenOut('${type}')">حاول مرة أخرى</button></div>`}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CRM
+// ══════════════════════════════════════════════════════════════════════════════
+const STAGES=['عميل محتمل','تواصل أولي','عرض سعر','تفاوض','مغلق - رابح','مغلق - خاسر']
+const SBG={'عميل محتمل':'#EEEDFE','تواصل أولي':'#E6F1FB','عرض سعر':'#FAEEDA','تفاوض':'#FBEAF0','مغلق - رابح':'#E1F5EE','مغلق - خاسر':'#FAECE7'}
+const STC={'عميل محتمل':'#3C3489','تواصل أولي':'#0C447C','عرض سعر':'#633806','تفاوض':'#72243E','مغلق - رابح':'#085041','مغلق - خاسر':'#712B13'}
+
+function renderCRM(){
+  const body=document.getElementById('crmBody')
+  if(!crmClients.length){
+    body.innerHTML=`<div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">أضف عملاءك وولّد لكل منهم تقارير وأدوات مخصصة</div><button class="btn primary" onclick="showAddClientForm()">+ إضافة أول عميل</button></div>`
+    return
+  }
+  const won=crmClients.filter(c=>c.stage==='مغلق - رابح').length
+  body.innerHTML=`
+  <div class="metrics-row">
+    <div class="metric"><div class="m-label">إجمالي العملاء</div><div class="m-val">${crmClients.length}</div></div>
+    <div class="metric"><div class="m-label">محتملون</div><div class="m-val">${crmClients.filter(c=>c.stage==='عميل محتمل').length}</div></div>
+    <div class="metric"><div class="m-label">مفتوحة</div><div class="m-val">${crmClients.filter(c=>!c.stage.includes('مغلق')).length}</div></div>
+    <div class="metric"><div class="m-label">مغلق - رابح</div><div class="m-val up">${won}</div></div>
+  </div>
+  <div class="card">
+    <div class="card-hdr"><span class="card-title">قائمة العملاء</span><button class="btn sm primary" onclick="showAddClientForm()">+ إضافة عميل</button></div>
+    <div style="overflow-x:auto;">
+      <table class="crm-table">
+        <thead><tr><th>العميل / الشركة</th><th>القطاع</th><th>الإيرادات</th><th>المرحلة</th><th>الأدوات الذكية</th><th>إجراء</th></tr></thead>
+        <tbody>${crmClients.map((c,i)=>`<tr>
+          <td><div style="font-weight:500;">${c.name}</div><div style="font-size:10px;color:var(--txt2);">${c.company||''}</div></td>
+          <td style="color:var(--txt2);">${c.sector||'—'}</td>
+          <td style="font-weight:500;color:var(--grn);">${c.revenue?Number(c.revenue).toLocaleString()+' ريال':'—'}</td>
+          <td><select onchange="updStage(${i},this.value)" style="font-size:11px;padding:3px 7px;border-radius:6px;border:1px solid var(--bdr2);background:${SBG[c.stage]||'#f0ede8'};color:${STC[c.stage]||'#181816'};font-family:inherit;cursor:pointer;">${STAGES.map(s=>`<option value="${s}" ${c.stage===s?'selected':''}>${s}</option>`).join('')}</select></td>
+          <td><div style="display:flex;gap:4px;flex-wrap:wrap;">
+            <button class="btn xs" style="background:var(--acc-l);color:var(--acc-d);border-color:#7F77DD;" onclick="buildClientTool(${i},'report')">📄 تقرير</button>
+            <button class="btn xs" style="background:var(--grn-l);color:var(--grn);border-color:#5DCAA5;" onclick="buildClientTool(${i},'kpi')">📊 KPI</button>
+            <button class="btn xs" style="background:var(--amb-l);color:var(--amb);border-color:#DCA030;" onclick="buildClientTool(${i},'plan')">📋 خطة</button>
+          </div></td>
+          <td><button class="btn xs" onclick="viewClient(${i})">عرض</button> <button class="btn xs red-btn" onclick="delClient(${i})">حذف</button></td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>
+  </div>`
+  updateDashboard()
+}
+
+function showAddClientForm(){
+  document.getElementById('crmBody').innerHTML=`
+  <div class="card" style="max-width:620px;">
+    <div class="card-hdr"><span class="card-title">إضافة عميل جديد</span><button class="btn sm" onclick="renderCRM()">← رجوع</button></div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">اسم جهة الاتصال <span class="req">*</span></div><input class="input" id="cf-name" placeholder="أحمد محمد"/></div>
+      <div class="field"><div class="field-label">اسم الشركة <span class="req">*</span></div><input class="input" id="cf-company" placeholder="شركة النخبة التجارية"/></div>
+    </div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">القطاع <span class="req">*</span></div><select class="input" id="cf-sector"><option value="">اختر...</option>${SECTORS.map(s=>`<option>${s}</option>`).join('')}</select></div>
+      <div class="field"><div class="field-label">حجم الشركة</div><select class="input" id="cf-size"><option value="">اختر...</option>${SIZES.map(s=>`<option>${s}</option>`).join('')}</select></div>
+    </div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">الإيرادات السنوية (ريال)</div><input class="input" id="cf-revenue" type="number" placeholder="500000"/></div>
+      <div class="field"><div class="field-label">عدد الموظفين</div><input class="input" id="cf-employees" type="number" placeholder="25"/></div>
+    </div>
+    <div class="field"><div class="field-label">الأهداف الرئيسية</div><textarea class="input" id="cf-goals" rows="2" placeholder="زيادة المبيعات 30%، توسيع السوق..."></textarea></div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">التحديات الرئيسية</div><input class="input" id="cf-challenges" placeholder="ارتفاع التكاليف، منافسة شديدة..."/></div>
+      <div class="field"><div class="field-label">المرحلة</div><select class="input" id="cf-stage">${STAGES.map(s=>`<option>${s}</option>`).join('')}</select></div>
+    </div>
+    <div class="field"><div class="field-label">ملاحظات</div><input class="input" id="cf-notes" placeholder="أي معلومات إضافية..."/></div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="saveClient()">✓ حفظ العميل</button>
+      <button class="btn" onclick="renderCRM()">إلغاء</button>
+    </div>
+  </div>`
+}
+
+function saveClient(){
+  const name=document.getElementById('cf-name')?.value?.trim()
+  const company=document.getElementById('cf-company')?.value?.trim()
+  if(!name||!company){alert('يرجى إدخال الاسم واسم الشركة');return}
+  crmClients.push({name,company,sector:document.getElementById('cf-sector')?.value||'',size:document.getElementById('cf-size')?.value||'',revenue:document.getElementById('cf-revenue')?.value||'',employees:document.getElementById('cf-employees')?.value||'',goals:document.getElementById('cf-goals')?.value||'',challenges:document.getElementById('cf-challenges')?.value||'',stage:document.getElementById('cf-stage')?.value||STAGES[0],notes:document.getElementById('cf-notes')?.value||'',lastContact:new Date().toISOString().split('T')[0]})
+  saveCRM(); renderCRM()
+}
+
+function updStage(i,stage){crmClients[i].stage=stage;saveCRM();updateDashboard()}
+function delClient(i){if(confirm('هل تريد حذف هذا العميل؟')){crmClients.splice(i,1);saveCRM();renderCRM()}}
+
+function viewClient(i){
+  const c=crmClients[i]
+  document.getElementById('crmBody').innerHTML=`
+  <div class="card" style="max-width:720px;">
+    <div class="card-hdr"><span class="card-title">👤 ${c.name} — ${c.company}</span><button class="btn sm" onclick="renderCRM()">← رجوع</button></div>
+    <div class="three-col" style="margin-bottom:14px;">
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">القطاع</div><div style="font-size:13px;font-weight:500;margin-top:2px;">${c.sector||'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">الحجم</div><div style="font-size:13px;font-weight:500;margin-top:2px;">${c.size||'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">الإيرادات</div><div style="font-size:13px;font-weight:500;margin-top:2px;color:var(--grn);">${c.revenue?Number(c.revenue).toLocaleString()+' ريال':'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">الموظفون</div><div style="font-size:13px;font-weight:500;margin-top:2px;">${c.employees||'—'}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">المرحلة</div><div style="font-size:12px;font-weight:500;margin-top:4px;padding:2px 8px;border-radius:999px;display:inline-block;background:${SBG[c.stage]};color:${STC[c.stage]};">${c.stage}</div></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:10px;color:var(--txt2);">آخر تواصل</div><div style="font-size:13px;font-weight:500;margin-top:2px;">${c.lastContact||'—'}</div></div>
+    </div>
+    ${c.goals?`<div style="margin-bottom:10px;"><div style="font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:4px;">الأهداف</div><div style="font-size:12px;line-height:1.7;padding:9px;background:var(--grn-l);border-radius:var(--r);color:var(--grn);">${c.goals}</div></div>`:''}
+    ${c.challenges?`<div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:4px;">التحديات</div><div style="font-size:12px;line-height:1.7;padding:9px;background:var(--red-l);border-radius:var(--r);color:var(--red);">${c.challenges}</div></div>`:''}
+    <div style="border-top:1px solid var(--bdr);padding-top:14px;">
+      <div style="font-size:12px;font-weight:500;margin-bottom:10px;">🤖 توليد أدوات ذكية لهذا العميل</div>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;">
+        <button class="btn primary" onclick="buildClientTool(${i},'report')">📄 تقرير كامل</button>
+        <button class="btn" style="background:var(--grn-l);color:var(--grn);border-color:#5DCAA5;" onclick="buildClientTool(${i},'kpi')">📊 KPI مخصص</button>
+        <button class="btn" style="background:var(--amb-l);color:var(--amb);border-color:#DCA030;" onclick="buildClientTool(${i},'plan')">📋 خطة 90 يوم</button>
+      </div>
+    </div>
+    <div id="clientOut" style="margin-top:16px;"></div>
+  </div>`
+}
+
+async function buildClientTool(i,type){
+  const c=crmClients[i]; const key=getKey()
+  if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  const el=document.getElementById('clientOut')
+  if(!el){viewClient(i); setTimeout(()=>buildClientTool(i,type),300); return}
+  el.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:12px;color:var(--txt2);">جارٍ توليد ${type==='report'?'التقرير':type==='kpi'?'KPI':'الخطة'} لـ ${c.company}...</div></div>`
+  const clientData={companyName:c.company,sector:c.sector,size:c.size,revenue:c.revenue,goals:c.goals,challenges:c.challenges,period:'السنة الحالية',orders:'',avgOrder:'',returnRate:'',competitors:'',description:c.goals}
+  try{
+    const data=await callAI(type,clientData,key)
+    const titleMap={report:'التقرير الإداري',kpi:'لوحة KPI',plan:'خطة 90 يوم'}
+    const title=`${titleMap[type]} — ${c.company}`
+    let html=''
+    if(type==='report') html=renderReport(data)
+    else if(type==='kpi') html=renderKPIContent(data)
+    else if(type==='plan') html=renderPlanContent(data)
+    el.innerHTML=`<div><div style="font-size:12px;font-weight:500;color:var(--grn);margin-bottom:10px;">✓ ${title} جاهز</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <button class="btn sm green" onclick="exportClientPDF('${c.company}','${type}')">⬇ تصدير PDF</button>
+      <button class="btn sm primary" onclick="openClientShare('${c.company}','${type}')">🔗 مشاركة</button>
+    </div>${html}</div>`
+  }catch(e){el.innerHTML=`<div style="color:var(--red);font-size:12px;padding:12px;">خطأ: ${e.message}<br><button class="btn sm primary" onclick="buildClientTool(${i},'${type}')" style="margin-top:8px;">حاول مرة أخرى</button></div>`}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// REPORTS LIST
+// ══════════════════════════════════════════════════════════════════════════════
+function addToReports(sub){
+  const g=document.getElementById('reportsGrid')
+  if(g.querySelector('[style*="grid-column"]')) g.innerHTML=''
+  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+  const bgs={report:'#EEEDFE',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+  Object.keys(sub.results).forEach(k=>{
+    const div=document.createElement('div'); div.className='rep-card'
+    div.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;"><div class="rep-icon" style="background:${bgs[k]};">${icons[k]}</div><span class="pill green">مكتمل</span></div>
+    <div style="font-size:13px;font-weight:500;margin-bottom:4px;line-height:1.5;">${labels[k]} — ${sub.formData.companyName}</div>
+    <div style="font-size:10px;color:var(--txt2);margin-bottom:10px;">${new Date(sub.id).toLocaleDateString('ar-SA')}</div>
+    <div style="display:flex;gap:6px;"><button class="btn xs" onclick="viewSub(${sub.id},'${k}')">عرض</button><button class="btn xs" onclick="exportPDF('${k}','${labels[k]}')">⬇ PDF</button><button class="btn xs primary" onclick="openShare('${k}','${labels[k]}')">🔗</button></div>`
+    g.prepend(div)
+  })
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PDF EXPORT
+// ══════════════════════════════════════════════════════════════════════════════
+function exportPDF(type, title){
+  const el = document.getElementById('out-'+type) || document.getElementById(type+'Body')
+  const content = el ? el.innerHTML : ''
+  openPrintWindow(title, content)
+}
+
+function exportClientPDF(company, type){
+  const el = document.getElementById('clientOut')
+  openPrintWindow(`${type==='report'?'التقرير':type==='kpi'?'KPI':'خطة العمل'} — ${company}`, el?.innerHTML||'')
+}
+
+function openPrintWindow(title, content){
+  const w=window.open('','_blank','width=900,height=700')
+  w.document.write(`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"/><title>${title}</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;padding:20px;color:#181816;}
+.print-hdr{display:flex;justify-content:space-between;padding-bottom:14px;border-bottom:2px solid #534AB7;margin-bottom:18px;}
+.logo{font-size:16px;font-weight:600;color:#534AB7;}
+.title{font-size:14px;font-weight:500;}
+.date{font-size:11px;color:#6b6964;margin-top:3px;}
+button,select,.copy-btn,.btn,.card-act{display:none!important;}
+.card{border:1px solid #e2dfd8;border-radius:10px;padding:13px;margin-bottom:12px;break-inside:avoid;}
+.card-hdr{display:flex;justify-content:space-between;margin-bottom:10px;}
+.card-title{font-size:13px;font-weight:500;}
+.metric{background:#f0ede8;border-radius:8px;padding:11px;}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;}
+.m-label{font-size:10px;color:#6b6964;margin-bottom:4px;}
+.m-val{font-size:18px;font-weight:500;}
+.m-chg{font-size:10px;margin-top:2px;}
+.up{color:#0F6E56;}.down{color:#993C1D;}
+.pill{display:inline-block;font-size:10px;font-weight:500;padding:2px 8px;border-radius:999px;}
+.pill.green{background:#E1F5EE;color:#085041;}
+.pill.purple{background:#EEEDFE;color:#3C3489;}
+.pill.gray{background:#f0ede8;color:#6b6964;}
+.out-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.out-title{font-size:16px;font-weight:500;}
+.meta-row{display:flex;gap:6px;margin-top:4px;}
+.action-row{display:none!important;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.insight-list{display:flex;flex-direction:column;gap:6px;}
+.insight-item{display:flex;gap:8px;padding:8px;background:#f0ede8;border-radius:8px;}
+.ins-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.ins-text{font-size:11px;line-height:1.7;}
+.rec-list{display:flex;flex-direction:column;gap:6px;}
+.rec-item{display:flex;gap:8px;padding:8px;border:1px solid #e2dfd8;border-radius:8px;}
+.rec-num{width:20px;height:20px;border-radius:50%;background:#EEEDFE;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#3C3489;flex-shrink:0;}
+.rec-text{font-size:11px;line-height:1.7;}
+.rec-pri{font-size:10px;margin-top:2px;}
+.pri-h{color:#993C1D;}.pri-m{color:#BA7517;}.pri-l{color:#0F6E56;}
+.post-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.post-card{border:1px solid #e2dfd8;border-radius:10px;overflow:hidden;}
+.post-hdr{padding:7px 10px;background:#f0ede8;border-bottom:1px solid #e2dfd8;}
+.post-platform{font-size:11px;font-weight:500;}
+.post-body{padding:10px;}
+.post-text{font-size:11px;line-height:1.8;white-space:pre-line;}
+.hash-row{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
+.hashtag{font-size:10px;background:#EEEDFE;color:#3C3489;padding:1px 7px;border-radius:999px;}
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.kpi-card{border:1px solid #e2dfd8;border-radius:10px;padding:13px;}
+.plan-month{border:1px solid #e2dfd8;border-radius:10px;padding:13px;margin-bottom:10px;}
+.plan-task{display:flex;gap:8px;padding:8px;background:#f0ede8;border-radius:8px;margin-bottom:5px;}
+.print-footer{margin-top:20px;padding-top:10px;border-top:1px solid #e2dfd8;display:flex;justify-content:space-between;font-size:10px;color:#a8a5a0;}
+canvas{max-width:100%!important;max-height:200px!important;}
+@page{margin:15mm;}
+</style></head><body>
+<div class="print-hdr"><div><div class="logo">منصة ذكية</div><div style="font-size:11px;color:#6b6964;">مدعومة بـ Claude AI</div></div><div style="text-align:left;"><div class="title">${title}</div><div class="date">تاريخ الإصدار: ${new Date().toLocaleDateString('ar-SA')}</div></div></div>
+${content}
+<div class="print-footer"><div>منصة ذكية — smart-platform-phi.vercel.app</div><div>Claude AI — ${new Date().toLocaleDateString('ar-SA')}</div></div>
+</body></html>`)
+  w.document.close()
+  setTimeout(()=>{w.focus();w.print()},800)
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SHARE
+// ══════════════════════════════════════════════════════════════════════════════
+function openShare(type, title){
+  const url=window.location.href.split('?')[0]+'?view='+type
+  shareContent={url, title, body:`مرحباً، هذا ${title} المُولَّد بواسطة المنصة الذكية:\n${url}`}
+  document.getElementById('shareUrlText').textContent=url
+  openModal('shareModal')
+}
+
+function openClientShare(company, type){
+  const titles={report:'التقرير الإداري',kpi:'لوحة KPI',plan:'خطة العمل 90 يوم'}
+  const title=`${titles[type]||type} — ${company}`
+  openShare(type, title)
+}
+
+function copyShareUrl(){
+  navigator.clipboard.writeText(shareContent.url).catch(()=>{
+    const t=document.createElement('textarea');t.value=shareContent.url;document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t)
+  })
+  document.getElementById('copyDone').style.display='block'
+  setTimeout(()=>document.getElementById('copyDone').style.display='none',2500)
+}
+
+function shareWA(){
+  window.open(`https://wa.me/?text=${encodeURIComponent(shareContent.body)}`,'_blank')
+}
+
+function shareEmail(){
+  window.open(`mailto:?subject=${encodeURIComponent(shareContent.title)}&body=${encodeURIComponent(shareContent.body)}`)
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════════════════════════════════════
+function initSettings(){
+  const k=getKey()
+  const apiCard = document.getElementById('apiKeyCard')
+  if(apiCard){
+    if(currentUser && currentUser.role==='admin'){
+      apiCard.style.display='block'
+      document.getElementById('apiKeyInput').value=k
+    } else {
+      apiCard.style.display='none'
+    }
+  }
+  renderUsersTable()
+}
+
+function saveKey(){
+  const v=document.getElementById('apiKeyInput').value.trim()
+  if(!v.startsWith('sk-ant-')){document.getElementById('keyMsg').innerHTML='<span style="color:var(--red);">⚠ المفتاح يجب أن يبدأ بـ sk-ant-</span>';return}
+  localStorage.setItem('ant_key',v)
+  document.getElementById('keyMsg').innerHTML='<span style="color:var(--grn);">✓ تم حفظ المفتاح!</span>'
+  updateDashboard()
+}
+
+function clearKey(){
+  localStorage.removeItem('ant_key')
+  document.getElementById('apiKeyInput').value=''
+  document.getElementById('keyMsg').innerHTML='<span style="color:var(--txt2);">تم حذف المفتاح.</span>'
+  updateDashboard()
+}
+
+function updateMyAccount(){
+  const curr=document.getElementById('my-currpass').value
+  const newU=document.getElementById('my-newuser').value.trim()
+  const newP=document.getElementById('my-newpass').value
+  const msg=document.getElementById('myAccMsg')
+  const users=getUsers()
+  const idx=users.findIndex(u=>u.username===currentUser.username)
+  if(idx===-1){msg.innerHTML='<span style="color:var(--red);">خطأ: المستخدم غير موجود</span>';return}
+  if(users[idx].password!==curr){msg.innerHTML='<span style="color:var(--red);">⚠ كلمة المرور الحالية غير صحيحة</span>';return}
+  if(newU && newU!==currentUser.username){
+    if(users.find((u,i)=>u.username===newU&&i!==idx)){msg.innerHTML='<span style="color:var(--red);">⚠ اسم المستخدم مستخدم بالفعل</span>';return}
+    users[idx].username=newU
+    setSession(newU)
+    document.getElementById('sideUsername').textContent=newU
+    currentUser.username=newU
+  }
+  if(newP){
+    if(newP.length<6){msg.innerHTML='<span style="color:var(--red);">⚠ كلمة المرور يجب أن تكون 6 أحرف على الأقل</span>';return}
+    users[idx].password=newP
+  }
+  saveUsers(users)
+  currentUser={...users[idx]}
+  msg.innerHTML='<span style="color:var(--grn);">✓ تم تحديث الحساب بنجاح!</span>'
+  document.getElementById('my-currpass').value=''
+  document.getElementById('my-newpass').value=''
+  document.getElementById('my-newuser').value=''
+}
+
+function renderUsersTable(){
+  if(!currentUser) return
+  const body=document.getElementById('usersTableBody')
+  if(!body) return
+  const users=getUsers()
+  body.innerHTML=users.map((u,i)=>`<tr>
+    <td><div style="font-weight:500;">${u.fullname||u.username}</div><div style="font-size:10px;color:var(--txt2);">@${u.username}</div></td>
+    <td><span class="pill ${u.role==='admin'?'purple':u.role==='analyst'?'green':'gray'}">${ROLE_LABELS[u.role]||u.role}</span></td>
+    <td style="font-size:11px;color:var(--txt2);">${u.role==='admin'?'كاملة':u.role==='analyst'?'عرض فقط':'إدخال فقط'}</td>
+    <td>
+      ${u.username!==currentUser.username?`
+      <select onchange="changeUserRole(${i},this.value)" style="font-size:11px;padding:3px 7px;border-radius:6px;border:1px solid var(--bdr2);font-family:inherit;margin-left:4px;">
+        ${Object.entries(ROLE_LABELS).map(([k,v])=>`<option value="${k}" ${u.role===k?'selected':''}>${v}</option>`).join('')}
+      </select>
+      <button class="btn xs red-btn" onclick="deleteUser(${i})" style="margin-top:3px;">حذف</button>`:'<span style="font-size:10px;color:var(--txt2);">أنت</span>'}
+    </td>
+  </tr>`).join('')
+}
+
+function selectRole(role){
+  selectedRole=role
+  document.querySelectorAll('[id^=role-]').forEach(el=>{el.classList.remove('sel');el.querySelector('.rdot')?.classList.remove('sel')})
+  document.getElementById('role-'+role)?.classList.add('sel')
+  document.getElementById('rdot-'+role)?.classList.add('sel')
+}
+
+function saveNewUser(){
+  const u=document.getElementById('nu-username').value.trim()
+  const p=document.getElementById('nu-password').value
+  const fn=document.getElementById('nu-fullname').value.trim()
+  const err=document.getElementById('addUserErr')
+  if(u.length<3){err.textContent='اسم المستخدم يجب أن يكون 3 أحرف على الأقل';err.style.display='block';return}
+  if(p.length<6){err.textContent='كلمة المرور يجب أن تكون 6 أحرف على الأقل';err.style.display='block';return}
+  const users=getUsers()
+  if(users.find(x=>x.username===u)){err.textContent='اسم المستخدم مستخدم بالفعل';err.style.display='block';return}
+  users.push({username:u,password:p,fullname:fn||u,role:selectedRole})
+  saveUsers(users)
+  closeModal('addUserModal')
+  renderUsersTable()
+  document.getElementById('nu-username').value=''
+  document.getElementById('nu-password').value=''
+  document.getElementById('nu-fullname').value=''
+}
+
+function changeUserRole(i,role){
+  const users=getUsers(); users[i].role=role; saveUsers(users); renderUsersTable()
+}
+
+function deleteUser(i){
+  const users=getUsers()
+  if(users[i].username===currentUser.username){alert('لا يمكنك حذف حسابك الحالي');return}
+  if(confirm(`هل تريد حذف المستخدم "${users[i].username}"؟`)){users.splice(i,1);saveUsers(users);renderUsersTable()}
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MODALS
+// ══════════════════════════════════════════════════════════════════════════════
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PROCESSING
+// ══════════════════════════════════════════════════════════════════════════════
+function showProc(label){document.getElementById('procOverlay').classList.add('show');setProc(0,label)}
+function hideProc(){document.getElementById('procOverlay').classList.remove('show')}
+function setProc(v,l){document.getElementById('progFill').style.width=v+'%';document.getElementById('progLabel').textContent=v+'%';document.getElementById('procSub').textContent=l}
+function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// VISUAL IDENTITY STUDIO
+// ══════════════════════════════════════════════════════════════════════════════
+let brandData = null
+let brandPersonality = []
+
+function toggleBrandChip(el){
+  el.classList.toggle('sel')
+  const val = el.textContent
+  const i = brandPersonality.indexOf(val)
+  if(i>-1) brandPersonality.splice(i,1)
+  else brandPersonality.push(val)
+}
+
+async function buildBrand(){
+  const name = document.getElementById('br-name')?.value?.trim()
+  const industry = document.getElementById('br-industry')?.value?.trim()
+  const audience = document.getElementById('br-audience')?.value?.trim() || ''
+  const colors = document.getElementById('br-colors')?.value?.trim() || ''
+  const personality = brandPersonality.join(', ') || 'Professional, Modern'
+
+  if(!name || !industry){ alert('Please enter company name and industry'); return }
+
+  const key = getKey()
+  if(!key){ alert('Please add your API key first'); go('settings',null); return }
+
+  const body = document.getElementById('brandBody')
+  body.innerHTML = `<div class="loading-box"><div class="spin" style="font-size:32px;">🎨</div><div style="font-size:14px;font-weight:500;margin-top:8px;">Creating your Visual Identity...</div><div style="font-size:12px;color:var(--txt2);margin-top:4px;">Designing logos, colors, fonts and brand guidelines</div></div>`
+
+  const prompt = `You are a world-class brand identity designer. Create a complete visual identity for this company. Return JSON only, no markdown.
+
+Company: ${name}
+Industry: ${industry}
+Personality: ${personality}
+Target Audience: ${audience}
+Color Preference: ${colors}
+
+Return this exact JSON structure:
+{
+  "companyName": "${name}",
+  "tagline": "A short memorable tagline",
+  "brandStory": "2-3 sentences about the brand essence and what it stands for",
+  "personality": ["trait1","trait2","trait3"],
+  "colors": {
+    "primary": {"hex":"#XXXXXX","name":"Color Name","meaning":"Why this color"},
+    "secondary": {"hex":"#XXXXXX","name":"Color Name","meaning":"Why this color"},
+    "accent": {"hex":"#XXXXXX","name":"Color Name","meaning":"Why this color"},
+    "neutral": {"hex":"#XXXXXX","name":"Color Name","meaning":"Background/text"},
+    "white": {"hex":"#FFFFFF","name":"Pure White","meaning":"Clean space"}
+  },
+  "typography": {
+    "heading": {"name":"Font Name","style":"Bold/Serif/Sans","usage":"Headlines and titles","googleFont":"exact Google Fonts name"},
+    "body": {"name":"Font Name","style":"Regular/Light","usage":"Body text and descriptions","googleFont":"exact Google Fonts name"},
+    "accent": {"name":"Font Name","style":"Medium","usage":"Buttons and labels","googleFont":"exact Google Fonts name"}
+  },
+  "logos": [
+    {
+      "name": "Primary Logo",
+      "description": "Description of the logo concept",
+      "style": "Wordmark/Lettermark/Combination",
+      "svgCode": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'><!-- Full working SVG logo --></svg>"
+    },
+    {
+      "name": "Icon Mark",
+      "description": "Description of standalone icon",
+      "style": "Geometric/Abstract/Lettermark",
+      "svgCode": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><!-- Full working SVG icon --></svg>"
+    },
+    {
+      "name": "Dark Version",
+      "description": "Logo on dark background",
+      "style": "Reversed",
+      "svgCode": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'><!-- Full working SVG dark version --></svg>"
+    }
+  ],
+  "brandVoice": {
+    "tone": "Description of communication tone",
+    "doList": ["Do this","Do this","Do this"],
+    "dontList": ["Avoid this","Avoid this","Avoid this"]
+  },
+  "applications": {
+    "businessCard": "Description of business card design",
+    "letterhead": "Description of letterhead design",
+    "socialMedia": "Description of social media profile design",
+    "presentation": "Description of presentation theme"
+  },
+  "presentationTheme": {
+    "background": "#XXXXXX",
+    "titleColor": "#XXXXXX",
+    "bodyColor": "#XXXXXX",
+    "accentColor": "#XXXXXX",
+    "slideStyle": "Description of slide aesthetic"
+  }
+}`
+
+  try{
+    const r = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({model:MODEL, max_tokens:4000, messages:[{role:'user',content:prompt}]})
+    })
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Connection error')}
+    const d = await r.json()
+    const text = d.content?.[0]?.text||''
+    brandData = JSON.parse(text.replace(/```json|```/g,'').trim())
+    renderBrand(brandData)
+  } catch(e){
+    body.innerHTML = `<div class="loading-box"><div style="color:var(--red);font-size:13px;">Error: ${e.message}</div><button class="btn primary" onclick="buildBrand()" style="margin-top:12px;">Try Again</button></div>`
+  }
+}
+
+function renderBrand(d){
+  const body = document.getElementById('brandBody')
+  const c = d.colors
+  const t = d.typography
+
+  body.innerHTML = `
+  <!-- HEADER -->
+  <div style="background:${c.primary.hex};padding:24px;border-radius:var(--r2);margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-size:22px;font-weight:600;color:#fff;">${d.companyName}</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.8);margin-top:3px;font-style:italic;">"${d.tagline}"</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      ${d.personality.map(p=>`<span style="background:rgba(255,255,255,0.2);color:#fff;font-size:10px;font-weight:500;padding:3px 10px;border-radius:999px;">${p}</span>`).join('')}
+    </div>
+  </div>
+
+  <!-- BRAND STORY -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><span class="card-title">✍️ Brand Story</span></div>
+    <p style="font-size:13px;color:var(--txt2);line-height:1.8;">${d.brandStory}</p>
+  </div>
+
+  <!-- LOGOS -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><span class="card-title">🎯 Logo Concepts</span><button class="btn xs" onclick="downloadAllLogos()">⬇ Download All SVGs</button></div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+      ${d.logos.map((logo,i)=>`
+      <div style="border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;">
+        <div style="padding:20px;background:${logo.style==='Reversed'?'#1a1a18':c.primary.hex+'15'};display:flex;align-items:center;justify-content:center;min-height:120px;">
+          ${logo.svgCode||`<div style="font-size:12px;color:var(--txt2);">SVG Logo ${i+1}</div>`}
+        </div>
+        <div style="padding:10px 12px;border-top:1px solid var(--bdr);">
+          <div style="font-size:12px;font-weight:500;margin-bottom:3px;">${logo.name}</div>
+          <div style="font-size:10px;color:var(--txt2);line-height:1.5;">${logo.description}</div>
+          <button class="btn xs" style="margin-top:7px;" onclick="downloadSVG(${i})">⬇ SVG</button>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- COLOR PALETTE -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><span class="card-title">🎨 Color Palette</span></div>
+    <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;">
+      ${Object.entries(c).map(([key,col])=>`
+      <div style="border-radius:var(--r2);overflow:hidden;border:1px solid var(--bdr);">
+        <div style="height:80px;background:${col.hex};cursor:pointer;" onclick="navigator.clipboard.writeText('${col.hex}').catch(()=>{})" title="Click to copy"></div>
+        <div style="padding:9px;">
+          <div style="font-size:11px;font-weight:600;">${col.name}</div>
+          <div style="font-size:10px;color:var(--txt2);font-family:monospace;margin-top:2px;">${col.hex}</div>
+          <div style="font-size:10px;color:var(--txt2);margin-top:3px;line-height:1.4;">${col.meaning}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:10px;font-size:11px;color:var(--txt2);">💡 Click any color to copy its hex code</div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><span class="card-title">✒️ Typography System</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;">
+      ${[['Heading',t.heading],['Body',t.body],['Accent',t.accent]].map(([label,font])=>`
+      <div style="padding:14px;background:var(--bg3);border-radius:var(--r2);">
+        <div style="font-size:10px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;">${label} Font</div>
+        <div style="font-size:18px;font-weight:600;margin-bottom:4px;">${font.name}</div>
+        <div style="font-size:11px;color:var(--acc);margin-bottom:6px;">${font.style}</div>
+        <div style="font-size:11px;color:var(--txt2);line-height:1.5;">${font.usage}</div>
+        <a href="https://fonts.google.com/specimen/${encodeURIComponent(font.googleFont||font.name)}" target="_blank" style="display:inline-block;margin-top:8px;font-size:10px;color:var(--acc);">View on Google Fonts ↗</a>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- TWO COL: BRAND VOICE + PRESENTATION -->
+  <div class="two-col" style="margin-bottom:14px;">
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">🗣️ Brand Voice</span></div>
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:10px;line-height:1.7;">${d.brandVoice?.tone||''}</div>
+      <div style="margin-bottom:8px;">
+        <div style="font-size:11px;font-weight:500;color:var(--grn);margin-bottom:5px;">✓ Do</div>
+        ${(d.brandVoice?.doList||[]).map(item=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:4px;"><span style="color:var(--grn);">✓</span>${item}</div>`).join('')}
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:500;color:var(--red);margin-bottom:5px;">✕ Don't</div>
+        ${(d.brandVoice?.dontList||[]).map(item=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:4px;"><span style="color:var(--red);">✕</span>${item}</div>`).join('')}
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">📐 Presentation Theme</span></div>
+      <div style="border-radius:var(--r);overflow:hidden;margin-bottom:10px;">
+        <!-- Slide preview -->
+        <div style="background:${d.presentationTheme?.background||c.primary.hex};padding:20px;aspect-ratio:16/9;display:flex;flex-direction:column;justify-content:center;">
+          <div style="width:30%;height:3px;background:${d.presentationTheme?.accentColor||c.accent.hex};margin-bottom:10px;border-radius:2px;"></div>
+          <div style="font-size:14px;font-weight:600;color:${d.presentationTheme?.titleColor||'#fff'};margin-bottom:6px;">${d.companyName}</div>
+          <div style="font-size:10px;color:${d.presentationTheme?.bodyColor||'rgba(255,255,255,0.7)'};">${d.tagline}</div>
+          <div style="margin-top:14px;display:flex;gap:6px;">
+            ${Object.values(c).slice(0,4).map(col=>`<div style="width:20px;height:20px;border-radius:50%;background:${col.hex};border:1.5px solid rgba(255,255,255,0.3);"></div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div style="font-size:11px;color:var(--txt2);line-height:1.6;">${d.presentationTheme?.slideStyle||''}</div>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
+        ${Object.entries(d.presentationTheme||{}).filter(([k])=>k.includes('Color')||k.includes('background')).map(([k,v])=>`
+        <div style="display:flex;align-items:center;gap:5px;font-size:10px;color:var(--txt2);">
+          <div style="width:12px;height:12px;border-radius:3px;background:${v};border:1px solid var(--bdr);flex-shrink:0;"></div>
+          ${k.replace(/([A-Z])/g,' $1').trim()}
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATIONS -->
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-hdr"><span class="card-title">📱 Brand Applications</span></div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+      ${Object.entries(d.applications||{}).map(([key,val])=>`
+      <div style="padding:11px;background:var(--bg3);border-radius:var(--r);">
+        <div style="font-size:10px;font-weight:600;color:var(--txt2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;">${key.replace(/([A-Z])/g,' $1').trim()}</div>
+        <div style="font-size:12px;color:var(--txt);line-height:1.6;">${val}</div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  <!-- QUICK SNAPSHOT -->
+  <div style="background:var(--bg3);border-radius:var(--r2);padding:14px;margin-bottom:14px;">
+    <div style="font-size:12px;font-weight:600;margin-bottom:10px;">⚡ Quick Brand Snapshot</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div style="display:flex;gap:4px;">${Object.values(c).map(col=>`<div style="width:32px;height:32px;border-radius:50%;background:${col.hex};border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.15);" title="${col.name}"></div>`).join('')}</div>
+      <div style="width:1px;height:32px;background:var(--bdr);"></div>
+      <div style="font-size:13px;font-weight:600;">${t.heading.name}</div>
+      <div style="font-size:10px;color:var(--txt2);">+</div>
+      <div style="font-size:12px;color:var(--txt2);">${t.body.name}</div>
+      <div style="width:1px;height:32px;background:var(--bdr);"></div>
+      <div style="font-size:12px;font-style:italic;color:var(--txt2);">"${d.tagline}"</div>
+    </div>
+  </div>
+  `
+}
+
+function downloadSVG(index){
+  if(!brandData || !brandData.logos[index]) return
+  const logo = brandData.logos[index]
+  const blob = new Blob([logo.svgCode], {type:'image/svg+xml'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${brandData.companyName.replace(/\s+/g,'-')}-${logo.name.replace(/\s+/g,'-')}.svg`
+  a.click()
+  URL.revokeObjectURL(url)
+}
+
+function downloadAllLogos(){
+  if(!brandData) return
+  brandData.logos.forEach((logo,i) => setTimeout(()=>downloadSVG(i), i*300))
+}
+
+function exportBrandPDF(){
+  if(!brandData){
+    alert('Please generate a Visual Identity first')
+    return
+  }
+  const el = document.getElementById('brandBody')
+  openPrintWindow(`Visual Identity Guide — ${brandData.companyName}`, el.innerHTML)
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// CHAT WITH CLAUDE
+// ══════════════════════════════════════════════════════════════════════════════
+let chatHistory = []
+
+function clearChat(){
+  chatHistory = []
+  const msgs = document.getElementById('chatMessages')
+  if(msgs) msgs.innerHTML = `
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;max-width:85%;">
+          <div style="font-size:13px;line-height:1.7;">Chat cleared! How can I help you?</div>
+        </div>
+      </div>
+    </div>`
+}
+
+function sendQuickMsg(msg){
+  document.getElementById('chatInput').value = msg
+  sendChat()
+}
+
+async function sendChat(){
+  const input = document.getElementById('chatInput')
+  const msg = input?.value?.trim()
+  if(!msg) return
+  const key = getKey()
+  if(!key){ alert('Please add your API key in Settings first'); go('settings',null); return }
+
+  input.value = ''
+  const btn = document.getElementById('chatSendBtn')
+  if(btn) btn.disabled = true
+
+  const msgs = document.getElementById('chatMessages')
+  const wrap = msgs.querySelector('div')
+
+  // Add user message
+  wrap.innerHTML += `
+    <div style="display:flex;gap:10px;margin-bottom:16px;flex-direction:row-reverse;">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--bg3);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;">${currentUser?.username?.charAt(0)?.toUpperCase()||'U'}</div>
+      <div style="background:var(--acc);border-radius:var(--r2) 0 var(--r2) var(--r2);padding:12px 14px;max-width:85%;">
+        <div style="font-size:13px;line-height:1.7;color:#fff;">${msg.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      </div>
+    </div>`
+
+  // Add typing indicator
+  const typingId = 'typing-' + Date.now()
+  wrap.innerHTML += `
+    <div id="${typingId}" style="display:flex;gap:10px;margin-bottom:16px;">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+      <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;">
+        <div style="display:flex;gap:4px;align-items:center;">
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--txt3);animation:pulse 1s infinite;"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--txt3);animation:pulse 1s infinite .2s;"></div>
+          <div style="width:7px;height:7px;border-radius:50%;background:var(--txt3);animation:pulse 1s infinite .4s;"></div>
+        </div>
+      </div>
+    </div>`
+  msgs.scrollTop = msgs.scrollHeight
+
+  chatHistory.push({role:'user',content:msg})
+
+  try{
+    const r = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 2000,
+        system: `You are Claude, an expert AI assistant specializing in business design, branding, marketing, and strategy for companies in the Gulf region (Saudi Arabia, UAE, Kuwait, etc.). You help business owners with:
+- Visual design advice (colors, fonts, layouts, brand identity)
+- Marketing strategy and content
+- Business analysis and recommendations  
+- Generating HTML design mockups when requested
+- UI/UX guidance
+Be concise, practical and actionable. When generating HTML designs, make them complete and beautiful. Respond in the same language the user uses (Arabic or English).`,
+        messages: chatHistory
+      })
+    })
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error')}
+    const d = await r.json()
+    const reply = d.content?.[0]?.text||''
+    chatHistory.push({role:'assistant',content:reply})
+
+    // Remove typing indicator
+    document.getElementById(typingId)?.remove()
+
+    // Format reply - handle code blocks
+    let formatted = reply
+      .replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+      .replace(/\*(.*?)\*/g,'<i>$1</i>')
+      .replace(/\n/g,'<br>')
+
+    wrap.innerHTML += `
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--acc);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">🤖</div>
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;max-width:85%;">
+          <div style="font-size:13px;line-height:1.8;">${formatted}</div>
+          <div style="margin-top:8px;display:flex;gap:6px;">
+            <button class="btn xs" onclick="navigator.clipboard.writeText(this.closest('[style*=padding]')?.querySelector('[style*=line-height]')?.textContent||'').catch(()=>{});this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+          </div>
+        </div>
+      </div>`
+    msgs.scrollTop = msgs.scrollHeight
+  }catch(e){
+    document.getElementById(typingId)?.remove()
+    wrap.innerHTML += `<div style="display:flex;gap:10px;margin-bottom:16px;"><div style="width:32px;height:32px;border-radius:50%;background:var(--red-l);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">⚠</div><div style="background:var(--red-l);border:1px solid #E8A090;border-radius:0 var(--r2) var(--r2) var(--r2);padding:12px 14px;color:var(--red);font-size:13px;">Error: ${e.message}</div></div>`
+  }
+  if(btn) btn.disabled = false
+  msgs.scrollTop = msgs.scrollHeight
+}
+
+// Add pulse animation
+const pulseStyle = document.createElement('style')
+pulseStyle.textContent = '@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}'
+document.head.appendChild(pulseStyle)
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DESIGN MOCKUPS
+// ══════════════════════════════════════════════════════════════════════════════
+let currentMockupType = 'landing'
+let mockupStyles = ['Modern']
+
+function selectMockupType(type, el){
+  currentMockupType = type
+  document.querySelectorAll('[id^=mtype-]').forEach(e=>{
+    e.classList.remove('sel')
+    e.style.borderColor='var(--bdr)'
+    e.style.background='var(--bg2)'
+    e.querySelector('div:last-child').style.color='var(--txt)'
+  })
+  el.classList.add('sel')
+  el.style.borderColor='#7F77DD'
+  el.style.background='var(--acc-l)'
+  el.querySelector('div:last-child').style.color='var(--acc-d)'
+
+  const titles={landing:'Landing Page Details',social:'Social Media Post Details',email:'Email Template Details',card:'Business Card Details',slide:'Presentation Slide Details'}
+  const placeholders={landing:'e.g. Generate leads, showcase services, sell products...',social:'e.g. Promote a sale, announce a product, build engagement...',email:'e.g. Welcome email, newsletter, promotional offer...',card:'e.g. CEO/Founder, Sales Manager, Consultant...',slide:'e.g. Company intro, product pitch, annual report...'}
+  document.getElementById('mockupFormTitle').textContent = titles[type]||'Design Details'
+  document.getElementById('mk-message').placeholder = placeholders[type]||''
+}
+
+function toggleMockupChip(el){
+  el.classList.toggle('sel')
+  const val = el.textContent
+  const i = mockupStyles.indexOf(val)
+  if(i>-1) mockupStyles.splice(i,1); else mockupStyles.push(val)
+}
+
+async function generateMockup(){
+  const name = document.getElementById('mk-name')?.value?.trim()
+  const industry = document.getElementById('mk-industry')?.value?.trim()||''
+  const message = document.getElementById('mk-message')?.value?.trim()||''
+  const color1 = document.getElementById('mk-color1')?.value?.trim()||'#534AB7'
+  const color2 = document.getElementById('mk-color2')?.value?.trim()||'#1D9E75'
+  const notes = document.getElementById('mk-notes')?.value?.trim()||''
+  const style = mockupStyles.join(', ')||'Modern'
+
+  if(!name){ alert('Please enter a company or brand name'); return }
+  const key = getKey()
+  if(!key){ alert('Please add your API key in Settings first'); go('settings',null); return }
+
+  const out = document.getElementById('mockupOutput')
+  out.innerHTML = `<div class="loading-box"><div class="spin" style="font-size:28px;">🖼️</div><div style="font-size:13px;color:var(--txt2);margin-top:8px;">Generating your ${currentMockupType} design...</div></div>`
+
+  const typePrompts = {
+    landing: `Create a complete, beautiful, modern landing page HTML for: Company="${name}", Industry="${industry}", Goal="${message}", Colors: primary="${color1}" secondary="${color2}", Style="${style}". Make it fully functional with hero section, features, CTA, and footer. Use inline CSS only.`,
+    social: `Create an HTML social media post design for: Brand="${name}", Industry="${industry}", Message="${message}", Colors: primary="${color1}" secondary="${color2}", Style="${style}". Create 3 variations - Instagram square (1080x1080), Instagram story (1080x1920 proportions), and Twitter/X post. Use inline CSS only.`,
+    email: `Create a complete professional HTML email template for: Company="${name}", Industry="${industry}", Purpose="${message}", Colors: primary="${color1}" secondary="${color2}", Style="${style}". Include header with logo text, body content, CTA button, and footer. Use table-based layout for email compatibility.`,
+    card: `Create an HTML business card design for: Company="${name}", Industry="${industry}", Role="${message}", Colors: primary="${color1}" secondary="${color2}", Style="${style}". Show front and back of card. Standard size 3.5x2 inches proportions. Make it print-ready looking.`,
+    slide: `Create an HTML presentation slide design for: Company="${name}", Industry="${industry}", Topic="${message}", Colors: primary="${color1}" secondary="${color2}", Style="${style}". Create 3 slide types: title slide, content slide, and closing slide. 16:9 ratio.`
+  }
+
+  const prompt = `You are an expert UI designer. ${typePrompts[currentMockupType]||typePrompts.landing}
+  
+Additional notes: ${notes}
+
+Return ONLY the complete HTML code with embedded CSS. Make it visually stunning and professional. Do not include any explanation, just the HTML.`
+
+  try{
+    const r = await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:4000,messages:[{role:'user',content:prompt}]})})
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error')}
+    const d = await r.json()
+    let html = d.content?.[0]?.text||''
+    // Clean up markdown code blocks if any
+    html = html.replace(/```html|```/g,'').trim()
+
+    out.innerHTML = `
+      <div class="card">
+        <div class="card-hdr">
+          <span class="card-title">✅ Your ${currentMockupType.charAt(0).toUpperCase()+currentMockupType.slice(1)} Design</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn sm" onclick="downloadMockup()">⬇ Download HTML</button>
+            <button class="btn sm primary" onclick="openMockupPreview()">👁 Full Preview</button>
+          </div>
+        </div>
+        <div style="border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;margin-bottom:12px;">
+          <iframe id="mockupFrame" style="width:100%;height:500px;border:none;" srcdoc=""></iframe>
+        </div>
+        <div style="font-size:11px;color:var(--txt2);">💡 Click "Full Preview" to see it in a new window · "Download HTML" to save the file</div>
+      </div>`
+
+    document.getElementById('mockupFrame').srcdoc = html
+    window._lastMockupHTML = html
+    window._lastMockupName = name
+
+  }catch(e){
+    out.innerHTML = `<div class="loading-box"><div style="color:var(--red);">Error: ${e.message}</div><button class="btn primary" onclick="generateMockup()" style="margin-top:12px;">Try Again</button></div>`
+  }
+}
+
+function downloadMockup(){
+  if(!window._lastMockupHTML) return
+  const blob = new Blob([window._lastMockupHTML],{type:'text/html'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href=url; a.download=`${(window._lastMockupName||'design').replace(/\s+/g,'-')}-design.html`; a.click()
+  URL.revokeObjectURL(url)
+}
+
+function openMockupPreview(){
+  if(!window._lastMockupHTML) return
+  const w = window.open('','_blank')
+  w.document.write(window._lastMockupHTML)
+  w.document.close()
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// UI/UX ADVISOR
+// ══════════════════════════════════════════════════════════════════════════════
+async function getUXAdvice(){
+  const type = document.getElementById('ux-type')?.value
+  const desc = document.getElementById('ux-desc')?.value?.trim()
+  const audience = document.getElementById('ux-audience')?.value?.trim()||''
+  const key = getKey()
+
+  if(!desc){ alert('Please describe your design first'); return }
+  if(!key){ alert('Please add your API key in Settings first'); go('settings',null); return }
+
+  const chips = document.querySelectorAll('#ux-feedback-chips .chip.sel')
+  const feedback = Array.from(chips).map(c=>c.textContent).join(', ')||'General feedback'
+
+  const out = document.getElementById('uxOutput')
+  out.innerHTML = `<div class="loading-box"><div class="spin" style="font-size:28px;">✏️</div><div style="font-size:13px;color:var(--txt2);margin-top:8px;">Analyzing your design...</div></div>`
+
+  const prompt = `You are an expert UI/UX designer and brand consultant. Analyze this design and provide detailed, actionable feedback.
+
+Design Type: ${type}
+Description: ${desc}
+Target Audience: ${audience}
+Areas to focus on: ${feedback}
+
+Provide feedback in this JSON structure (return JSON only, no markdown):
+{
+  "overallScore": 85,
+  "summary": "2-3 sentence overall assessment",
+  "strengths": ["strength 1","strength 2","strength 3"],
+  "improvements": [
+    {"issue":"Issue title","description":"Detailed description","priority":"high","fix":"Specific actionable fix"}
+  ],
+  "colorFeedback": {
+    "assessment": "Color analysis",
+    "suggestions": ["suggestion 1","suggestion 2"]
+  },
+  "typographyFeedback": {
+    "assessment": "Typography analysis",
+    "suggestions": ["suggestion 1","suggestion 2"]
+  },
+  "layoutFeedback": {
+    "assessment": "Layout analysis",
+    "suggestions": ["suggestion 1","suggestion 2"]
+  },
+  "quickWins": ["Quick win 1","Quick win 2","Quick win 3"],
+  "inspirationKeywords": ["keyword1","keyword2","keyword3","keyword4","keyword5"]
+}`
+
+  try{
+    const r = await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error')}
+    const d = await r.json()
+    const text = d.content?.[0]?.text||''
+    const data = JSON.parse(text.replace(/```json|```/g,'').trim())
+
+    const scoreColor = data.overallScore>=80?'var(--grn)':data.overallScore>=60?'var(--amb)':'var(--red)'
+    const priColors = {high:{bg:'var(--red-l)',c:'var(--red)'},medium:{bg:'var(--amb-l)',c:'var(--amb)'},low:{bg:'var(--grn-l)',c:'var(--grn)'}}
+
+    out.innerHTML = `
+    <!-- Score -->
+    <div class="card" style="margin-bottom:14px;">
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <div style="font-size:48px;font-weight:600;color:${scoreColor};line-height:1;">${data.overallScore}</div>
+          <div style="font-size:11px;color:var(--txt2);">Design Score</div>
+        </div>
+        <div style="flex:1;">
+          <div style="height:8px;background:var(--bg3);border-radius:999px;overflow:hidden;margin-bottom:8px;">
+            <div style="width:${data.overallScore}%;height:100%;background:${scoreColor};border-radius:999px;transition:width .5s;"></div>
+          </div>
+          <div style="font-size:13px;color:var(--txt2);line-height:1.7;">${data.summary}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:14px;">
+      <!-- Strengths -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">✅ Strengths</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          ${(data.strengths||[]).map(s=>`<div style="display:flex;gap:8px;font-size:12px;padding:7px;background:var(--grn-l);border-radius:var(--r);"><span style="color:var(--grn);flex-shrink:0;">✓</span>${s}</div>`).join('')}
+        </div>
+      </div>
+      <!-- Quick Wins -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">⚡ Quick Wins</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          ${(data.quickWins||[]).map((w,i)=>`<div style="display:flex;gap:8px;font-size:12px;padding:7px;background:var(--acc-l);border-radius:var(--r);"><span style="color:var(--acc);font-weight:600;flex-shrink:0;">${i+1}.</span>${w}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Improvements -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-hdr"><span class="card-title">🔧 Improvements Needed</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${(data.improvements||[]).map(imp=>{const pc=priColors[imp.priority]||priColors.low;return`<div style="border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;">
+          <div style="padding:8px 12px;background:${pc.bg};display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;font-weight:600;color:${pc.c};">${imp.priority?.toUpperCase()||'LOW'}</span>
+            <span style="font-size:12px;font-weight:500;color:var(--txt);">${imp.issue}</span>
+          </div>
+          <div style="padding:10px 12px;">
+            <div style="font-size:12px;color:var(--txt2);margin-bottom:6px;">${imp.description}</div>
+            <div style="font-size:11px;color:var(--acc);display:flex;gap:5px;"><span>→ Fix:</span><span>${imp.fix}</span></div>
+          </div>
+        </div>`}).join('')}
+      </div>
+    </div>
+
+    <!-- Detailed feedback -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+      ${[['🎨 Colors',data.colorFeedback],['✒️ Typography',data.typographyFeedback],['📐 Layout',data.layoutFeedback]].map(([title,fb])=>`
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">${title}</span></div>
+        <div style="font-size:12px;color:var(--txt2);line-height:1.6;margin-bottom:8px;">${fb?.assessment||''}</div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          ${(fb?.suggestions||[]).map(s=>`<div style="font-size:11px;display:flex;gap:5px;"><span style="color:var(--acc);">→</span>${s}</div>`).join('')}
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <!-- Inspiration keywords -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">🔍 Search for Inspiration</span></div>
+      <div style="font-size:12px;color:var(--txt2);margin-bottom:10px;">Search these terms on Behance, Dribbble, or Pinterest for design inspiration:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${(data.inspirationKeywords||[]).map(k=>`<a href="https://www.behance.net/search/projects?search=${encodeURIComponent(k)}" target="_blank" style="padding:5px 12px;background:var(--bg3);border-radius:999px;font-size:11px;color:var(--acc);text-decoration:none;border:1px solid var(--bdr);">${k} ↗</a>`).join('')}
+      </div>
+    </div>`
+
+  }catch(e){
+    out.innerHTML = `<div class="loading-box"><div style="color:var(--red);">Error: ${e.message}</div><button class="btn primary" onclick="getUXAdvice()" style="margin-top:12px;">Try Again</button></div>`
+  }
+}
+
+function checkContrast(){
+  const bg = document.getElementById('cc-bg')?.value||'#ffffff'
+  const text = document.getElementById('cc-text')?.value||'#000000'
+
+  function hexToRgb(hex){
+    const r=parseInt(hex.slice(1,3),16)/255
+    const g=parseInt(hex.slice(3,5),16)/255
+    const b=parseInt(hex.slice(5,7),16)/255
+    return [r,g,b].map(c=>c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4))
+  }
+
+  function luminance(hex){
+    const [r,g,b]=hexToRgb(hex)
+    return 0.2126*r+0.7152*g+0.0722*b
+  }
+
+  const l1=luminance(bg), l2=luminance(text)
+  const ratio = (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05)
+  const ratioFixed = ratio.toFixed(2)
+
+  let level, color, msg
+  if(ratio>=7){level='AAA ✓✓';color='var(--grn)';msg='Excellent contrast — passes all standards'}
+  else if(ratio>=4.5){level='AA ✓';color='var(--grn)';msg='Good contrast — passes WCAG AA standard'}
+  else if(ratio>=3){level='AA Large ⚠';color='var(--amb)';msg='Acceptable for large text only (18px+)'}
+  else{level='Fail ✕';color='var(--red)';msg='Poor contrast — hard to read, fails accessibility'}
+
+  document.getElementById('contrastResult').style.display='block'
+  document.getElementById('contrastResult').innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;"><div><div style="font-size:18px;font-weight:600;color:${color};">${ratioFixed}:1</div><div style="font-size:11px;color:var(--txt2);">${msg}</div></div><span style="font-size:12px;font-weight:600;color:${color};padding:3px 10px;background:${color.replace('var(--','var(--').replace(')','-l)')};border-radius:999px;">${level}</span></div>`
+
+  document.getElementById('contrastPreview').style.display='block'
+  document.getElementById('contrastPreview').style.background=bg
+  document.getElementById('contrastPreview').style.color=text
+  document.getElementById('contrastPreview').textContent=`Sample Text — ${bg} on ${text}`
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// WEBSITE ANALYZER
+// ══════════════════════════════════════════════════════════════════════════════
+async function analyzeWebsite(){
+  const urlEl = document.getElementById('f-url')
+  const url = urlEl?.value?.trim()
+  if(!url){ alert('Please enter a website URL first'); return }
+  if(!url.startsWith('http')){ alert('Please enter a full URL starting with https://'); return }
+
+  const key = getKey()
+  if(!key){ alert('Please add your API key in Settings first'); go('settings',null); return }
+
+  const btn = document.getElementById('analyzeBtn')
+  const result = document.getElementById('urlAnalysisResult')
+  if(btn){ btn.disabled=true; btn.textContent='🔍 Analyzing...' }
+  if(result){ result.style.display='block'; result.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg3);border-radius:var(--r);font-size:12px;color:var(--txt2);"><div class="spin" style="font-size:16px;">🔍</div>Analyzing website — extracting brand info, services, SEO data...</div>' }
+
+  const prompt = `You are a web analyst. Analyze the website at this URL and extract comprehensive information. Since you cannot directly browse URLs, use your knowledge about the company/domain if you recognize it, or provide a structured template based on the URL domain name.
+
+Website URL: ${url}
+
+Extract and return this JSON (no markdown, JSON only):
+{
+  "companyName": "Company name from URL/domain",
+  "tagline": "Company tagline or main value proposition",
+  "description": "2-3 sentence company description",
+  "industry": "Industry/sector",
+  "services": ["service1","service2","service3","service4"],
+  "products": ["product1","product2"],
+  "targetAudience": "Who they serve",
+  "brandTone": "Professional/Casual/Luxury/Friendly/Technical",
+  "uniqueValue": "What makes them different",
+  "colors": {
+    "primary": "Likely primary color based on brand",
+    "secondary": "Likely secondary color"
+  },
+  "seo": {
+    "keywords": ["keyword1","keyword2","keyword3","keyword4","keyword5"],
+    "contentThemes": ["theme1","theme2","theme3"]
+  },
+  "socialMedia": {
+    "platforms": ["Instagram","LinkedIn","Twitter"],
+    "estimatedFollowers": "Estimate based on company size"
+  },
+  "contact": {
+    "email": "info@domain.com format",
+    "phone": "typical format for region",
+    "location": "Likely location based on domain"
+  },
+  "competitors": ["competitor1","competitor2","competitor3"],
+  "marketPosition": "Budget/Mid-range/Premium/Luxury",
+  "recommendations": ["recommendation1","recommendation2","recommendation3"]
+}`
+
+  try{
+    const r = await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})
+    })
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error')}
+    const d = await r.json()
+    const text = d.content?.[0]?.text||''
+    const data = JSON.parse(text.replace(/```json|```/g,'').trim())
+
+    // Auto-fill form fields
+    const nameEl = document.getElementById('f-name')
+    const descEl = document.getElementById('f-desc')
+    if(nameEl && !nameEl.value && data.companyName) nameEl.value = data.companyName
+    if(descEl && data.description) descEl.value = data.description
+
+    // Auto-select sector chip
+    if(data.industry){
+      const chips = document.querySelectorAll('.chip-row .chip')
+      chips.forEach(chip=>{
+        if(data.industry.toLowerCase().includes(chip.textContent.toLowerCase().split(' ')[0].toLowerCase())){
+          chip.classList.add('sel')
+          fd.sector = chip.textContent
+        }
+      })
+    }
+
+    // Store analysis in fd
+    fd.websiteAnalysis = JSON.stringify(data)
+    fd.websiteUrl = url
+    if(data.companyName && !fd.companyName) fd.companyName = data.companyName
+    if(data.description) fd.description = data.description
+
+    // Show results
+    result.innerHTML = `
+    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;">
+      <div style="background:var(--grn-l);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr);">
+        <span style="color:var(--grn);font-size:14px;">✓</span>
+        <span style="font-size:12px;font-weight:500;color:var(--grn);">Website analyzed successfully — form auto-filled!</span>
+      </div>
+      <div style="padding:12px 14px;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Company</div>
+            <div style="font-size:12px;font-weight:500;">${data.companyName||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Industry</div>
+            <div style="font-size:12px;font-weight:500;">${data.industry||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Market Position</div>
+            <div style="font-size:12px;font-weight:500;">${data.marketPosition||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Target Audience</div>
+            <div style="font-size:12px;font-weight:500;">${data.targetAudience||'—'}</div>
+          </div>
+        </div>
+        ${data.services?.length?`<div style="margin-bottom:8px;"><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">Services Detected</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.services.map(s=>`<span style="font-size:10px;padding:2px 8px;background:var(--acc-l);color:var(--acc-d);border-radius:999px;">${s}</span>`).join('')}</div></div>`:''}
+        ${data.seo?.keywords?.length?`<div style="margin-bottom:8px;"><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">SEO Keywords</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.seo.keywords.map(k=>`<span style="font-size:10px;padding:2px 8px;background:var(--bg3);color:var(--txt2);border-radius:999px;border:1px solid var(--bdr);">${k}</span>`).join('')}</div></div>`:''}
+        ${data.competitors?.length?`<div><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">Competitors Identified</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.competitors.map(c=>`<span style="font-size:10px;padding:2px 8px;background:var(--red-l);color:var(--red);border-radius:999px;">${c}</span>`).join('')}</div></div>`:''}
+      </div>
+    </div>`
+
+  }catch(e){
+    result.innerHTML=`<div style="padding:10px;background:var(--red-l);border-radius:var(--r);font-size:12px;color:var(--red);">⚠ ${e.message} — Please fill in the form manually</div>`
+  }
+  if(btn){ btn.disabled=false; btn.textContent='🔍 Analyze' }
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ADMIN PANEL
+// ══════════════════════════════════════════════════════════════════════════════
+function renderAdminPanel(){
+  if(!currentUser?.isSuperAdmin) return
+  const users = getUsers()
+  const search = document.getElementById('ap-search')?.value?.toLowerCase()||''
+  const roleFilter = document.getElementById('ap-filter-role')?.value||''
+  const statusFilter = document.getElementById('ap-filter-status')?.value||''
+  const now = new Date()
+
+  let filtered = users.filter(u=>{
+    const matchSearch = !search || u.username.toLowerCase().includes(search) || (u.fullname||'').toLowerCase().includes(search)
+    const matchRole = !roleFilter || u.role===roleFilter
+    let userStatus = u.status||'active'
+    if(u.expiryDate && new Date(u.expiryDate)<now && !u.isSuperAdmin) userStatus='expired'
+    const matchStatus = !statusFilter || userStatus===statusFilter
+    return matchSearch && matchRole && matchStatus
+  })
+
+  // Update stats
+  const active = users.filter(u=>u.status!=='suspended'&&(!u.expiryDate||new Date(u.expiryDate)>=now||u.isSuperAdmin)).length
+  const suspended = users.filter(u=>u.status==='suspended').length
+  const expiring = users.filter(u=>{
+    if(!u.expiryDate||u.isSuperAdmin) return false
+    const d = Math.ceil((new Date(u.expiryDate)-now)/(1000*60*60*24))
+    return d>=0 && d<=7
+  }).length
+  document.getElementById('ap-total').textContent = users.length
+  document.getElementById('ap-active').textContent = active
+  document.getElementById('ap-suspended').textContent = suspended
+  document.getElementById('ap-expiring').textContent = expiring
+
+  const body = document.getElementById('adminUsersBody')
+  if(!body) return
+
+  body.innerHTML = filtered.map((u,i)=>{
+    const realIdx = users.findIndex(x=>x.username===u.username)
+    let status = u.status||'active'
+    let daysLeft = '—'
+    let daysColor = 'var(--txt2)'
+    if(u.expiryDate){
+      const d = Math.ceil((new Date(u.expiryDate)-now)/(1000*60*60*24))
+      if(d<0 && !u.isSuperAdmin){ status='expired'; daysLeft='Expired'; daysColor='var(--red)' }
+      else if(d<=7){ daysLeft=d+' days'; daysColor='var(--amb)' }
+      else{ daysLeft=d+' days'; daysColor='var(--grn)' }
+    }
+    const statusConfig = {
+      active:{bg:'var(--grn-l)',c:'var(--grn)',l:'Active'},
+      suspended:{bg:'var(--red-l)',c:'var(--red)',l:'Suspended'},
+      expired:{bg:'var(--amb-l)',c:'var(--amb)',l:'Expired'}
+    }
+    const sc = statusConfig[status]||statusConfig.active
+    const lastLogin = u.lastLogin ? new Date(u.lastLogin).toLocaleDateString('en-GB') : 'Never'
+
+    return `<tr>
+      <td>
+        <div style="font-weight:500;">${u.fullname||u.username}</div>
+        <div style="font-size:10px;color:var(--txt2);">@${u.username}${u.isSuperAdmin?' 👑':''}</div>
+      </td>
+      <td><span class="pill ${u.role==='admin'?'purple':u.role==='analyst'?'green':'gray'}">${u.isSuperAdmin?'Super Admin':ROLE_LABELS[u.role]||u.role}</span></td>
+      <td><span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;background:${sc.bg};color:${sc.c};">${sc.l}</span></td>
+      <td style="font-size:11px;color:var(--txt2);">${u.expiryDate||'No expiry'}</td>
+      <td style="font-size:12px;font-weight:500;color:${daysColor};">${daysLeft}</td>
+      <td style="font-size:11px;color:var(--txt2);">${lastLogin}</td>
+      <td>
+        <div style="display:flex;gap:4px;flex-wrap:wrap;">
+          ${!u.isSuperAdmin?`
+          <button class="btn xs" onclick="openEditUser(${realIdx})">✏️ Edit</button>
+          <button class="btn xs" onclick="toggleSuspend(${realIdx})" style="background:${status==='suspended'?'var(--grn-l)':'var(--amb-l)'};color:${status==='suspended'?'var(--grn)':'var(--amb)'};border-color:${status==='suspended'?'#5DCAA5':'#DCA030'};">${status==='suspended'?'Unsuspend':'Suspend'}</button>
+          <button class="btn xs red-btn" onclick="deleteUserAdmin(${realIdx})">🗑 Delete</button>
+          `:'<span style="font-size:10px;color:var(--txt2);">Super Admin</span>'}
+        </div>
+      </td>
+    </tr>`
+  }).join('')
+
+  if(filtered.length===0){
+    body.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;">No users found</td></tr>'
+  }
+}
+
+function openEditUser(idx){
+  const users = getUsers()
+  const u = users[idx]
+  if(!u) return
+  document.getElementById('eu-index').value = idx
+  document.getElementById('eu-username').value = u.username
+  document.getElementById('eu-fullname').value = u.fullname||''
+  document.getElementById('eu-password').value = ''
+  document.getElementById('eu-role').value = u.role||'employee'
+  document.getElementById('eu-status').value = u.status||'active'
+  document.getElementById('eu-expiry').value = u.expiryDate||''
+  document.getElementById('editUserTitle').textContent = 'Edit: '+( u.fullname||u.username)
+  document.getElementById('editUserErr').style.display='none'
+  openModal('editUserModal')
+}
+
+function saveEditUser(){
+  const idx = parseInt(document.getElementById('eu-index').value)
+  const users = getUsers()
+  if(isNaN(idx)||!users[idx]) return
+  const newUser = document.getElementById('eu-username').value.trim()
+  const newPass = document.getElementById('eu-password').value
+  const errEl = document.getElementById('editUserErr')
+
+  if(!newUser){errEl.textContent='Username cannot be empty';errEl.style.display='block';return}
+  if(newUser!==users[idx].username && users.find((u,i)=>u.username===newUser&&i!==idx)){
+    errEl.textContent='Username already taken';errEl.style.display='block';return
+  }
+
+  users[idx].username = newUser
+  users[idx].fullname = document.getElementById('eu-fullname').value.trim()||newUser
+  users[idx].role = document.getElementById('eu-role').value
+  users[idx].status = document.getElementById('eu-status').value
+  users[idx].expiryDate = document.getElementById('eu-expiry').value||''
+  if(newPass){
+    if(newPass.length<6){errEl.textContent='Password must be at least 6 characters';errEl.style.display='block';return}
+    users[idx].password = newPass
+  }
+
+  saveUsers(users)
+  closeModal('editUserModal')
+  renderAdminPanel()
+  renderUsersTable()
+}
+
+function toggleSuspend(idx){
+  const users = getUsers()
+  if(!users[idx]||users[idx].isSuperAdmin) return
+  users[idx].status = users[idx].status==='suspended'?'active':'suspended'
+  saveUsers(users)
+  renderAdminPanel()
+}
+
+function deleteUserAdmin(idx){
+  const users = getUsers()
+  if(!users[idx]) return
+  if(users[idx].isSuperAdmin){alert('Cannot delete Super Admin account');return}
+  if(!confirm(`Delete user "${users[idx].fullname||users[idx].username}"? This cannot be undone.`)) return
+  users.splice(idx,1)
+  saveUsers(users)
+  renderAdminPanel()
+  renderUsersTable()
+}
+
+function exportUsers(){
+  const users = getUsers()
+  const now = new Date()
+  const rows = [['Username','Full Name','Role','Status','Expiry Date','Days Left','Last Login','Created']]
+  users.forEach(u=>{
+    const daysLeft = u.expiryDate?Math.ceil((new Date(u.expiryDate)-now)/(1000*60*60*24)):''
+    rows.push([
+      u.username, u.fullname||'', u.isSuperAdmin?'Super Admin':ROLE_LABELS[u.role]||u.role,
+      u.status||'active', u.expiryDate||'No expiry', daysLeft,
+      u.lastLogin?new Date(u.lastLogin).toLocaleDateString('en-GB'):'Never',
+      u.createdAt?new Date(u.createdAt).toLocaleDateString('en-GB'):''
+    ])
+  })
+  const csv = rows.map(r=>r.map(v=>`"${v}"`).join(',')).join('\n')
+  const blob = new Blob([csv],{type:'text/csv'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href=url; a.download='users-'+new Date().toISOString().split('T')[0]+'.csv'; a.click()
+  URL.revokeObjectURL(url)
+}
+
+// Override go() to render admin panel when navigating to it
+const _origGo = go
+function go(id, navEl){
+  _origGo(id, navEl)
+  if(id==='admin') renderAdminPanel()
+}
+
+function resetToSuperadmin(){
+  if(!confirm('This will reset all users and create the Superadmin account. Continue?')) return
+  localStorage.removeItem('sp_users')
+  localStorage.removeItem('sp_session')
+  const users = [{
+    username:'Superadmin',
+    password:'admin123',
+    fullname:'Super Admin',
+    role:'admin',
+    status:'active',
+    expiryDate:'',
+    lastLogin:'',
+    createdAt:new Date().toISOString(),
+    isSuperAdmin:true
+  }]
+  saveUsers(users)
+  alert('Done! Login with Superadmin / admin123')
+  location.reload()
+}
+// ══════════════════════════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════════════════════════
+initAuth()
+renderStep(1)
+</script>
+</body>
+</html>
 
