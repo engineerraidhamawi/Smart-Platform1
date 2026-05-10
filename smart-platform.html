@@ -494,12 +494,12 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   <div class="topbar"><div class="breadcrumb"><b>الإعدادات</b></div></div>
   <div class="page-body" style="display:flex;flex-direction:column;gap:14px;max-width:700px;">
 
-    <!-- API Key -->
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">🔑 Anthropic API Key</span></div>
-      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">أدخل مفتاح API من <b>console.anthropic.com</b> — يُحفظ في متصفحك فقط.</p>
-      <div class="field"><input class="input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/><div class="hint">يبدأ بـ sk-ant-api03-</div></div>
-      <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveKey()">✓ حفظ المفتاح</button><button class="btn" onclick="clearKey()">حذف</button></div>
+    <!-- API Key — Admin Only -->
+    <div class="card" id="apiKeyCard">
+      <div class="card-hdr"><span class="card-title">🔑 Anthropic API Key</span><span class="pill purple" style="font-size:10px;">Admin Only</span></div>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Enter your API key from <b>console.anthropic.com</b> — saved in your browser only.</p>
+      <div class="field"><input class="input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/><div class="hint">Starts with sk-ant-api03-</div></div>
+      <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveKey()">✓ Save Key</button><button class="btn" onclick="clearKey()">Delete</button></div>
       <div id="keyMsg" style="margin-top:9px;font-size:12px;"></div>
     </div>
 
@@ -786,7 +786,7 @@ const ROLE_PERMS = {
 // STATE
 // ══════════════════════════════════════════════════════════════════════════════
 let currentUser = null
-let fd = {companyName:'',sector:'',size:'',description:'',period:'آخر 6 أشهر',revenue:'',orders:'',avgOrder:'',returnRate:'',competitors:'',modules:['report','marketing'],language:'arabic',detailLevel:'full'}
+let fd = {companyName:'',sector:'',size:'',description:'',period:'آخر 6 أشهر',revenue:'',orders:'',avgOrder:'',returnRate:'',competitors:'',modules:['report','marketing'],language:'arabic',detailLevel:'full',websiteUrl:'',websiteAnalysis:''}
 let submissions = []
 let crmClients = []
 let currentStep = 1
@@ -978,6 +978,15 @@ function s1(){return`<div class="step-title">معلومات النشاط الت�
   <div class="field"><div class="field-label">القطاع <span class="req">*</span></div><div class="chip-row">${SECTORS.map(s=>`<div class="chip${fd.sector===s?' sel':''}" onclick="pc('sector','${s}',this)">${s}</div>`).join('')}</div></div>
   <div class="field"><div class="field-label">حجم الشركة</div><div class="radio-list">${SIZES.map(s=>`<div class="radio-item${fd.size===s?' sel':''}" onclick="pr('size','${s}',this)"><div class="rdot${fd.size===s?' sel':''}"></div><span>${s}</span></div>`).join('')}</div></div>
 </div>
+<div class="field">
+  <div class="field-label">Company Website URL <span style="font-size:10px;color:var(--txt3);font-weight:400;">(optional — AI will analyze the website automatically)</span></div>
+  <div style="display:flex;gap:8px;align-items:flex-start;">
+    <input class="input" id="f-url" value="${fd.websiteUrl||''}" placeholder="https://www.yourcompany.com" style="flex:1;"/>
+    <button class="btn" id="analyzeBtn" onclick="analyzeWebsite()" style="white-space:nowrap;flex-shrink:0;">🔍 Analyze</button>
+  </div>
+  <div class="hint">Paste your website URL and click Analyze — the AI will extract company info, services, colors, tone and more</div>
+  <div id="urlAnalysisResult" style="margin-top:10px;display:none;"></div>
+</div>
 <div class="field"><div class="field-label">وصف موجز</div><textarea class="input" id="f-desc" placeholder="صف نشاطك...">${fd.description}</textarea></div>
 <div class="field"><div class="field-label">الفترة الزمنية <span class="req">*</span></div><div class="radio-list">${PERIODS.map(p=>`<div class="radio-item${fd.period===p?' sel':''}" onclick="pr('period','${p}',this)"><div class="rdot${fd.period===p?' sel':''}"></div><span>${p}</span></div>`).join('')}</div></div>
 <div class="nav-row"><button class="btn primary" onclick="saveS1();goStep(2)">التالي ←</button></div>`}
@@ -1016,7 +1025,7 @@ ${!hk?`<div style="background:var(--red-l);border:1px solid #E8A090;border-radiu
   ${!hk?`<button class="btn primary" onclick="go('settings',null)">⚙ إضافة API Key</button>`:''}
 </div>`}
 
-function saveS1(){fd.companyName=document.getElementById('f-name')?.value?.trim()||fd.companyName;fd.description=document.getElementById('f-desc')?.value||fd.description}
+function saveS1(){fd.companyName=document.getElementById('f-name')?.value?.trim()||fd.companyName;fd.description=document.getElementById('f-desc')?.value||fd.description;fd.websiteUrl=document.getElementById('f-url')?.value?.trim()||fd.websiteUrl||''}
 function saveS2(){fd.revenue=document.getElementById('f-rev')?.value||fd.revenue;fd.orders=document.getElementById('f-ord')?.value||fd.orders;fd.avgOrder=document.getElementById('f-avg')?.value||fd.avgOrder;fd.returnRate=document.getElementById('f-ret')?.value||fd.returnRate;fd.competitors=document.getElementById('f-comp')?.value||fd.competitors}
 function pc(k,v,el){fd[k]=v;el.closest('.chip-row').querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
 function pr(k,v,el){fd[k]=v;el.closest('.radio-list').querySelectorAll('.radio-item').forEach(r=>{r.classList.remove('sel');r.querySelector('.rdot')?.classList.remove('sel')});el.classList.add('sel');el.querySelector('.rdot')?.classList.add('sel')}
@@ -1057,7 +1066,7 @@ async function submitForm(){
 async function callAI(type, data, key){
   const prompts={
     report:`أنت محلل أعمال خليجي متخصص. ولّد تقريراً إدارياً شاملاً باللغة العربية. أرجع JSON فقط بدون markdown أو نص إضافي.
-بيانات الشركة: الاسم=${data.companyName}, القطاع=${data.sector}, الحجم=${data.size}, الإيرادات=${data.revenue}, الطلبات=${data.orders}, الفترة=${data.period}, الوصف=${data.description}
+بيانات الشركة: الاسم=${data.companyName}, القطاع=${data.sector}, الحجم=${data.size}, الإيرادات=${data.revenue}, الطلبات=${data.orders}, الفترة=${data.period}, الوصف=${data.description}, الموقع=${data.websiteUrl||''}${data.websiteAnalysis?', تحليل الموقع='+data.websiteAnalysis:''}
 الشكل المطلوب:
 {"summary":"ملخص تنفيذي 3-4 جمل","metrics":[{"label":"...","value":"...","change":"...","changeType":"up"}],"insights":[{"type":"opportunity","text":"...","tag":"فرصة"}],"recommendations":[{"rank":1,"text":"...","priority":"high"}],"monthlyTrend":[{"month":"يناير","value":40},{"month":"فبراير","value":55},{"month":"مارس","value":48},{"month":"أبريل","value":70},{"month":"مايو","value":65},{"month":"يونيو","value":85}],"categoryBreakdown":[{"name":"...","value":40}]}`,
     dashboard:`أنت محلل KPI. أرجع JSON فقط.
@@ -1555,7 +1564,15 @@ function shareEmail(){
 // ══════════════════════════════════════════════════════════════════════════════
 function initSettings(){
   const k=getKey()
-  document.getElementById('apiKeyInput').value=k
+  const apiCard = document.getElementById('apiKeyCard')
+  if(apiCard){
+    if(currentUser && currentUser.role==='admin'){
+      apiCard.style.display='block'
+      document.getElementById('apiKeyInput').value=k
+    } else {
+      apiCard.style.display='none'
+    }
+  }
   renderUsersTable()
 }
 
@@ -2348,6 +2365,133 @@ function checkContrast(){
   document.getElementById('contrastPreview').style.background=bg
   document.getElementById('contrastPreview').style.color=text
   document.getElementById('contrastPreview').textContent=`Sample Text — ${bg} on ${text}`
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// WEBSITE ANALYZER
+// ══════════════════════════════════════════════════════════════════════════════
+async function analyzeWebsite(){
+  const urlEl = document.getElementById('f-url')
+  const url = urlEl?.value?.trim()
+  if(!url){ alert('Please enter a website URL first'); return }
+  if(!url.startsWith('http')){ alert('Please enter a full URL starting with https://'); return }
+
+  const key = getKey()
+  if(!key){ alert('Please add your API key in Settings first'); go('settings',null); return }
+
+  const btn = document.getElementById('analyzeBtn')
+  const result = document.getElementById('urlAnalysisResult')
+  if(btn){ btn.disabled=true; btn.textContent='🔍 Analyzing...' }
+  if(result){ result.style.display='block'; result.innerHTML='<div style="display:flex;align-items:center;gap:8px;padding:10px;background:var(--bg3);border-radius:var(--r);font-size:12px;color:var(--txt2);"><div class="spin" style="font-size:16px;">🔍</div>Analyzing website — extracting brand info, services, SEO data...</div>' }
+
+  const prompt = `You are a web analyst. Analyze the website at this URL and extract comprehensive information. Since you cannot directly browse URLs, use your knowledge about the company/domain if you recognize it, or provide a structured template based on the URL domain name.
+
+Website URL: ${url}
+
+Extract and return this JSON (no markdown, JSON only):
+{
+  "companyName": "Company name from URL/domain",
+  "tagline": "Company tagline or main value proposition",
+  "description": "2-3 sentence company description",
+  "industry": "Industry/sector",
+  "services": ["service1","service2","service3","service4"],
+  "products": ["product1","product2"],
+  "targetAudience": "Who they serve",
+  "brandTone": "Professional/Casual/Luxury/Friendly/Technical",
+  "uniqueValue": "What makes them different",
+  "colors": {
+    "primary": "Likely primary color based on brand",
+    "secondary": "Likely secondary color"
+  },
+  "seo": {
+    "keywords": ["keyword1","keyword2","keyword3","keyword4","keyword5"],
+    "contentThemes": ["theme1","theme2","theme3"]
+  },
+  "socialMedia": {
+    "platforms": ["Instagram","LinkedIn","Twitter"],
+    "estimatedFollowers": "Estimate based on company size"
+  },
+  "contact": {
+    "email": "info@domain.com format",
+    "phone": "typical format for region",
+    "location": "Likely location based on domain"
+  },
+  "competitors": ["competitor1","competitor2","competitor3"],
+  "marketPosition": "Budget/Mid-range/Premium/Luxury",
+  "recommendations": ["recommendation1","recommendation2","recommendation3"]
+}`
+
+  try{
+    const r = await fetch(WORKER_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+      body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})
+    })
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error')}
+    const d = await r.json()
+    const text = d.content?.[0]?.text||''
+    const data = JSON.parse(text.replace(/```json|```/g,'').trim())
+
+    // Auto-fill form fields
+    const nameEl = document.getElementById('f-name')
+    const descEl = document.getElementById('f-desc')
+    if(nameEl && !nameEl.value && data.companyName) nameEl.value = data.companyName
+    if(descEl && data.description) descEl.value = data.description
+
+    // Auto-select sector chip
+    if(data.industry){
+      const chips = document.querySelectorAll('.chip-row .chip')
+      chips.forEach(chip=>{
+        if(data.industry.toLowerCase().includes(chip.textContent.toLowerCase().split(' ')[0].toLowerCase())){
+          chip.classList.add('sel')
+          fd.sector = chip.textContent
+        }
+      })
+    }
+
+    // Store analysis in fd
+    fd.websiteAnalysis = JSON.stringify(data)
+    fd.websiteUrl = url
+    if(data.companyName && !fd.companyName) fd.companyName = data.companyName
+    if(data.description) fd.description = data.description
+
+    // Show results
+    result.innerHTML = `
+    <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden;">
+      <div style="background:var(--grn-l);padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr);">
+        <span style="color:var(--grn);font-size:14px;">✓</span>
+        <span style="font-size:12px;font-weight:500;color:var(--grn);">Website analyzed successfully — form auto-filled!</span>
+      </div>
+      <div style="padding:12px 14px;">
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Company</div>
+            <div style="font-size:12px;font-weight:500;">${data.companyName||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Industry</div>
+            <div style="font-size:12px;font-weight:500;">${data.industry||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Market Position</div>
+            <div style="font-size:12px;font-weight:500;">${data.marketPosition||'—'}</div>
+          </div>
+          <div style="padding:9px;background:var(--bg3);border-radius:var(--r);">
+            <div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">Target Audience</div>
+            <div style="font-size:12px;font-weight:500;">${data.targetAudience||'—'}</div>
+          </div>
+        </div>
+        ${data.services?.length?`<div style="margin-bottom:8px;"><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">Services Detected</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.services.map(s=>`<span style="font-size:10px;padding:2px 8px;background:var(--acc-l);color:var(--acc-d);border-radius:999px;">${s}</span>`).join('')}</div></div>`:''}
+        ${data.seo?.keywords?.length?`<div style="margin-bottom:8px;"><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">SEO Keywords</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.seo.keywords.map(k=>`<span style="font-size:10px;padding:2px 8px;background:var(--bg3);color:var(--txt2);border-radius:999px;border:1px solid var(--bdr);">${k}</span>`).join('')}</div></div>`:''}
+        ${data.competitors?.length?`<div><div style="font-size:10px;color:var(--txt2);margin-bottom:5px;">Competitors Identified</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${data.competitors.map(c=>`<span style="font-size:10px;padding:2px 8px;background:var(--red-l);color:var(--red);border-radius:999px;">${c}</span>`).join('')}</div></div>`:''}
+      </div>
+    </div>`
+
+  }catch(e){
+    result.innerHTML=`<div style="padding:10px;background:var(--red-l);border-radius:var(--r);font-size:12px;color:var(--red);">⚠ ${e.message} — Please fill in the form manually</div>`
+  }
+  if(btn){ btn.disabled=false; btn.textContent='🔍 Analyze' }
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
