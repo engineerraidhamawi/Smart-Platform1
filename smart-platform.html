@@ -6,6 +6,7 @@
 <title>بصمة — مدعومة بالذكاء الاصطناعي</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -244,6 +245,55 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 .tool-card:hover{border-color:var(--acc);transform:translateY(-2px);}
 
 /* ── Scrollbar ── */
+
+/* ── Mobile Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .app { flex-direction: column; }
+  .sidebar { width: 100% !important; min-width: 100% !important; height: auto; border-left: none; border-bottom: 1px solid var(--bdr); flex-direction: row; flex-wrap: wrap; }
+  .logo { padding: 10px 14px; border-bottom: none; border-right: 1px solid var(--bdr); }
+  .logo img { max-height: 32px !important; }
+  .logo-sub { display: none; }
+  .nav { display: flex; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; padding: 4px; flex: 1; }
+  .nav-sec { display: none; }
+  .nav-item { white-space: nowrap; padding: 6px 10px; font-size: 11px; min-width: auto; }
+  .nav-icon { display: none; }
+  .sidebar-footer { display: none; }
+  .main { flex: 1; overflow: hidden; }
+  .metrics-row { grid-template-columns: repeat(2, 1fr) !important; }
+  .two-col { grid-template-columns: 1fr !important; }
+  .three-col { grid-template-columns: 1fr !important; }
+  .two-fields { grid-template-columns: 1fr !important; }
+  .three-fields { grid-template-columns: 1fr !important; }
+  .tools-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .reports-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .kpi-grid { grid-template-columns: 1fr !important; }
+  .post-grid { grid-template-columns: 1fr !important; }
+  .steps-layout { flex-direction: column; }
+  .steps-side { width: 100% !important; min-width: 100% !important; padding: 10px; display: flex; flex-direction: row; overflow-x: auto; border-left: none; border-bottom: 1px solid var(--bdr); }
+  .step-item { flex-direction: column; align-items: center; min-width: 70px; text-align: center; }
+  .step-line { display: none; }
+  .step-sub { display: none; }
+  .step-lbl { font-size: 9px; }
+  .form-area { padding: 16px; }
+  .out-tabs-bar { overflow-x: auto; }
+  .out-tab { white-space: nowrap; font-size: 11px; padding: 9px 12px; }
+  .page-body { padding: 12px; }
+  .topbar { padding: 8px 12px; flex-wrap: wrap; gap: 6px; }
+  .tb-right { flex-wrap: wrap; gap: 5px; }
+  .btn { font-size: 11px; padding: 6px 10px; }
+  .btn.sm { font-size: 10px; padding: 4px 8px; }
+  .action-row { flex-wrap: wrap; }
+  .out-page { padding: 12px; }
+  .modal-box { margin: 10px; padding: 18px; }
+  .login-box { margin: 16px; padding: 24px; }
+  #onboardingOverlay > div { margin: 16px; padding: 20px; }
+}
+@media (max-width: 480px) {
+  .metrics-row { grid-template-columns: 1fr 1fr !important; }
+  .tools-grid { grid-template-columns: 1fr 1fr !important; }
+  .reports-grid { grid-template-columns: 1fr !important; }
+  .m-val { font-size: 16px !important; }
+}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px;}
 </style>
@@ -296,6 +346,13 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
         <div class="radio-item" id="role-employee" onclick="selectRole('employee')" style="flex:1;"><div class="rdot" id="rdot-employee"></div><div><div style="font-size:11px;font-weight:500;">موظف</div><div style="font-size:10px;color:var(--txt2);">إدخال فقط</div></div></div>
       </div>
     </div>
+    <div class="field"><div class="field-label">الخطة (Plan)</div>
+      <select class="input" id="nu-plan">
+        <option value="basic">Basic — 20 reports/month</option>
+        <option value="pro">Pro — 75 reports/month</option>
+        <option value="premium">Premium — Unlimited</option>
+      </select>
+    </div>
     <div id="addUserErr" class="login-err"></div>
     <div class="nav-row">
       <button class="btn primary" onclick="saveNewUser()">✓ إضافة المستخدم</button>
@@ -344,6 +401,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-item" id="nav-input" onclick="go('input',this)"><span class="nav-icon">⊕</span>إدخال جديد</div>
     <div class="nav-sec">المخرجات</div>
     <div class="nav-item" id="nav-reports" onclick="go('reports',this)"><span class="nav-icon">▤</span>التقارير</div>
+    <div class="nav-item" id="nav-history" onclick="go('history',this)"><span class="nav-icon">🕐</span>السجل</div>
     <div class="nav-item" id="nav-outputs" onclick="go('outputs',this)"><span class="nav-icon">▦</span>المخرجات</div>
     <div class="nav-sec">الأدوات</div>
     <div class="nav-item" id="nav-tools" onclick="go('tools',this)"><span class="nav-icon">🛠</span>أدواتي</div>
@@ -375,7 +433,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
         <div class="role-badge" id="sideRole">—</div>
       </div>
     </div>
-    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:8px;width:100%;text-align:right;">تسجيل الخروج ↩</button>
+    <div id="usageDisplay" style="margin-top:6px;"></div>
+    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:6px;width:100%;text-align:right;">تسجيل الخروج ↩</button>
   </div>
 </div>
 
@@ -525,6 +584,40 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       <div class="field"><input class="input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/><div class="hint">Starts with sk-ant-api03-</div></div>
       <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveKey()">✓ Save Key</button><button class="btn" onclick="clearKey()">Delete</button></div>
       <div id="keyMsg" style="margin-top:9px;font-size:12px;"></div>
+    </div>
+
+    <!-- DeepSeek API Key — Admin Only -->
+    <div class="card" id="deepseekKeyCard">
+      <div class="card-hdr"><span class="card-title">🤖 DeepSeek API Key</span><span class="pill gray" style="font-size:10px;">Admin Only · Optional</span></div>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Sign up free at <b>platform.deepseek.com</b> — get $10 free credit. Much cheaper than Claude.</p>
+      <div class="field"><input class="input" id="deepseekKeyInput" type="password" placeholder="sk-..."/><div class="hint">Starts with sk-</div></div>
+      <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveDeepSeekKey()">✓ Save DeepSeek Key</button><button class="btn" onclick="clearDeepSeekKey()">Delete</button></div>
+      <div id="deepseekKeyMsg" style="margin-top:9px;font-size:12px;"></div>
+    </div>
+
+    <!-- Email Notifications (Admin only) -->
+    <div class="card" id="emailCard">
+      <div class="card-hdr"><span class="card-title">📧 Email Notifications</span><span class="pill gray" style="font-size:10px;">Admin Only · Via EmailJS</span></div>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Sign up free at <b>emailjs.com</b> → Create a service + template → paste IDs below.</p>
+      <div class="three-fields">
+        <div class="field"><div class="field-label">Service ID</div><input class="input" id="ejs-service" placeholder="service_xxx"/></div>
+        <div class="field"><div class="field-label">Template ID</div><input class="input" id="ejs-template" placeholder="template_xxx"/></div>
+        <div class="field"><div class="field-label">Public Key</div><input class="input" id="ejs-key" placeholder="your_public_key"/></div>
+      </div>
+      <button class="btn primary" onclick="saveEmailJS()">✓ Save Email Settings</button>
+      <button class="btn" style="margin-right:8px;" onclick="testEmail()">📧 Test Email</button>
+      <div id="emailJSMsg" style="margin-top:9px;font-size:12px;"></div>
+    </div>
+
+    <!-- Whop Payment Links (Admin only) -->
+    <div class="card" id="paymentCard">
+      <div class="card-hdr"><span class="card-title">💳 Payment Links (Whop)</span><span class="pill gray" style="font-size:10px;">Admin Only</span></div>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Add your Whop payment links so users can upgrade directly from the platform.</p>
+      <div class="field"><div class="field-label">Basic Plan Link (99 SAR)</div><input class="input" id="pay-basic" placeholder="https://whop.com/your-product/basic"/></div>
+      <div class="field"><div class="field-label">Pro Plan Link (249 SAR)</div><input class="input" id="pay-pro" placeholder="https://whop.com/your-product/pro"/></div>
+      <div class="field"><div class="field-label">Premium Plan Link (499 SAR)</div><input class="input" id="pay-premium" placeholder="https://whop.com/your-product/premium"/></div>
+      <button class="btn primary" onclick="savePaymentLinks()">✓ Save Payment Links</button>
+      <div id="paymentMsg" style="margin-top:9px;font-size:12px;"></div>
     </div>
 
     <!-- My Account -->
@@ -875,6 +968,13 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
           <option value="suspended">Suspended</option>
         </select>
       </div>
+    </div>
+    <div class="field"><div class="field-label">Plan</div>
+      <select class="input" id="eu-plan">
+        <option value="basic">Basic — 20 reports/month</option>
+        <option value="pro">Pro — 75 reports/month</option>
+        <option value="premium">Premium — Unlimited</option>
+      </select>
     </div>
     <div class="field"><div class="field-label">Expiry Date <span style="font-size:10px;color:var(--txt3);">(leave empty for no expiry)</span></div><input class="input" type="date" id="eu-expiry"/></div>
     <div id="editUserErr" style="color:var(--red);font-size:12px;margin-bottom:8px;display:none;"></div>
@@ -1602,6 +1702,39 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   </div>
 </div>
 
+<!-- ───── REPORT HISTORY ──────────────────────────────────────────── -->
+<div class="page" id="page-history">
+  <div class="topbar">
+    <div class="breadcrumb"><b>🕐 سجل التقارير</b></div>
+    <div class="tb-right">
+      <input class="input" id="history-search" placeholder="بحث..." style="width:200px;padding:6px 10px;font-size:12px;" oninput="renderHistory()"/>
+      <button class="btn red-btn" onclick="if(confirm('حذف كل السجل؟')){submissions=[];saveSubmissions();renderHistory()}">🗑 حذف الكل</button>
+    </div>
+  </div>
+  <div class="page-body" id="historyBody">
+    <div style="text-align:center;padding:40px;color:var(--txt2);">لا يوجد سجل بعد</div>
+  </div>
+</div>
+
+<!-- ───── ONBOARDING TOUR ──────────────────────────────────────── -->
+<div id="onboardingOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border-radius:var(--r3);padding:32px;max-width:520px;width:90%;position:relative;">
+    <div style="position:absolute;top:16px;right:16px;">
+      <button onclick="skipTour()" style="background:none;border:none;color:var(--txt2);cursor:pointer;font-size:12px;font-family:inherit;">تخطي الجولة ✕</button>
+    </div>
+    <!-- Progress dots -->
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:20px;" id="tourDots"></div>
+    <!-- Tour content -->
+    <div id="tourContent"></div>
+    <!-- Navigation -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;">
+      <button class="btn" id="tourPrev" onclick="tourStep(-1)">→ السابق</button>
+      <span id="tourCounter" style="font-size:11px;color:var(--txt2);"></span>
+      <button class="btn primary" id="tourNext" onclick="tourStep(1)">التالي ←</button>
+    </div>
+  </div>
+</div>
+
 </div><!-- /main -->
 </div><!-- /app -->
 
@@ -1610,6 +1743,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 // CONFIG
 // ══════════════════════════════════════════════════════════════════════════════
 const WORKER_URL = 'https://dark-fire-ce6a.engineer-raid-hamawi.workers.dev'
+const DEEPSEEK_URL = 'https://api.deepseek.com/v1/chat/completions'
+const DEEPSEEK_MODEL = 'deepseek-chat'
 const MODEL = 'claude-sonnet-4-5'
 const ROLE_LABELS = {admin:'مدير عام', analyst:'محلل', employee:'موظف'}
 const ROLE_PERMS = {
@@ -1622,8 +1757,9 @@ const ROLE_PERMS = {
 // STATE
 // ══════════════════════════════════════════════════════════════════════════════
 let currentUser = null
-let fd = {companyName:'',sector:'',size:'',description:'',period:'آخر 6 أشهر',revenue:'',orders:'',avgOrder:'',returnRate:'',competitors:'',modules:['report','marketing'],language:'arabic',detailLevel:'full',websiteUrl:'',websiteAnalysis:''}
-let submissions = []
+let fd = {companyName:'',sector:'',size:'',description:'',period:'آخر 6 أشهر',revenue:'',orders:'',avgOrder:'',returnRate:'',competitors:'',modules:['report','marketing'],language:'arabic',detailLevel:'full',websiteUrl:'',websiteAnalysis:'',aiModel:'claude'}
+let submissions = (()=>{try{return JSON.parse(localStorage.getItem('sp_submissions')||'[]')}catch{return[]}})()
+function saveSubmissions(){try{const trimmed=submissions.slice(-50);localStorage.setItem('sp_submissions',JSON.stringify(trimmed))}catch(e){console.warn('Could not save submissions:',e)}}
 let crmClients = []
 let currentStep = 1
 let selectedRole = 'admin'
@@ -1764,6 +1900,8 @@ function loginSuccess(u){
   updateDashboard()
   renderUsersTable()
   initSettings()
+  setTimeout(updateUsageDisplay, 100)
+  setTimeout(startTour, 500)
 }
 
 function applyRolePermissions(role){
@@ -1811,6 +1949,8 @@ function go(id, navEl){
   if(id==='settings') initSettings()
   if(id==='dashboard') updateDashboard()
   if(id==='crm') renderCRM()
+  if(id==='history') renderHistory()
+  if(id==='reports') addToReports_all()
   if(id==='social') initSocialDashboard()
   if(id==='design-hub') initDesignHub()
   if(id==='content-writer') initContentWriter()
@@ -1923,6 +2063,11 @@ function s2(){return`<div class="step-title">البيانات والأرقام</
 function s3(){return`<div class="step-title">اختيار المخرجات</div><div class="step-desc">حدد ما تريد توليده.</div>
 <div class="field"><div class="field-label">وحدات الإنتاج <span class="req">*</span></div><div class="mod-grid">${MODS.map(m=>`<div class="mod-card${fd.modules.includes(m.key)?' sel':''}" onclick="tm('${m.key}',this)"><div class="mod-icon">${m.icon}</div><div class="mod-name${fd.modules.includes(m.key)?' sel':''}">${m.label}</div><div class="mod-desc">${m.desc}</div></div>`).join('')}</div></div>
 <div class="field"><div class="field-label">لغة المخرجات</div><div class="radio-list" style="flex-direction:row;gap:7px;">${[['arabic','عربي'],['english','English'],['both','ثنائي']].map(([v,l])=>`<div class="radio-item${fd.language===v?' sel':''}" style="flex:1;" onclick="pr('language','${v}',this)"><div class="rdot${fd.language===v?' sel':''}"></div><span>${l}</span></div>`).join('')}</div></div>
+<div class="field"><div class="field-label">🤖 نموذج الذكاء الاصطناعي</div>
+<div class="radio-list" style="flex-direction:row;gap:7px;">
+<div class="radio-item${fd.aiModel==='claude'?' sel':''}" style="flex:1;" onclick="selectAIModel('claude',this)"><div class="rdot${fd.aiModel==='claude'?' sel':''}"></div><div><div style="font-size:11px;font-weight:500;">Claude</div><div style="font-size:9px;color:var(--txt2);">Anthropic — أفضل للعربية</div></div></div>
+<div class="radio-item${fd.aiModel==='deepseek'?' sel':''}" style="flex:1;" onclick="selectAIModel('deepseek',this)"><div class="rdot${fd.aiModel==='deepseek'?' sel':''}"></div><div><div style="font-size:11px;font-weight:500;">DeepSeek V3</div><div style="font-size:9px;color:var(--txt2);">أرخص — مجاني $10</div></div></div>
+</div></div>
 <div class="field"><div class="field-label">مستوى التفاصيل</div><div class="radio-list">${[['summary','ملخص تنفيذي','2-4 صفحات'],['full','تقرير شامل','تحليل مفصل'],['extended','موسع','للمستثمرين']].map(([v,l,s])=>`<div class="radio-item${fd.detailLevel===v?' sel':''}" onclick="pr('detailLevel','${v}',this)"><div class="rdot${fd.detailLevel===v?' sel':''}"></div><div><div>${l}</div><div style="font-size:10px;color:var(--txt2);">${s}</div></div></div>`).join('')}</div></div>
 <div class="nav-row"><button class="btn primary" onclick="goStep(4)">مراجعة وإرسال ←</button><button class="btn" onclick="goStep(2)">→ السابق</button></div>`}
 
@@ -1944,6 +2089,7 @@ ${!hk?`<div style="background:var(--red-l);border:1px solid #E8A090;border-radiu
 
 function saveS1(){fd.companyName=document.getElementById('f-name')?.value?.trim()||fd.companyName;fd.description=document.getElementById('f-desc')?.value||fd.description;fd.websiteUrl=document.getElementById('f-url')?.value?.trim()||fd.websiteUrl||''}
 function saveS2(){fd.revenue=document.getElementById('f-rev')?.value||fd.revenue;fd.orders=document.getElementById('f-ord')?.value||fd.orders;fd.avgOrder=document.getElementById('f-avg')?.value||fd.avgOrder;fd.returnRate=document.getElementById('f-ret')?.value||fd.returnRate;fd.competitors=document.getElementById('f-comp')?.value||fd.competitors}
+function selectAIModel(model,el){fd.aiModel=model;el.closest('.radio-list').querySelectorAll('.radio-item').forEach(r=>{r.classList.remove('sel');r.querySelector('.rdot')?.classList.remove('sel')});el.classList.add('sel');el.querySelector('.rdot')?.classList.add('sel')}
 function pc(k,v,el){fd[k]=v;el.closest('.chip-row').querySelectorAll('.chip').forEach(c=>c.classList.remove('sel'));el.classList.add('sel')}
 function pr(k,v,el){fd[k]=v;el.closest('.radio-list').querySelectorAll('.radio-item').forEach(r=>{r.classList.remove('sel');r.querySelector('.rdot')?.classList.remove('sel')});el.classList.add('sel');el.querySelector('.rdot')?.classList.add('sel')}
 function tm(k,el){const i=fd.modules.indexOf(k);if(i>-1)fd.modules.splice(i,1);else fd.modules.push(k);el.classList.toggle('sel');el.querySelector('.mod-name')?.classList.toggle('sel')}
@@ -1957,6 +2103,7 @@ async function submitForm(){
   if(!fd.modules.length){alert('اختر وحدة واحدة على الأقل');goStep(3);return}
   const key=getKey()
   if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  if(!checkUsageLimit()) return
 
   showProc('بدء التوليد...')
   const results={}, t0=Date.now()
@@ -1972,7 +2119,9 @@ async function submitForm(){
     await sleep(600)
 
     const sub={id:Date.now(),formData:{...fd},results,elapsed:Math.round((Date.now()-t0)/1000)}
+    incrementUsage()
     submissions.push(sub)
+    saveSubmissions()
     addToReports(sub)
     hideProc()
     currentStep=1; goStep(1)
@@ -1981,6 +2130,10 @@ async function submitForm(){
 }
 
 async function callAI(type, data, key){
+  // Route to DeepSeek if selected
+  if((fd.aiModel==='deepseek'||data.aiModel==='deepseek') && getDeepSeekKey()){
+    return callDeepSeek(type, data, getDeepSeekKey())
+  }
   const prompts={
     report:`أنت محلل أعمال خليجي متخصص. ولّد تقريراً إدارياً شاملاً باللغة العربية. أرجع JSON فقط بدون markdown أو نص إضافي.
 بيانات الشركة: الاسم=${data.companyName}, القطاع=${data.sector}, الحجم=${data.size}, الإيرادات=${data.revenue}, الطلبات=${data.orders}, الفترة=${data.period}, الوصف=${data.description}, الموقع=${data.websiteUrl||''}${data.websiteAnalysis?', تحليل الموقع='+data.websiteAnalysis:''}
@@ -2054,6 +2207,8 @@ function outActionRow(type,title){
   return `<div class="action-row">
     <button class="btn sm" onclick="regenOut('${type}')">🔄 إعادة توليد</button>
     <button class="btn sm" onclick="exportPDF('${type}','${title}')">⬇ PDF</button>
+    <button class="btn sm" style="background:#25D366;color:#fff;border-color:#25D366;" onclick="shareReportWA('${type}','${title}')">💬 واتساب</button>
+    <button class="btn sm" onclick="readReportAloud('${type}')">🔊 صوت</button>
     <button class="btn sm primary" onclick="openShare('${type}','${title}')">🔗 مشاركة</button>
   </div>`
 }
@@ -2177,6 +2332,7 @@ function renderPlanContent(data){
 async function buildKPI(){
   const key=getKey()
   if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  if(!checkUsageLimit()) return
   const body=document.getElementById('kpiBody')
   body.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:13px;color:var(--txt2);">الذكاء الاصطناعي يبني مؤشرات KPI مخصصة...</div></div>`
   try{
@@ -2188,6 +2344,7 @@ async function buildKPI(){
 async function buildPlan(){
   const key=getKey()
   if(!key){alert('يرجى إضافة API Key أولاً');go('settings',null);return}
+  if(!checkUsageLimit()) return
   const body=document.getElementById('planBody')
   body.innerHTML=`<div class="loading-box"><div class="spin">⚙</div><div style="font-size:13px;color:var(--txt2);">الذكاء الاصطناعي يبني خطة العمل...</div></div>`
   try{
@@ -2315,6 +2472,7 @@ function viewClient(i){
       <div style="font-size:12px;font-weight:500;margin-bottom:10px;">🤖 توليد أدوات ذكية لهذا العميل</div>
       <div style="display:flex;gap:9px;flex-wrap:wrap;">
         <button class="btn primary" onclick="buildClientTool(${i},'report')">📄 تقرير كامل</button>
+          <button class="btn" onclick="generateClientPortalLink(${i})">🔗 بوابة العميل</button>
         <button class="btn" style="background:var(--grn-l);color:var(--grn);border-color:#5DCAA5;" onclick="buildClientTool(${i},'kpi')">📊 KPI مخصص</button>
         <button class="btn" style="background:var(--amb-l);color:var(--amb);border-color:#DCA030;" onclick="buildClientTool(${i},'plan')">📋 خطة 90 يوم</button>
       </div>
@@ -2483,15 +2641,10 @@ function initSettings(){
   try{
     const k=getKey()
     const apiCard = document.getElementById('apiKeyCard')
-    if(apiCard){
-      if(currentUser && (currentUser.role==='admin'||currentUser.isSuperAdmin)){
-        apiCard.style.display='block'
-        const ki = document.getElementById('apiKeyInput')
-        if(ki) ki.value=k
-      } else {
-        apiCard.style.display='none'
-      }
-    }
+    const dsCard = document.getElementById('deepseekKeyCard')
+    const isAdmin = currentUser && (currentUser.role==='admin'||currentUser.isSuperAdmin)
+    if(apiCard){ apiCard.style.display=isAdmin?'block':'none'; if(isAdmin){const ki=document.getElementById('apiKeyInput');if(ki)ki.value=k} }
+    if(dsCard){ dsCard.style.display=isAdmin?'block':'none'; if(isAdmin){const dki=document.getElementById('deepseekKeyInput');if(dki)dki.value=getDeepSeekKey()} }
     const myNewUser = document.getElementById('my-newuser')
     const myCurrPass = document.getElementById('my-currpass')
     const myNewPass = document.getElementById('my-newpass')
@@ -2499,6 +2652,7 @@ function initSettings(){
     if(myCurrPass) myCurrPass.value=''
     if(myNewPass) myNewPass.value=''
     renderUsersTable()
+    initEmailPaymentSettings()
   }catch(e){console.error('Settings error:',e)}
 }
 
@@ -2580,7 +2734,8 @@ function saveNewUser(){
   if(p.length<6){err.textContent='كلمة المرور يجب أن تكون 6 أحرف على الأقل';err.style.display='block';return}
   const users=getUsers()
   if(users.find(x=>x.username===u)){err.textContent='اسم المستخدم مستخدم بالفعل';err.style.display='block';return}
-  users.push({username:u,password:p,fullname:fn||u,role:selectedRole})
+  const plan=document.getElementById('nu-plan')?.value||'basic'
+  users.push({username:u,password:p,fullname:fn||u,role:selectedRole,plan})
   saveUsers(users)
   closeModal('addUserModal')
   renderUsersTable()
@@ -3514,6 +3669,7 @@ function openEditUser(idx){
   document.getElementById('eu-role').value = u.role||'employee'
   document.getElementById('eu-status').value = u.status||'active'
   document.getElementById('eu-expiry').value = u.expiryDate||''
+  const ep=document.getElementById('eu-plan'); if(ep)ep.value=u.plan||'basic'
   document.getElementById('editUserTitle').textContent = 'Edit: '+( u.fullname||u.username)
   document.getElementById('editUserErr').style.display='none'
   openModal('editUserModal')
@@ -3537,6 +3693,7 @@ function saveEditUser(){
   users[idx].role = document.getElementById('eu-role').value
   users[idx].status = document.getElementById('eu-status').value
   users[idx].expiryDate = document.getElementById('eu-expiry').value||''
+  users[idx].plan = document.getElementById('eu-plan')?.value||'basic'
   if(newPass){
     if(newPass.length<6){errEl.textContent='Password must be at least 6 characters';errEl.style.display='block';return}
     users[idx].password = newPass
@@ -4567,11 +4724,502 @@ function exportSocialReport(){
   const a=document.createElement('a');a.href=url;a.download='social-media-report.csv';a.click()
   URL.revokeObjectURL(url)
 }
+
+// ══════════════════════════════════════════════════════════════════
+// DEEPSEEK API
+// ══════════════════════════════════════════════════════════════════
+function getDeepSeekKey(){return localStorage.getItem('deepseek_key')||''}
+function saveDeepSeekKey(){
+  const v=document.getElementById('deepseekKeyInput')?.value?.trim()
+  if(!v||!v.startsWith('sk-')){document.getElementById('deepseekKeyMsg').innerHTML='<span style="color:var(--red);">⚠ Key must start with sk-</span>';return}
+  localStorage.setItem('deepseek_key',v)
+  document.getElementById('deepseekKeyMsg').innerHTML='<span style="color:var(--grn);">✓ DeepSeek key saved!</span>'
+}
+function clearDeepSeekKey(){localStorage.removeItem('deepseek_key');if(document.getElementById('deepseekKeyInput'))document.getElementById('deepseekKeyInput').value='';if(document.getElementById('deepseekKeyMsg'))document.getElementById('deepseekKeyMsg').innerHTML='<span style="color:var(--txt2);">Deleted.</span>'}
+
+async function callDeepSeek(type, data, key){
+  const prompts = {
+    report:`You are a Gulf business analyst. Generate a comprehensive management report in Arabic. Return JSON only, no markdown.
+Company: name=${data.companyName}, sector=${data.sector}, size=${data.size}, revenue=${data.revenue}, orders=${data.orders}, period=${data.period}
+{"summary":"3-4 sentence executive summary","metrics":[{"label":"...","value":"...","change":"...","changeType":"up"}],"insights":[{"type":"opportunity","text":"...","tag":"فرصة"}],"recommendations":[{"rank":1,"text":"...","priority":"high"}],"monthlyTrend":[{"month":"يناير","value":40}],"categoryBreakdown":[{"name":"...","value":40}]}`,
+    dashboard:`Gulf KPI analyst. Return JSON only.
+Data: ${data.companyName}, ${data.sector}, revenue=${data.revenue}
+{"kpis":[{"label":"...","value":"...","change":"...","changeType":"up"}],"channels":[{"name":"...","percentage":40,"color":"#6b5fcd"}],"healthMetrics":[{"label":"...","value":"...","barPercentage":75,"color":"#1D9E75"}]}`,
+    marketing:`Gulf digital marketing expert. Return JSON only.
+Company: ${data.companyName}, sector: ${data.sector}
+{"posts":[{"platform":"إنستجرام","type":"منشور","content":"...","hashtags":["#..."]}],"schedule":{"bestDays":"...","bestTimes":"...","audience":"..."}}`,
+    study:`Gulf market analyst. Return JSON only.
+Company: ${data.companyName}, sector: ${data.sector}
+{"marketSize":"...","growthRate":"...","targetAudience":"...","opportunities":["..."],"threats":["..."],"recommendations":["..."]}`,
+    kpi:`Strategic consultant. Return JSON only.
+Company=${data.companyName}, sector=${data.sector}, revenue=${data.revenue}
+{"kpis":[{"name":"...","current":"...","target":"...","unit":"...","frequency":"شهري","status":"on-track","description":"...","actions":["..."]}]}`,
+    plan:`Business consultant. Return JSON only.
+Company=${data.companyName}, sector=${data.sector}, goals=${data.goals||''}
+{"objective":"...","months":[{"month":"الشهر الأول","focus":"...","tasks":[{"task":"...","priority":"high","owner":"...","kpi":"..."}],"milestone":"..."}],"expectedResults":["..."]}`
+  }
+  const r = await fetch(DEEPSEEK_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
+    body:JSON.stringify({model:DEEPSEEK_MODEL,max_tokens:2500,messages:[{role:'user',content:prompts[type]||prompts.report}]})
+  })
+  if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'DeepSeek error')}
+  const d=await r.json()
+  const text=d.choices?.[0]?.message?.content||''
+  try{return JSON.parse(text.replace(/```json|```/g,'').trim())}
+  catch{throw new Error('DeepSeek response parsing error — try again')}
+}
+
+// ══════════════════════════════════════════════════════════════════
+// USAGE TRACKING & LIMITS
+// ══════════════════════════════════════════════════════════════════
+const PLAN_LIMITS = {
+  basic: 20,
+  pro: 75,
+  premium: Infinity,
+  admin: Infinity
+}
+
+function getUsageKey(username){ return 'usage_'+username+'_'+new Date().toISOString().slice(0,7) }
+
+function getUserUsage(){
+  if(!currentUser) return 0
+  const key = getUsageKey(currentUser.username)
+  return parseInt(localStorage.getItem(key)||'0')
+}
+
+function incrementUsage(){
+  if(!currentUser) return
+  const key = getUsageKey(currentUser.username)
+  const current = parseInt(localStorage.getItem(key)||'0')
+  localStorage.setItem(key, current+1)
+  updateUsageDisplay()
+}
+
+function getUserLimit(){
+  if(!currentUser) return 20
+  const users = getUsers()
+  const u = users.find(x=>x.username===currentUser.username)
+  const plan = u?.plan||'basic'
+  if(currentUser.isSuperAdmin||currentUser.role==='admin') return Infinity
+  return PLAN_LIMITS[plan]||20
+}
+
+function checkUsageLimit(){
+  const used = getUserUsage()
+  const limit = getUserLimit()
+  if(limit===Infinity) return true
+  if(used>=limit){
+    alert('⚠️ You have reached your monthly limit of '+limit+' reports.\n\nPlease contact the admin to upgrade your plan.')
+    return false
+  }
+  if(used>=limit*0.8){
+    const remaining = limit-used
+    if(!confirm('⚠️ You have only '+remaining+' reports remaining this month.\n\nContinue?')) return false
+  }
+  return true
+}
+
+function updateUsageDisplay(){
+  const used = getUserUsage()
+  const limit = getUserLimit()
+  const el = document.getElementById('usageDisplay')
+  if(!el) return
+  const pct = limit===Infinity?0:Math.round((used/limit)*100)
+  const color = pct>=80?'var(--red)':pct>=60?'var(--amb)':'var(--grn)'
+  el.innerHTML = limit===Infinity
+    ? `<span style="font-size:10px;color:var(--grn);">∞ Unlimited</span>`
+    : `<div style="font-size:10px;color:var(--txt2);margin-bottom:3px;">${used}/${limit} reports used</div>
+       <div style="height:4px;background:var(--bg3);border-radius:999px;overflow:hidden;">
+         <div style="width:${Math.min(pct,100)}%;height:100%;background:${color};border-radius:999px;transition:width .3s;"></div>
+       </div>`
+}
+
+// ══════════════════════════════════════════════════════════════════
+// REPORT HISTORY
+// ══════════════════════════════════════════════════════════════════
+function renderHistory(){
+  const body = document.getElementById('historyBody')
+  if(!body) return
+  const search = document.getElementById('history-search')?.value?.toLowerCase()||''
+  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+  const bgs={report:'#F0EEFF',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+
+  let filtered = [...submissions].reverse().filter(s=>
+    !search || s.formData.companyName?.toLowerCase().includes(search) ||
+    Object.keys(s.results).some(k=>labels[k]?.includes(search))
+  )
+
+  if(!filtered.length){
+    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt2);font-size:13px;">لا توجد نتائج</div>'
+    return
+  }
+
+  body.innerHTML = filtered.map(s=>`
+  <div class="card" style="margin-bottom:10px;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:13px;font-weight:500;">${s.formData.companyName||'—'}</div>
+        <div style="font-size:11px;color:var(--txt2);margin-top:2px;">${new Date(s.id).toLocaleDateString('ar-SA')} · ${new Date(s.id).toLocaleTimeString('ar-SA',{hour:'2-digit',minute:'2-digit'})} · ${s.elapsed||0}s</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;">
+          <span class="pill gray">${s.formData.sector||'—'}</span>
+          <span class="pill gray">${s.formData.period||'—'}</span>
+          ${s.formData.aiModel==='deepseek'?'<span class="pill amber">DeepSeek</span>':'<span class="pill purple">Claude</span>'}
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${Object.keys(s.results).map(k=>`
+        <button onclick="viewSub(${s.id},'${k}')" style="display:flex;align-items:center;gap:5px;padding:6px 10px;background:${bgs[k]};border:none;border-radius:var(--r);cursor:pointer;font-size:11px;font-weight:500;">
+          ${icons[k]} ${labels[k]}
+        </button>`).join('')}
+        <button onclick="deleteSubmission(${s.id})" class="btn xs red-btn">🗑</button>
+      </div>
+    </div>
+  </div>`).join('')
+}
+
+function deleteSubmission(id){
+  submissions = submissions.filter(s=>s.id!==id)
+  saveSubmissions()
+  renderHistory()
+  addToReports_all()
+}
+
+function addToReports_all(){
+  const g=document.getElementById('reportsGrid')
+  if(!g) return
+  g.innerHTML=''
+  if(!submissions.length){g.textContent='لا توجد تقارير';return}
+  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+  const bgs={report:'#F0EEFF',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
+  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+  ;[...submissions].reverse().forEach(sub=>{
+    Object.keys(sub.results).forEach(k=>{
+      const div=document.createElement('div');div.className='rep-card'
+      div.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;"><div class="rep-icon" style="background:${bgs[k]};">${icons[k]}</div><span class="pill green">مكتمل</span></div>
+      <div style="font-size:13px;font-weight:500;margin-bottom:4px;line-height:1.5;">${labels[k]} — ${sub.formData.companyName}</div>
+      <div style="font-size:10px;color:var(--txt2);margin-bottom:10px;">${new Date(sub.id).toLocaleDateString('ar-SA')}</div>
+      <div style="display:flex;gap:6px;"><button class="btn xs" onclick="viewSub(${sub.id},'${k}')">عرض</button><button class="btn xs" onclick="exportPDF('${k}','${labels[k]}')">⬇ PDF</button><button class="btn xs primary" onclick="openShare('${k}','${labels[k]}')">🔗</button></div>`
+      g.appendChild(div)
+    })
+  })
+}
+
+// ══════════════════════════════════════════════════════════════════
+// WHATSAPP SHARE + ARABIC VOICE
+// ══════════════════════════════════════════════════════════════════
+function shareReportWA(type, title){
+  const lastSub = submissions[submissions.length-1]
+  if(!lastSub) return
+  const data = lastSub.results[type]
+  const company = lastSub.formData.companyName||'الشركة'
+  let summary = ''
+  if(data?.summary) summary = data.summary
+  else if(data?.objective) summary = data.objective
+  else if(data?.marketSize) summary = 'حجم السوق: '+data.marketSize+' | معدل النمو: '+(data.growthRate||'—')
+  const msg = `📊 *${title} — ${company}*\n\n${summary}\n\n_تم التوليد بواسطة منصة بصمة الذكية_\n${window.location.href}`
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank')
+}
+
+let speechActive = false
+let currentUtterance = null
+
+function readReportAloud(type){
+  if(speechActive){
+    window.speechSynthesis.cancel()
+    speechActive = false
+    return
+  }
+  const lastSub = submissions[submissions.length-1]
+  if(!lastSub||!lastSub.results[type]){alert('لا يوجد تقرير للقراءة');return}
+  const data = lastSub.results[type]
+  let text = ''
+  if(data.summary) text += data.summary + '. '
+  if(data.insights) text += (data.insights||[]).map(i=>i.text).join('. ') + '. '
+  if(data.recommendations) text += 'التوصيات: ' + (data.recommendations||[]).map(r=>r.text).join('. ')
+  if(!text.trim()){alert('لا يوجد نص للقراءة');return}
+
+  const utter = new SpeechSynthesisUtterance(text)
+  utter.lang = 'ar-SA'
+  utter.rate = 0.9
+  utter.pitch = 1
+  // Try to find Arabic voice
+  const voices = window.speechSynthesis.getVoices()
+  const arVoice = voices.find(v=>v.lang.startsWith('ar'))
+  if(arVoice) utter.voice = arVoice
+  utter.onend = ()=>{ speechActive=false }
+  utter.onerror = ()=>{ speechActive=false }
+  currentUtterance = utter
+  speechActive = true
+  window.speechSynthesis.speak(utter)
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ONBOARDING TOUR
+// ══════════════════════════════════════════════════════════════════
+const TOUR_STEPS = [
+  {
+    icon:'👋',
+    title:'مرحباً بك في منصة بصمة!',
+    desc:'منصة ذكية مدعومة بالذكاء الاصطناعي لتحليل الأعمال وإنتاج المحتوى. دعنا نريك كيف تبدأ خلال دقيقتين.',
+    highlight:'لوحة التحكم',
+    color:'var(--acc)'
+  },
+  {
+    icon:'⚙️',
+    title:'الخطوة 1: أضف مفتاح API',
+    desc:'اذهب إلى الإعدادات وأضف مفتاح Claude API الخاص بك. بدونه لا يمكن توليد أي مخرجات. المفتاح يبدأ بـ sk-ant-',
+    highlight:'الإعدادات',
+    color:'var(--amb)'
+  },
+  {
+    icon:'📝',
+    title:'الخطوة 2: إدخال جديد',
+    desc:'اضغط "إدخال جديد" وأدخل بيانات شركتك في 4 خطوات سهلة — الاسم، الأرقام، اختيار المخرجات، ثم التوليد.',
+    highlight:'إدخال جديد',
+    color:'var(--grn)'
+  },
+  {
+    icon:'📊',
+    title:'الخطوة 3: المخرجات',
+    desc:'بعد التوليد ستحصل على تقارير إدارية، لوحات KPI، محتوى تسويقي، ودراسات تحليلية — كلها قابلة للتصدير PDF ومشاركة واتساب.',
+    highlight:'المخرجات',
+    color:'var(--acc)'
+  },
+  {
+    icon:'🛠',
+    title:'الخطوة 4: الأدوات الذكية',
+    desc:'في قسم "أدواتي" ستجد: CRM لإدارة العملاء، لوحة KPI، خطة 90 يوم، وهوية بصرية كاملة — كلها تعمل بالذكاء الاصطناعي.',
+    highlight:'أدواتي',
+    color:'var(--grn)'
+  },
+  {
+    icon:'✍️',
+    title:'الخطوة 5: خدمات بصمة',
+    desc:'قسم "خدمات بصمة" يضم: كتابة المحتوى لجميع المنصات، الخطة الشهرية، نصوص الفويس أوفر، وجدول المحتوى.',
+    highlight:'خدمات بصمة',
+    color:'var(--acc)'
+  },
+  {
+    icon:'🎨',
+    title:'الخطوة 6: Design Studio',
+    desc:'في Design Studio ستجد: Visual Identity Studio لتوليد هوية بصرية كاملة، Design Tools Hub للتصميم، وChat with Claude للنقاش.',
+    highlight:'Design Studio',
+    color:'#8B3DFF'
+  },
+  {
+    icon:'🚀',
+    title:'أنت جاهز للانطلاق!',
+    desc:'ابدأ بإضافة مفتاح API ثم جرب إدخالاً جديداً. إذا احتجت مساعدة استخدم "Chat with Claude" في أي وقت.',
+    highlight:null,
+    color:'var(--grn)'
+  }
+]
+
+let currentTourStep = 0
+
+function startTour(){
+  if(localStorage.getItem('tour_completed')) return
+  currentTourStep = 0
+  document.getElementById('onboardingOverlay').style.display='flex'
+  renderTourStep()
+}
+
+function skipTour(){
+  document.getElementById('onboardingOverlay').style.display='none'
+  localStorage.setItem('tour_completed','1')
+}
+
+function tourStep(dir){
+  currentTourStep += dir
+  if(currentTourStep >= TOUR_STEPS.length){ skipTour(); return }
+  if(currentTourStep < 0) currentTourStep = 0
+  renderTourStep()
+}
+
+function renderTourStep(){
+  const step = TOUR_STEPS[currentTourStep]
+  const total = TOUR_STEPS.length
+  const isLast = currentTourStep === total-1
+
+  // Dots
+  const dots = document.getElementById('tourDots')
+  if(dots) dots.innerHTML = TOUR_STEPS.map((_,i)=>`<div style="width:${i===currentTourStep?'20px':'8px'};height:8px;border-radius:999px;background:${i===currentTourStep?step.color:'var(--bdr2)'};transition:all .3s;"></div>`).join('')
+
+  // Content
+  const tc = document.getElementById('tourContent')
+  if(tc) tc.innerHTML = `
+    <div style="text-align:center;margin-bottom:16px;">
+      <div style="font-size:48px;margin-bottom:10px;">${step.icon}</div>
+      <div style="font-size:17px;font-weight:600;margin-bottom:8px;color:${step.color};">${step.title}</div>
+      <div style="font-size:13px;color:var(--txt2);line-height:1.8;">${step.desc}</div>
+    </div>
+    ${step.highlight?`<div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:${step.color}15;border:1px solid ${step.color}40;border-radius:var(--r);font-size:12px;"><span style="color:${step.color};">→</span> ابحث عن <b style="color:${step.color};">"${step.highlight}"</b> في القائمة الجانبية</div>`:''}
+  `
+
+  // Counter
+  const counter = document.getElementById('tourCounter')
+  if(counter) counter.textContent = (currentTourStep+1)+' / '+total
+
+  // Buttons
+  const prev = document.getElementById('tourPrev')
+  const next = document.getElementById('tourNext')
+  if(prev) prev.style.visibility = currentTourStep===0?'hidden':'visible'
+  if(next) next.textContent = isLast?'🚀 ابدأ الآن!':'التالي ←'
+}
+
+function resetTour(){ localStorage.removeItem('tour_completed'); startTour() }
+
+// ══════════════════════════════════════════════════════════════════
+// EMAIL NOTIFICATIONS (EmailJS)
+// ══════════════════════════════════════════════════════════════════
+function saveEmailJS(){
+  const s=document.getElementById('ejs-service')?.value?.trim()
+  const t=document.getElementById('ejs-template')?.value?.trim()
+  const k=document.getElementById('ejs-key')?.value?.trim()
+  if(!s||!t||!k){document.getElementById('emailJSMsg').innerHTML='<span style="color:var(--red);">Fill all 3 fields</span>';return}
+  localStorage.setItem('ejs_service',s); localStorage.setItem('ejs_template',t); localStorage.setItem('ejs_key',k)
+  try{emailjs.init({publicKey:k})}catch(e){}
+  document.getElementById('emailJSMsg').innerHTML='<span style="color:var(--grn);">✓ Email settings saved!</span>'
+}
+
+async function testEmail(){
+  const s=localStorage.getItem('ejs_service'); const t=localStorage.getItem('ejs_template'); const k=localStorage.getItem('ejs_key')
+  if(!s||!t||!k){document.getElementById('emailJSMsg').innerHTML='<span style="color:var(--red);">Save EmailJS settings first</span>';return}
+  try{
+    emailjs.init({publicKey:k})
+    await emailjs.send(s,t,{to_name:currentUser?.fullname||'Admin',to_email:'test@test.com',subject:'Test from Basmah Platform',message:'This is a test email from your platform.'})
+    document.getElementById('emailJSMsg').innerHTML='<span style="color:var(--grn);">✓ Test email sent!</span>'
+  }catch(e){document.getElementById('emailJSMsg').innerHTML='<span style="color:var(--red);">Error: '+e.text+'</span>'}
+}
+
+async function sendWelcomeEmail(username, email){
+  const s=localStorage.getItem('ejs_service'); const t=localStorage.getItem('ejs_template'); const k=localStorage.getItem('ejs_key')
+  if(!s||!t||!k||!email) return
+  try{
+    emailjs.init({publicKey:k})
+    await emailjs.send(s,t,{to_name:username,to_email:email,subject:'مرحباً بك في منصة بصمة',message:'تم إنشاء حسابك بنجاح. يمكنك الدخول عبر الرابط: '+window.location.href})
+  }catch(e){console.warn('Email failed:',e)}
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PAYMENT LINKS
+// ══════════════════════════════════════════════════════════════════
+function savePaymentLinks(){
+  localStorage.setItem('pay_basic',document.getElementById('pay-basic')?.value?.trim()||'')
+  localStorage.setItem('pay_pro',document.getElementById('pay-pro')?.value?.trim()||'')
+  localStorage.setItem('pay_premium',document.getElementById('pay-premium')?.value?.trim()||'')
+  document.getElementById('paymentMsg').innerHTML='<span style="color:var(--grn);">✓ Payment links saved!</span>'
+}
+
+function openUpgradeModal(){
+  const basic=localStorage.getItem('pay_basic')||'#'
+  const pro=localStorage.getItem('pay_pro')||'#'
+  const premium=localStorage.getItem('pay_premium')||'#'
+  const used=getUserUsage(); const limit=getUserLimit()
+  const w=window.open('','_blank','width=500,height=400')
+  w.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"/><title>ترقية الخطة</title><style>body{font-family:sans-serif;padding:24px;background:#f8f7f4;direction:rtl;}.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:12px;border:1px solid #e2dfd8;}.btn{display:block;padding:12px;background:#6b5fcd;color:#fff;border:none;border-radius:8px;text-align:center;text-decoration:none;font-size:14px;font-weight:500;margin-top:10px;cursor:pointer;}</style></head>
+  <body><h2>ترقية خطتك</h2><p>استخدمت ${used} من ${limit} تقرير هذا الشهر.</p>
+  <div class="card"><h3>Basic — 99 SAR/شهر</h3><p>20 تقرير شهرياً</p><a class="btn" href="${basic}" target="_blank">اشترك الآن</a></div>
+  <div class="card"><h3>Pro — 249 SAR/شهر</h3><p>75 تقرير شهرياً</p><a class="btn" href="${pro}" target="_blank">اشترك الآن</a></div>
+  <div class="card"><h3>Premium — 499 SAR/شهر</h3><p>غير محدود</p><a class="btn" href="${premium}" target="_blank">اشترك الآن</a></div>
+  </body></html>`)
+  w.document.close()
+}
+
+// ── Init email settings from storage ────────────────────────────
+function initEmailPaymentSettings(){
+  const ejs_s=document.getElementById('ejs-service'); if(ejs_s)ejs_s.value=localStorage.getItem('ejs_service')||''
+  const ejs_t=document.getElementById('ejs-template'); if(ejs_t)ejs_t.value=localStorage.getItem('ejs_template')||''
+  const ejs_k=document.getElementById('ejs-key'); if(ejs_k)ejs_k.value=localStorage.getItem('ejs_key')||''
+  const pb=document.getElementById('pay-basic'); if(pb)pb.value=localStorage.getItem('pay_basic')||''
+  const pp=document.getElementById('pay-pro'); if(pp)pp.value=localStorage.getItem('pay_pro')||''
+  const ppr=document.getElementById('pay-premium'); if(ppr)ppr.value=localStorage.getItem('pay_premium')||''
+  const emailCard=document.getElementById('emailCard')
+  const payCard=document.getElementById('paymentCard')
+  const isAdmin=currentUser&&(currentUser.role==='admin'||currentUser.isSuperAdmin)
+  if(emailCard)emailCard.style.display=isAdmin?'block':'none'
+  if(payCard)payCard.style.display=isAdmin?'block':'none'
+}
+
+// ══════════════════════════════════════════════════════════════════
+// CLIENT PORTAL — Read-only share link
+// ══════════════════════════════════════════════════════════════════
+function generateClientPortalLink(clientIndex){
+  const c = crmClients[clientIndex]
+  if(!c) return
+  // Find last generated output for this client
+  const clientSubs = submissions.filter(s=>s.formData.companyName===c.company)
+  if(!clientSubs.length){
+    alert('لا توجد تقارير لهذا العميل. ولّد تقريراً أولاً.')
+    return
+  }
+  const lastSub = clientSubs[clientSubs.length-1]
+  // Encode report data in URL
+  const portalData = {
+    client: c.name,
+    company: c.company,
+    reports: Object.keys(lastSub.results),
+    generatedAt: new Date(lastSub.id).toLocaleDateString('ar-SA'),
+    id: lastSub.id
+  }
+  const encoded = btoa(encodeURIComponent(JSON.stringify(portalData)))
+  const url = window.location.href.split('?')[0]+'?portal='+encoded
+  shareContent = {url, title:'Client Portal — '+c.company, body:'مرحباً '+c.name+'،\n\nيمكنكم الاطلاع على تقاريركم عبر الرابط:\n'+url}
+  document.getElementById('shareUrlText').textContent = url
+  openModal('shareModal')
+}
+
+// Check if opened as client portal
+function checkClientPortal(){
+  const params = new URLSearchParams(window.location.search)
+  const portal = params.get('portal')
+  if(!portal) return false
+  try{
+    const data = JSON.parse(decodeURIComponent(atob(portal)))
+    showClientPortalView(data)
+    return true
+  }catch(e){ return false }
+}
+
+function showClientPortalView(data){
+  // Show simplified read-only view
+  document.body.innerHTML = `
+  <div style="min-height:100vh;background:#f8f7f4;font-family:'IBM Plex Sans Arabic',sans-serif;direction:rtl;">
+    <div style="background:#6b5fcd;padding:16px 24px;display:flex;align-items:center;gap:12px;">
+      <img src="https://cdn.files.salla.network/theme/780764171/9b2bb6fc-cf78-454a-a05e-6b464f4d2221.webp" style="height:40px;object-fit:contain;"/>
+      <div style="color:#fff;">
+        <div style="font-size:14px;font-weight:600;">بوابة العميل — ${data.company}</div>
+        <div style="font-size:11px;opacity:.8;">تاريخ التقرير: ${data.generatedAt}</div>
+      </div>
+    </div>
+    <div style="max-width:800px;margin:24px auto;padding:0 16px;">
+      <div style="background:#fff;border-radius:12px;padding:24px;border:1px solid #e2dfd8;text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">📊</div>
+        <div style="font-size:16px;font-weight:500;margin-bottom:8px;">تقارير ${data.company}</div>
+        <div style="font-size:13px;color:#6b6964;margin-bottom:20px;">مُعدّة بواسطة منصة بصمة الذكية</div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+          ${(data.reports||[]).map(r=>{
+            const labels={report:'التقرير الإداري',dashboard:'لوحة التحليل',marketing:'المحتوى التسويقي',study:'الدراسة التحليلية'}
+            const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+            return `<div style="padding:16px 20px;background:#F0EEFF;border-radius:12px;font-size:13px;font-weight:500;color:#4a3d9a;">${icons[r]} ${labels[r]}</div>`
+          }).join('')}
+        </div>
+        <div style="margin-top:24px;padding:14px;background:#f8f7f4;border-radius:8px;font-size:12px;color:#6b6964;">
+          للاطلاع على التفاصيل الكاملة أو طلب تقارير إضافية، تواصل مع فريق بصمة
+        </div>
+      </div>
+    </div>
+  </div>`
+}
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════════════════
+if(!checkClientPortal()){
 initAuth()
 renderStep(1)
+}
 </script>
 </body>
 </html>
