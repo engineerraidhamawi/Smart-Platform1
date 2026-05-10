@@ -356,6 +356,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span>الخطة الشهرية</div>
     <div class="nav-item" id="nav-voiceover" onclick="go('voiceover',this)"><span class="nav-icon">🎙️</span>فويس أوفر</div>
     <div class="nav-item" id="nav-scheduler" onclick="go('scheduler',this)"><span class="nav-icon">🗓️</span>جدول المحتوى</div>
+    <div class="nav-sec">Social Media</div>
+    <div class="nav-item" id="nav-social" onclick="go('social',this)"><span class="nav-icon">📱</span>Social Dashboard</div>
     <div class="nav-sec">Design Studio</div>
     <div class="nav-item" id="nav-design-hub" onclick="go('design-hub',this)"><span class="nav-icon">🖌️</span>Design Tools Hub</div>
     <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span>Chat with Claude</div>
@@ -1329,6 +1331,277 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   </div>
 </div>
 
+<!-- ───── SOCIAL MEDIA DASHBOARD ─────────────────────────────────── -->
+<div class="page" id="page-social">
+  <div class="topbar">
+    <div class="breadcrumb"><b>📱 Social Media Dashboard</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportSocialReport()">⬇ Export Report</button>
+      <button class="btn primary" onclick="getSocialAIAdvice()">🤖 AI Analysis</button>
+    </div>
+  </div>
+
+  <!-- Sub-tabs -->
+  <div style="background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;gap:2px;flex-shrink:0;overflow-x:auto;">
+    <div class="out-tab active" id="stab-overview" onclick="switchSocialTab('overview')">📊 Overview</div>
+    <div class="out-tab" id="stab-content" onclick="switchSocialTab('content')">✍️ Content Hub</div>
+    <div class="out-tab" id="stab-calendar" onclick="switchSocialTab('calendar')">📅 Calendar</div>
+    <div class="out-tab" id="stab-analytics" onclick="switchSocialTab('analytics')">📈 Analytics</div>
+    <div class="out-tab" id="stab-hashtags" onclick="switchSocialTab('hashtags')">🔖 Hashtags</div>
+    <div class="out-tab" id="stab-competitor" onclick="switchSocialTab('competitor')">🔍 Competitor</div>
+  </div>
+
+  <!-- OVERVIEW TAB -->
+  <div class="out-page active" id="stab-overview-content">
+    <div class="page-body">
+
+      <!-- Platform Stats Cards -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:500;">Your Social Media Accounts</div>
+          <button class="btn sm primary" onclick="openModal('addPlatformModal')">+ Add Account</button>
+        </div>
+        <div id="platformCards" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;">
+          <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--txt2);font-size:13px;background:var(--bg2);border:1px dashed var(--bdr2);border-radius:var(--r2);">
+            No accounts added yet — click "+ Add Account" to start tracking
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Stats -->
+      <div class="metrics-row" style="margin-bottom:14px;">
+        <div class="metric"><div class="m-label">Total Followers</div><div class="m-val" id="sm-total-followers">0</div><div class="m-chg up" id="sm-followers-chg">All platforms</div></div>
+        <div class="metric"><div class="m-label">Avg Engagement Rate</div><div class="m-val" id="sm-avg-engagement">0%</div><div class="m-chg">Across all platforms</div></div>
+        <div class="metric"><div class="m-label">Posts This Month</div><div class="m-val" id="sm-posts-month">0</div><div class="m-chg">Scheduled + Published</div></div>
+        <div class="metric"><div class="m-label">Best Platform</div><div class="m-val" id="sm-best-platform" style="font-size:13px;">—</div><div class="m-chg up">Highest engagement</div></div>
+      </div>
+
+      <!-- AI Advice Panel -->
+      <div id="socialAIOutput"></div>
+
+      <!-- Best Times to Post -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">⏰ Best Times to Post (Gulf Region)</span></div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;">
+          ${[
+            {p:'Instagram',icon:'📸',color:'#E1306C',times:['7:00 PM','9:00 PM','12:00 PM'],days:'Tue, Wed, Thu'},
+            {p:'Twitter/X',icon:'🐦',color:'#1DA1F2',times:['8:00 AM','12:00 PM','9:00 PM'],days:'Mon, Wed, Sun'},
+            {p:'TikTok',icon:'🎵',color:'#010101',times:['6:00 PM','9:00 PM','10:00 PM'],days:'Tue, Thu, Fri'},
+            {p:'LinkedIn',icon:'💼',color:'#0077B5',times:['8:00 AM','10:00 AM','5:00 PM'],days:'Mon, Tue, Wed'},
+            {p:'Snapchat',icon:'👻',color:'#FFFC00',times:['8:00 PM','10:00 PM','11:00 PM'],days:'Wed, Thu, Fri'},
+            {p:'Facebook',icon:'📘',color:'#1877F2',times:['1:00 PM','4:00 PM','8:00 PM'],days:'Thu, Fri, Sat'},
+            {p:'YouTube',icon:'▶️',color:'#FF0000',times:['5:00 PM','8:00 PM','9:00 PM'],days:'Thu, Fri, Sat'},
+            {p:'Pinterest',icon:'📌',color:'#E60023',times:['8:00 PM','9:00 PM','2:00 AM'],days:'Fri, Sat, Sun'},
+          ].map(t=>`
+          <div style="padding:10px;border:1px solid var(--bdr);border-radius:var(--r2);border-top:3px solid ${t.color};">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+              <span style="font-size:14px;">${t.icon}</span>
+              <span style="font-size:11px;font-weight:600;">${t.p}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:3px;">
+              ${t.times.map(time=>`<div style="font-size:11px;padding:3px 8px;background:var(--bg3);border-radius:5px;text-align:center;">⏰ ${time}</div>`).join('')}
+            </div>
+            <div style="font-size:10px;color:var(--txt2);margin-top:6px;text-align:center;">${t.days}</div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENT HUB TAB -->
+  <div class="out-page" id="stab-content-content">
+    <div class="page-body">
+      <div class="two-col" style="margin-bottom:14px;">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">✍️ Generate Content for Platform</span></div>
+          <div class="field"><div class="field-label">Platform</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;" id="content-platform-chips">
+              ${[
+                {n:'Instagram',i:'📸',c:'#E1306C'},
+                {n:'Twitter/X',i:'🐦',c:'#1DA1F2'},
+                {n:'TikTok',i:'🎵',c:'#010101'},
+                {n:'LinkedIn',i:'💼',c:'#0077B5'},
+                {n:'Snapchat',i:'👻',c:'#FFFC00'},
+                {n:'Facebook',i:'📘',c:'#1877F2'},
+                {n:'YouTube',i:'▶️',c:'#FF0000'},
+                {n:'Pinterest',i:'📌',c:'#E60023'},
+              ].map(p=>`<div class="chip" onclick="selectContentPlatform('${p.n}',this)" style="display:flex;align-items:center;gap:4px;">${p.i} ${p.n}</div>`).join('')}
+            </div>
+          </div>
+          <div class="field"><div class="field-label">Topic / Idea <span class="req">*</span></div>
+            <textarea class="input" id="sc-topic" rows="2" placeholder="What do you want to post about?"></textarea>
+          </div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Tone</div>
+              <select class="input" id="sc-tone">
+                <option>Professional</option><option>Casual & Fun</option><option>Motivational</option>
+                <option>Educational</option><option>Promotional</option><option>Storytelling</option>
+              </select>
+            </div>
+            <div class="field"><div class="field-label">Language</div>
+              <select class="input" id="sc-lang">
+                <option value="arabic">عربي</option>
+                <option value="english">English</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn primary" style="width:100%;" onclick="generateSocialContent()">🤖 Generate Content</button>
+        </div>
+        <div id="socialContentOutput">
+          <div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">
+            Select a platform and enter a topic to generate content
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALENDAR TAB -->
+  <div class="out-page" id="stab-calendar-content">
+    <div class="page-body">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <div style="font-size:14px;font-weight:500;" id="calMonthTitle"></div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn sm" onclick="changeCalMonth(-1)">← Previous</button>
+          <button class="btn sm" onclick="changeCalMonth(1)">Next →</button>
+          <button class="btn sm primary" onclick="openModal('addPostModal')">+ Add Post</button>
+        </div>
+      </div>
+      <div id="socialCalendar"></div>
+    </div>
+  </div>
+
+  <!-- ANALYTICS TAB -->
+  <div class="out-page" id="stab-analytics-content">
+    <div class="page-body">
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-hdr"><span class="card-title">📈 Enter Your Performance Stats</span><span style="font-size:11px;color:var(--txt2);">Update your numbers to get AI analysis</span></div>
+        <div id="analyticsForm">
+          <div style="font-size:12px;color:var(--txt2);margin-bottom:12px;">Add your platform accounts first from the Overview tab, then enter your stats here.</div>
+          <div id="analyticsInputs"></div>
+          <button class="btn primary" onclick="analyzePerformance()">🤖 Analyze My Performance</button>
+        </div>
+      </div>
+      <div id="analyticsOutput"></div>
+    </div>
+  </div>
+
+  <!-- HASHTAGS TAB -->
+  <div class="out-page" id="stab-hashtags-content">
+    <div class="page-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🔖 Hashtag Generator</span></div>
+          <div class="field"><div class="field-label">Topic / Niche <span class="req">*</span></div>
+            <input class="input" id="hg-topic" placeholder="e.g. Arabic food, fitness, fashion..."/>
+          </div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Platform</div>
+              <select class="input" id="hg-platform">
+                <option>Instagram</option><option>Twitter/X</option><option>TikTok</option>
+                <option>LinkedIn</option><option>Pinterest</option><option>YouTube</option>
+              </select>
+            </div>
+            <div class="field"><div class="field-label">Language</div>
+              <select class="input" id="hg-lang">
+                <option value="arabic">عربي</option>
+                <option value="english">English</option>
+                <option value="both">Mixed</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><div class="field-label">Target Region</div>
+            <select class="input" id="hg-region">
+              <option>Saudi Arabia</option><option>UAE</option><option>Gulf Region</option>
+              <option>All Arab countries</option><option>Global</option>
+            </select>
+          </div>
+          <button class="btn primary" style="width:100%;" onclick="generateHashtags()">🤖 Generate Hashtags</button>
+        </div>
+        <div id="hashtagOutput">
+          <div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Enter a topic to generate hashtag sets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITOR TAB -->
+  <div class="out-page" id="stab-competitor-content">
+    <div class="page-body">
+      <div class="card" style="margin-bottom:14px;">
+        <div class="card-hdr"><span class="card-title">🔍 Competitor Analysis</span></div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">Your Brand <span class="req">*</span></div>
+            <input class="input" id="ca-brand" placeholder="Your company name"/>
+          </div>
+          <div class="field"><div class="field-label">Your Industry</div>
+            <input class="input" id="ca-industry" placeholder="e.g. Restaurant, Fashion, Tech..."/>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">Competitors (names or social handles)</div>
+          <input class="input" id="ca-competitors" placeholder="e.g. @competitor1, Brand Name, Company XYZ (separate with commas)"/>
+        </div>
+        <div class="field"><div class="field-label">What do you want to analyze?</div>
+          <div class="chip-row">
+            <div class="chip sel" onclick="this.classList.toggle('sel')">Content Strategy</div>
+            <div class="chip sel" onclick="this.classList.toggle('sel')">Posting Frequency</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Tone & Style</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Strengths & Weaknesses</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">Opportunities</div>
+          </div>
+        </div>
+        <button class="btn primary" style="width:100%;" onclick="analyzeCompetitors()">🤖 Analyze Competitors</button>
+      </div>
+      <div id="competitorOutput"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ADD PLATFORM MODAL -->
+<div class="modal-overlay" id="addPlatformModal">
+  <div class="modal-box">
+    <div class="modal-title">Add Social Media Account</div>
+    <div class="modal-sub">Enter your account details to track performance</div>
+    <div class="field"><div class="field-label">Platform <span class="req">*</span></div>
+      <select class="input" id="ap-platform-select">
+        <option value="Instagram">📸 Instagram</option>
+        <option value="Twitter/X">🐦 Twitter/X</option>
+        <option value="TikTok">🎵 TikTok</option>
+        <option value="LinkedIn">💼 LinkedIn</option>
+        <option value="Snapchat">👻 Snapchat</option>
+        <option value="Facebook">📘 Facebook</option>
+        <option value="YouTube">▶️ YouTube</option>
+        <option value="Pinterest">📌 Pinterest</option>
+      </select>
+    </div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">Username / Handle</div>
+        <input class="input" id="ap-handle" placeholder="@yourusername"/>
+      </div>
+      <div class="field"><div class="field-label">Current Followers</div>
+        <input class="input" type="number" id="ap-followers" placeholder="e.g. 5000"/>
+      </div>
+    </div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">Avg Engagement Rate %</div>
+        <input class="input" type="number" id="ap-engagement" placeholder="e.g. 3.5" step="0.1"/>
+      </div>
+      <div class="field"><div class="field-label">Posts Per Week</div>
+        <input class="input" type="number" id="ap-posts-week" placeholder="e.g. 5"/>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">Profile URL</div>
+      <input class="input" id="ap-url" placeholder="https://instagram.com/yourprofile"/>
+    </div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="savePlatformAccount()">✓ Add Account</button>
+      <button class="btn" onclick="closeModal('addPlatformModal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
 </div><!-- /main -->
 </div><!-- /app -->
 
@@ -1538,6 +1811,7 @@ function go(id, navEl){
   if(id==='settings') initSettings()
   if(id==='dashboard') updateDashboard()
   if(id==='crm') renderCRM()
+  if(id==='social') initSocialDashboard()
   if(id==='design-hub') initDesignHub()
   if(id==='content-writer') initContentWriter()
   if(id==='monthly-plan') initMonthlyPlan()
@@ -3879,6 +4153,419 @@ DON'T: ${(b.dontList||[]).join(' | ')}`
 
   navigator.clipboard.writeText(text).catch(()=>{})
   alert('✓ Brief copied to clipboard! Paste it into Canva or send to your designer.')
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SOCIAL MEDIA DASHBOARD
+// ══════════════════════════════════════════════════════════════════════════════
+let socialAccounts = JSON.parse(localStorage.getItem('sp_social_accounts')||'[]')
+let calendarMonth = new Date().getMonth()
+let calendarYear = new Date().getFullYear()
+let selectedContentPlatform = 'Instagram'
+
+function saveSocialAccounts(){ localStorage.setItem('sp_social_accounts', JSON.stringify(socialAccounts)) }
+
+const PLATFORM_CONFIG = {
+  'Instagram':  {icon:'📸', color:'#E1306C', bg:'#FFF0F5'},
+  'Twitter/X':  {icon:'🐦', color:'#1DA1F2', bg:'#E8F5FE'},
+  'TikTok':     {icon:'🎵', color:'#010101', bg:'#F0F0F0'},
+  'LinkedIn':   {icon:'💼', color:'#0077B5', bg:'#E8F3FA'},
+  'Snapchat':   {icon:'👻', color:'#FFC107', bg:'#FFFDE7'},
+  'Facebook':   {icon:'📘', color:'#1877F2', bg:'#EEF3FF'},
+  'YouTube':    {icon:'▶️', color:'#FF0000', bg:'#FFF0F0'},
+  'Pinterest':  {icon:'📌', color:'#E60023', bg:'#FFF0F2'},
+}
+
+function initSocialDashboard(){
+  renderPlatformCards()
+  renderAnalyticsInputs()
+  renderSocialCalendar()
+}
+
+function switchSocialTab(tab){
+  document.querySelectorAll('[id^=stab-]').forEach(el=>{
+    if(el.classList.contains('out-tab')) el.classList.remove('active')
+    if(el.id.endsWith('-content')) el.classList.remove('active')
+  })
+  document.getElementById('stab-'+tab)?.classList.add('active')
+  document.getElementById('stab-'+tab+'-content')?.classList.add('active')
+  if(tab==='calendar') renderSocialCalendar()
+  if(tab==='analytics') renderAnalyticsInputs()
+}
+
+function savePlatformAccount(){
+  const platform = document.getElementById('ap-platform-select')?.value
+  const handle = document.getElementById('ap-handle')?.value?.trim()
+  const followers = parseInt(document.getElementById('ap-followers')?.value||'0')
+  const engagement = parseFloat(document.getElementById('ap-engagement')?.value||'0')
+  const postsWeek = parseInt(document.getElementById('ap-posts-week')?.value||'0')
+  const url = document.getElementById('ap-url')?.value?.trim()||''
+  if(!platform){alert('Please select a platform');return}
+  // Remove existing same platform
+  socialAccounts = socialAccounts.filter(a=>a.platform!==platform)
+  socialAccounts.push({platform, handle, followers, engagement, postsWeek, url, addedAt:new Date().toISOString()})
+  saveSocialAccounts()
+  closeModal('addPlatformModal')
+  renderPlatformCards()
+  updateSocialStats()
+  renderAnalyticsInputs()
+}
+
+function renderPlatformCards(){
+  const el = document.getElementById('platformCards')
+  if(!el) return
+  if(!socialAccounts.length){
+    el.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--txt2);font-size:13px;background:var(--bg2);border:1px dashed var(--bdr2);border-radius:var(--r2);">No accounts added yet — click "+ Add Account" to start tracking</div>`
+    return
+  }
+  el.style.gridTemplateColumns='repeat('+Math.min(socialAccounts.length,4)+',minmax(0,1fr))'
+  el.innerHTML = socialAccounts.map(a=>{
+    const cfg = PLATFORM_CONFIG[a.platform]||{icon:'📱',color:'var(--acc)',bg:'var(--acc-l)'}
+    return`<div style="background:${cfg.bg};border:1px solid ${cfg.color}30;border-radius:var(--r2);padding:14px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:7px;">
+          <span style="font-size:18px;">${cfg.icon}</span>
+          <div><div style="font-size:12px;font-weight:600;">${a.platform}</div><div style="font-size:10px;color:var(--txt2);">${a.handle||'No handle'}</div></div>
+        </div>
+        <div style="display:flex;gap:5px;">
+          ${a.url?`<button onclick="window.open('${a.url}','_blank')" style="font-size:10px;padding:2px 7px;border:1px solid ${cfg.color};border-radius:5px;background:transparent;color:${cfg.color};cursor:pointer;">Visit ↗</button>`:''}
+          <button onclick="removePlatform('${a.platform}')" style="font-size:10px;padding:2px 7px;border:1px solid var(--bdr2);border-radius:5px;background:transparent;color:var(--txt2);cursor:pointer;">✕</button>
+        </div>
+      </div>
+      <div style="font-size:24px;font-weight:600;margin-bottom:3px;">${a.followers>=1000?(a.followers/1000).toFixed(1)+'K':a.followers}</div>
+      <div style="font-size:11px;color:var(--txt2);margin-bottom:8px;">Followers</div>
+      <div style="display:flex;gap:8px;">
+        <div style="flex:1;padding:6px;background:rgba(255,255,255,0.6);border-radius:var(--r);text-align:center;">
+          <div style="font-size:12px;font-weight:600;color:${cfg.color};">${a.engagement}%</div>
+          <div style="font-size:9px;color:var(--txt2);">Engagement</div>
+        </div>
+        <div style="flex:1;padding:6px;background:rgba(255,255,255,0.6);border-radius:var(--r);text-align:center;">
+          <div style="font-size:12px;font-weight:600;color:${cfg.color};">${a.postsWeek}/wk</div>
+          <div style="font-size:9px;color:var(--txt2);">Posts</div>
+        </div>
+      </div>
+    </div>`
+  }).join('')
+  updateSocialStats()
+}
+
+function removePlatform(platform){
+  if(!confirm('Remove '+platform+' account?')) return
+  socialAccounts = socialAccounts.filter(a=>a.platform!==platform)
+  saveSocialAccounts()
+  renderPlatformCards()
+  renderAnalyticsInputs()
+}
+
+function updateSocialStats(){
+  const total = socialAccounts.reduce((s,a)=>s+a.followers,0)
+  const avgEng = socialAccounts.length ? (socialAccounts.reduce((s,a)=>s+a.engagement,0)/socialAccounts.length).toFixed(1) : 0
+  const totalPosts = schedulePosts.length
+  const best = socialAccounts.sort((a,b)=>b.engagement-a.engagement)[0]
+  const tf=document.getElementById('sm-total-followers'); if(tf)tf.textContent=total>=1000?(total/1000).toFixed(1)+'K':total
+  const ae=document.getElementById('sm-avg-engagement'); if(ae)ae.textContent=avgEng+'%'
+  const pm=document.getElementById('sm-posts-month'); if(pm)pm.textContent=totalPosts
+  const bp=document.getElementById('sm-best-platform'); if(bp)bp.textContent=best?(best.platform+' '+best.icon||''):'—'
+}
+
+function selectContentPlatform(name, el){
+  selectedContentPlatform = name
+  document.querySelectorAll('#content-platform-chips .chip').forEach(c=>c.classList.remove('sel'))
+  el.classList.add('sel')
+}
+
+async function generateSocialContent(){
+  const topic = document.getElementById('sc-topic')?.value?.trim()
+  if(!topic){alert('Please enter a topic');return}
+  const key=getKey(); if(!key){alert('Please add your API key');go('settings',null);return}
+  const tone = document.getElementById('sc-tone')?.value||'Professional'
+  const lang = document.getElementById('sc-lang')?.value||'arabic'
+  const platform = selectedContentPlatform
+  const cfg = PLATFORM_CONFIG[platform]||{icon:'📱',color:'var(--acc)'}
+  const out = document.getElementById('socialContentOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin" style="font-size:24px;">${cfg.icon}</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Writing ${platform} content...</div></div>`
+
+  const langInstr = lang==='arabic'?'Write in Arabic only':lang==='english'?'Write in English only':'Write in both Arabic and English'
+  const platGuides = {
+    'Instagram':'Include engaging caption, 5-10 relevant hashtags, emoji, strong CTA',
+    'Twitter/X':'Keep under 280 chars, punchy, include 2-3 hashtags',
+    'TikTok':'Casual and trendy caption, viral hooks, 5+ hashtags',
+    'LinkedIn':'Professional tone, insight-driven, minimal hashtags (3-5)',
+    'Snapchat':'Very short, casual, fun, emoji-heavy',
+    'Facebook':'Conversational, longer allowed, ask questions to drive engagement',
+    'YouTube':'Engaging title, description with keywords, timestamps if relevant',
+    'Pinterest':'Descriptive, keyword-rich, actionable',
+  }
+  const prompt=`You are a social media expert for the Gulf/Arabic market. Create 3 variations of ${platform} content.
+Topic: ${topic}
+Tone: ${tone}
+Language: ${langInstr}
+Platform Guidelines: ${platGuides[platform]||'Engaging content'}
+
+Return JSON only:
+{"platform":"${platform}","posts":[{"version":"Version 1","caption":"...","hashtags":["#..."],"emoji":"...","cta":"...","characterCount":0,"tip":"Platform-specific tip"}]}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    out.innerHTML=`<div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="font-size:12px;font-weight:500;color:${cfg.color};">${cfg.icon} ${platform} Content — ${data.posts?.length||0} Variations</div>
+      ${(data.posts||[]).map((p,i)=>`
+      <div style="border:1.5px solid ${cfg.color}40;border-radius:var(--r2);overflow:hidden;">
+        <div style="padding:8px 12px;background:${cfg.color}15;display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:11px;font-weight:600;color:${cfg.color};">${p.version}</span>
+          <div style="display:flex;gap:5px;">
+            <span style="font-size:10px;color:var(--txt2);">${p.characterCount||''} chars</span>
+            <button class="btn xs" onclick="navigator.clipboard.writeText(this.closest('[style*=border]').querySelector('.post-caption').textContent).catch(()=>{});this.textContent='✓';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+          </div>
+        </div>
+        <div style="padding:12px;">
+          <div class="post-caption" style="font-size:13px;line-height:1.8;white-space:pre-line;margin-bottom:8px;">${p.caption||''}</div>
+          ${p.hashtags?.length?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;">${p.hashtags.map(h=>`<span style="font-size:10px;color:${cfg.color};background:${cfg.color}15;padding:2px 8px;border-radius:999px;">${h}</span>`).join('')}</div>`:''}
+          ${p.cta?`<div style="font-size:11px;padding:6px 10px;background:var(--grn-l);border-radius:var(--r);color:var(--grn);">📣 ${p.cta}</div>`:''}
+          ${p.tip?`<div style="font-size:10px;padding:5px 9px;background:var(--bg3);border-radius:var(--r);color:var(--txt2);margin-top:6px;">💡 ${p.tip}</div>`:''}
+        </div>
+      </div>`).join('')}
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+async function generateHashtags(){
+  const topic=document.getElementById('hg-topic')?.value?.trim()
+  if(!topic){alert('Please enter a topic');return}
+  const key=getKey(); if(!key){alert('Please add your API key');return}
+  const platform=document.getElementById('hg-platform')?.value||'Instagram'
+  const lang=document.getElementById('hg-lang')?.value||'arabic'
+  const region=document.getElementById('hg-region')?.value||'Gulf Region'
+  const out=document.getElementById('hashtagOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin">🔖</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Generating hashtags...</div></div>`
+  const prompt=`Generate comprehensive hashtag sets for ${platform} about "${topic}" targeting ${region}.
+Language: ${lang==='arabic'?'Arabic hashtags':lang==='english'?'English hashtags':'Mix of Arabic and English'}
+Return JSON only:
+{"mega":["#hashtag (1M+ posts)"],"popular":["#hashtag (100K-1M)"],"niche":["#hashtag (10K-100K)"],"local":["#hashtag (regional/local)"],"branded":["#hashtag (brand suggestions)"],"recommended":"Copy-ready set of 15-20 best hashtags","strategy":"2-3 sentence hashtag strategy"}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:1500,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const cfg=PLATFORM_CONFIG[platform]||{color:'var(--acc)'}
+    out.innerHTML=`<div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card" style="border-top:3px solid ${cfg.color};">
+        <div style="font-size:11px;color:var(--txt2);margin-bottom:8px;">💡 Strategy: ${data.strategy||''}</div>
+        <div style="padding:10px;background:var(--acc-l);border-radius:var(--r);margin-bottom:10px;">
+          <div style="font-size:10px;font-weight:600;color:var(--acc-d);margin-bottom:5px;">📋 Recommended Set (Copy All)</div>
+          <div style="font-size:12px;line-height:1.8;word-break:break-word;">${data.recommended||''}</div>
+          <button class="btn xs primary" style="margin-top:8px;" onclick="navigator.clipboard.writeText('${(data.recommended||'').replace(/'/g,"\'")}').catch(()=>{});this.textContent='✓ Copied!';setTimeout(()=>this.textContent='Copy All',2000)">Copy All</button>
+        </div>
+        ${[['🔥 Mega (1M+)',data.mega,'#FFE0E0','#CC0000'],['⭐ Popular (100K+)',data.popular,'#FFF3E0','#E65100'],['🎯 Niche (10K+)',data.niche,'#E8F5E9','#2E7D32'],['📍 Local/Regional',data.local,'#E3F2FD','#1565C0'],['✨ Branded',data.branded,'#F3E5F5','#6A1B9A']].map(([label,tags,bg,c])=>tags?.length?`
+        <div style="margin-bottom:8px;">
+          <div style="font-size:10px;font-weight:600;color:${c};margin-bottom:5px;">${label}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;">${(tags||[]).map(t=>`<span onclick="navigator.clipboard.writeText('${t}').catch(()=>{})" style="font-size:11px;padding:3px 9px;background:${bg};color:${c};border-radius:999px;cursor:pointer;" title="Click to copy">${t}</span>`).join('')}</div>
+        </div>`:'').join('')}
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+async function analyzeCompetitors(){
+  const brand=document.getElementById('ca-brand')?.value?.trim()
+  const industry=document.getElementById('ca-industry')?.value?.trim()||''
+  const competitors=document.getElementById('ca-competitors')?.value?.trim()
+  if(!brand||!competitors){alert('Please enter your brand and competitors');return}
+  const key=getKey(); if(!key){alert('Please add your API key');return}
+  const out=document.getElementById('competitorOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin">🔍</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Analyzing competitors...</div></div>`
+  const prompt=`You are a social media strategist. Analyze these competitors vs the main brand for the Gulf/Arabic market.
+Brand: ${brand} (${industry})
+Competitors: ${competitors}
+Return JSON only:
+{"summary":"Overall competitive landscape","competitors":[{"name":"...","estimatedFollowers":"...","contentStrategy":"...","postingFrequency":"...","strengths":["..."],"weaknesses":["..."],"topContent":"..."}],"opportunities":["...","...","..."],"threats":["...","..."],"recommendations":["...","...","..."],"uniqueAngle":"What ${brand} can do differently to stand out"}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2500,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    out.innerHTML=`
+    <div class="card" style="margin-bottom:12px;">
+      <div class="card-hdr"><span class="card-title">🔍 Competitive Analysis — ${brand}</span></div>
+      <div style="padding:10px;background:var(--bg3);border-radius:var(--r);font-size:12px;margin-bottom:12px;">${data.summary||''}</div>
+      <div style="display:grid;grid-template-columns:repeat(${Math.min(data.competitors?.length||1,3)},minmax(0,1fr));gap:10px;margin-bottom:12px;">
+        ${(data.competitors||[]).map(c=>`
+        <div style="border:1px solid var(--bdr);border-radius:var(--r2);padding:12px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">${c.name}</div>
+          <div style="font-size:11px;color:var(--txt2);margin-bottom:8px;">~${c.estimatedFollowers} followers · ${c.postingFrequency}</div>
+          <div style="font-size:11px;margin-bottom:6px;line-height:1.6;">${c.contentStrategy}</div>
+          <div style="margin-bottom:5px;">${(c.strengths||[]).map(s=>`<div style="font-size:10px;display:flex;gap:5px;margin-bottom:2px;"><span style="color:var(--grn);">✓</span>${s}</div>`).join('')}</div>
+          <div>${(c.weaknesses||[]).map(w=>`<div style="font-size:10px;display:flex;gap:5px;margin-bottom:2px;"><span style="color:var(--red);">✕</span>${w}</div>`).join('')}</div>
+          ${c.topContent?`<div style="margin-top:6px;font-size:10px;padding:5px 8px;background:var(--acc-l);border-radius:var(--r);color:var(--acc-d);">💡 Best content: ${c.topContent}</div>`:''}
+        </div>`).join('')}
+      </div>
+      <div class="two-col">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--grn);margin-bottom:6px;">🚀 Opportunities</div>
+          ${(data.opportunities||[]).map(o=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:4px;"><span style="color:var(--grn);">→</span>${o}</div>`).join('')}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--red);margin-bottom:6px;">⚠️ Threats</div>
+          ${(data.threats||[]).map(t=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:4px;"><span style="color:var(--red);">!</span>${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">✅ Recommendations for ${brand}</span></div>
+      <div style="padding:10px;background:var(--acc-l);border-radius:var(--r);font-size:12px;margin-bottom:10px;color:var(--acc-d);">💡 Unique Angle: ${data.uniqueAngle||''}</div>
+      ${(data.recommendations||[]).map((r,i)=>`<div style="display:flex;gap:9px;padding:8px;background:var(--bg3);border-radius:var(--r);margin-bottom:6px;"><div style="width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;">${i+1}</div><div style="font-size:12px;line-height:1.6;">${r}</div></div>`).join('')}
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+function renderAnalyticsInputs(){
+  const el=document.getElementById('analyticsInputs'); if(!el) return
+  if(!socialAccounts.length){el.innerHTML='<div style="font-size:12px;color:var(--txt2);margin-bottom:12px;">Add accounts from the Overview tab first.</div>';return}
+  el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(${Math.min(socialAccounts.length,3)},minmax(0,1fr));gap:10px;margin-bottom:12px;">
+    ${socialAccounts.map((a,i)=>{const cfg=PLATFORM_CONFIG[a.platform]||{icon:'📱',color:'var(--acc)',bg:'var(--acc-l)'}; return`
+    <div style="padding:12px;border:1px solid ${cfg.color}40;border-radius:var(--r2);">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px;">${cfg.icon} ${a.platform}</div>
+      <div class="field" style="margin-bottom:8px;"><div class="field-label" style="font-size:10px;">Followers</div><input class="input" style="font-size:12px;" id="an-followers-${i}" type="number" value="${a.followers}" placeholder="0"/></div>
+      <div class="field" style="margin-bottom:8px;"><div class="field-label" style="font-size:10px;">Engagement Rate %</div><input class="input" style="font-size:12px;" id="an-engagement-${i}" type="number" value="${a.engagement}" placeholder="0" step="0.1"/></div>
+      <div class="field" style="margin-bottom:0;"><div class="field-label" style="font-size:10px;">Monthly Reach</div><input class="input" style="font-size:12px;" id="an-reach-${i}" type="number" value="${a.reach||0}" placeholder="0"/></div>
+    </div>`}).join('')}
+  </div>`
+}
+
+async function analyzePerformance(){
+  const key=getKey(); if(!key){alert('Please add your API key');return}
+  if(!socialAccounts.length){alert('Add social media accounts first');return}
+  // Update account stats from inputs
+  socialAccounts.forEach((a,i)=>{
+    const f=document.getElementById('an-followers-'+i); if(f)a.followers=parseInt(f.value)||a.followers
+    const e=document.getElementById('an-engagement-'+i); if(e)a.engagement=parseFloat(e.value)||a.engagement
+    const r=document.getElementById('an-reach-'+i); if(r)a.reach=parseInt(r.value)||0
+  })
+  saveSocialAccounts()
+  const out=document.getElementById('analyticsOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin">📈</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Analyzing your performance...</div></div>`
+  const statsText=socialAccounts.map(a=>`${a.platform}: ${a.followers} followers, ${a.engagement}% engagement, ${a.reach||0} monthly reach`).join('; ')
+  const prompt=`You are a social media analyst for the Gulf/Arabic market. Analyze this performance data and give actionable insights.
+Data: ${statsText}
+Return JSON only:
+{"overallScore":85,"summary":"2-3 sentence assessment","platformScores":[{"platform":"...","score":80,"status":"growing","insight":"..."}],"topPerformer":"...","needsWork":"...","recommendations":["...","...","..."],"quickWins":["...","...","..."],"monthlyGoals":[{"platform":"...","currentFollowers":0,"targetFollowers":0,"actionPlan":"..."}]}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const scoreColor=data.overallScore>=80?'var(--grn)':data.overallScore>=60?'var(--amb)':'var(--red)'
+    out.innerHTML=`
+    <div class="card" style="margin-bottom:12px;">
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:14px;">
+        <div style="text-align:center;">
+          <div style="font-size:44px;font-weight:600;color:${scoreColor};line-height:1;">${data.overallScore}</div>
+          <div style="font-size:10px;color:var(--txt2);">Social Score</div>
+        </div>
+        <div style="flex:1;">
+          <div style="height:7px;background:var(--bg3);border-radius:999px;overflow:hidden;margin-bottom:8px;"><div style="width:${data.overallScore}%;height:100%;background:${scoreColor};border-radius:999px;"></div></div>
+          <div style="font-size:12px;color:var(--txt2);line-height:1.7;">${data.summary}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(${Math.min(data.platformScores?.length||1,4)},1fr);gap:8px;margin-bottom:12px;">
+        ${(data.platformScores||[]).map(p=>{const cfg=PLATFORM_CONFIG[p.platform]||{icon:'📱',color:'var(--acc)'};const sc=p.score>=80?'var(--grn)':p.score>=60?'var(--amb)':'var(--red)';return`
+        <div style="padding:10px;border:1px solid ${cfg.color}30;border-radius:var(--r2);text-align:center;">
+          <div style="font-size:16px;margin-bottom:4px;">${cfg.icon}</div>
+          <div style="font-size:11px;font-weight:600;">${p.platform}</div>
+          <div style="font-size:20px;font-weight:600;color:${sc};margin:4px 0;">${p.score}</div>
+          <div style="font-size:9px;color:var(--txt2);">${p.status||''}</div>
+          <div style="font-size:10px;color:var(--txt2);margin-top:4px;line-height:1.4;">${p.insight||''}</div>
+        </div>`}).join('')}
+      </div>
+      <div class="two-col">
+        <div>
+          <div style="font-size:11px;font-weight:600;margin-bottom:7px;">⚡ Quick Wins</div>
+          ${(data.quickWins||[]).map(w=>`<div style="font-size:11px;padding:6px;background:var(--grn-l);border-radius:var(--r);margin-bottom:5px;color:var(--grn);">→ ${w}</div>`).join('')}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;margin-bottom:7px;">📋 Recommendations</div>
+          ${(data.recommendations||[]).map((r,i)=>`<div style="font-size:11px;display:flex;gap:6px;margin-bottom:5px;padding:6px;background:var(--bg3);border-radius:var(--r);"><span style="color:var(--acc);font-weight:600;">${i+1}.</span>${r}</div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">🎯 Monthly Growth Goals</span></div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${(data.monthlyGoals||[]).map(g=>{const cfg=PLATFORM_CONFIG[g.platform]||{icon:'📱',color:'var(--acc)'};return`
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:10px;background:var(--bg3);border-radius:var(--r);">
+          <span style="font-size:18px;">${cfg.icon}</span>
+          <div style="flex:1;">
+            <div style="font-size:12px;font-weight:500;">${g.platform}</div>
+            <div style="font-size:11px;color:var(--txt2);">${g.currentFollowers.toLocaleString()} → <span style="color:var(--grn);font-weight:500;">${g.targetFollowers.toLocaleString()}</span> followers</div>
+            <div style="font-size:11px;margin-top:3px;">${g.actionPlan}</div>
+          </div>
+        </div>`}).join('')}
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+async function getSocialAIAdvice(){
+  const key=getKey(); if(!key){alert('Please add your API key');return}
+  if(!socialAccounts.length){alert('Add social media accounts first from Overview tab');return}
+  const out=document.getElementById('socialAIOutput')
+  out.innerHTML=`<div class="loading-box"><div class="spin">🤖</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Getting AI recommendations...</div></div>`
+  const statsText=socialAccounts.map(a=>`${a.platform}: ${a.followers} followers, ${a.engagement}% engagement`).join(', ')
+  const prompt=`Give 3 quick, specific social media tips for a business with these accounts: ${statsText}. Return JSON: {"tips":[{"icon":"...","title":"...","description":"...","priority":"high/medium"}]}`
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:800,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    out.innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+      ${(data.tips||[]).map(t=>`<div style="padding:12px;background:var(--acc-l);border-radius:var(--r2);border:1px solid var(--acc)30;">
+        <div style="font-size:20px;margin-bottom:6px;">${t.icon||'💡'}</div>
+        <div style="font-size:12px;font-weight:600;margin-bottom:4px;color:var(--acc-d);">${t.title}</div>
+        <div style="font-size:11px;color:var(--txt2);line-height:1.6;">${t.description}</div>
+      </div>`).join('')}
+    </div>`
+  }catch(e){out.innerHTML=''}
+}
+
+function renderSocialCalendar(){
+  const el=document.getElementById('socialCalendar'); if(!el) return
+  const title=document.getElementById('calMonthTitle')
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December']
+  if(title)title.textContent=months[calendarMonth]+' '+calendarYear
+  const firstDay=new Date(calendarYear,calendarMonth,1).getDay()
+  const daysInMonth=new Date(calendarYear,calendarMonth+1,0).getDate()
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
+  let html=`<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;">`
+  days.forEach(d=>html+=`<div style="text-align:center;font-size:11px;font-weight:600;color:var(--txt2);padding:6px;">${d}</div>`)
+  for(let i=0;i<firstDay;i++) html+=`<div></div>`
+  for(let day=1;day<=daysInMonth;day++){
+    const dateStr=calendarYear+'-'+String(calendarMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0')
+    const posts=schedulePosts.filter(p=>p.date===dateStr)
+    const isToday=new Date().toISOString().split('T')[0]===dateStr
+    html+=`<div style="min-height:70px;border:1px solid var(--bdr);border-radius:var(--r);padding:5px;background:${isToday?'var(--acc-l)':'var(--bg2)'};${isToday?'border-color:var(--acc);':''}">
+      <div style="font-size:11px;font-weight:${isToday?'600':'400'};color:${isToday?'var(--acc)':'var(--txt)'};margin-bottom:3px;">${day}</div>
+      ${posts.slice(0,3).map(p=>{const cfg=PLATFORM_CONFIG[p.platform]||{color:'var(--acc)'};return`<div style="font-size:9px;padding:2px 5px;background:${cfg.color}20;color:${cfg.color};border-radius:3px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.platform?.charAt(0)||'?'} ${p.topic||''}</div>`}).join('')}
+      ${posts.length>3?`<div style="font-size:9px;color:var(--txt2);">+${posts.length-3} more</div>`:''}
+    </div>`
+  }
+  html+=`</div>`
+  el.innerHTML=html
+}
+
+function changeCalMonth(dir){
+  calendarMonth+=dir
+  if(calendarMonth>11){calendarMonth=0;calendarYear++}
+  if(calendarMonth<0){calendarMonth=11;calendarYear--}
+  renderSocialCalendar()
+}
+
+function exportSocialReport(){
+  if(!socialAccounts.length){alert('Add social media accounts first');return}
+  const rows=[['Platform','Handle','Followers','Engagement Rate','Posts/Week','URL']]
+  socialAccounts.forEach(a=>rows.push([a.platform,a.handle||'',a.followers,a.engagement+'%',a.postsWeek,a.url||'']))
+  const csv=rows.map(r=>r.map(v=>'"'+v+'"').join(',')).join('\n')
+  const blob=new Blob([csv],{type:'text/csv'})
+  const url=URL.createObjectURL(blob)
+  const a=document.createElement('a');a.href=url;a.download='social-media-report.csv';a.click()
+  URL.revokeObjectURL(url)
 }
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
