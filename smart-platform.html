@@ -452,8 +452,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb"><b>لوحة التحكم</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn primary" onclick="go('input',null)">+ إدخال جديد</button>
     </div>
@@ -504,8 +504,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-input">
   <div class="topbar"><div class="breadcrumb">الرئيسية › <b>إدخال جديد</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div><button class="btn" onclick="go('dashboard',null)">إلغاء</button></div></div>
   <div class="steps-layout">
     <div class="steps-side">
@@ -524,8 +524,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">المخرجات › <b id="outTitle">النتائج</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="go('input',null)">+ طلب جديد</button>
     </div>
@@ -546,8 +546,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-reports">
   <div class="topbar"><div class="breadcrumb">المخرجات › <b>جميع التقارير</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div><button class="btn primary" onclick="go('input',null)">+ إدخال جديد</button></div></div>
   <div class="page-body"><div class="reports-grid" id="reportsGrid"><div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--txt2);">لا توجد تقارير — <span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)">ابدأ الآن</span></div></div></div>
 </div>
@@ -573,8 +573,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-crm">
   <div class="topbar"><div class="breadcrumb">الأدوات › <b>نظام CRM</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div><button class="btn primary" onclick="showAddClientForm()">+ إضافة عميل</button></div></div>
   <div class="page-body" id="crmBody">
     <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">أضف عملاءك وولّد لكل منهم تقارير وأدوات مخصصة</div><button class="btn primary" onclick="showAddClientForm()">+ إضافة أول عميل</button></div>
@@ -585,8 +585,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-kpi">
   <div class="topbar"><div class="breadcrumb">الأدوات › <b>لوحة KPI</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div><button class="btn" onclick="buildKPI()">🔄 إعادة توليد</button><button class="btn" onclick="exportPDF('kpi','لوحة KPI')">⬇ PDF</button><button class="btn primary" onclick="openShare('kpi','لوحة KPI')">🔗 مشاركة</button></div></div>
   <div class="page-body" id="kpiBody">
     <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">📊</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">لوحة KPI المخصصة</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">اضغط "توليد" لبناء مؤشرات أداء مخصصة لشركتك</div><button class="btn primary" style="padding:10px 24px;" onclick="buildKPI()">🤖 توليد KPI بالذكاء الاصطناعي</button></div>
@@ -597,8 +597,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-plan">
   <div class="topbar"><div class="breadcrumb">الأدوات › <b>خطة العمل 90 يوم</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div><button class="btn" onclick="buildPlan()">🔄 إعادة توليد</button><button class="btn" onclick="exportPDF('plan','خطة العمل 90 يوم')">⬇ PDF</button><button class="btn primary" onclick="openShare('plan','خطة العمل 90 يوم')">🔗 مشاركة</button></div></div>
   <div class="page-body" id="planBody">
     <div class="loading-box"><div style="font-size:36px;margin-bottom:12px;">📋</div><div style="font-size:14px;font-weight:500;margin-bottom:6px;">خطة العمل التنفيذية</div><div style="font-size:12px;color:var(--txt2);margin-bottom:16px;">اضغط "توليد" لبناء خطة 90 يوم مبنية على توصيات الذكاء</div><button class="btn primary" style="padding:10px 24px;" onclick="buildPlan()">🤖 توليد الخطة بالذكاء الاصطناعي</button></div>
@@ -683,8 +683,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">Tools › <b>Visual Identity Studio</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="buildBrand()">🔄 Regenerate</button>
       <button class="btn" onclick="exportBrandPDF()">⬇ Download PDF</button>
@@ -747,8 +747,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">Design Studio › <b>Chat with Claude</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="clearChat()">🗑 Clear Chat</button>
     </div>
@@ -930,8 +930,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb"><b>👑 Admin Panel</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn primary" onclick="openModal('addUserModal')">+ Add User</button>
       <button class="btn" onclick="exportUsers()">⬇ Export Users</button>
@@ -1119,8 +1119,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">خدمات بصمة › <b>الخطة الشهرية</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportMonthlyPlan()">⬇ تصدير PDF</button>
     </div>
@@ -1268,8 +1268,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">خدمات بصمة › <b>جدول المحتوى</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportSchedule()">⬇ تصدير CSV</button>
       <button class="btn primary" onclick="addSchedulePost()">+ إضافة منشور</button>
@@ -1490,8 +1490,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb"><b>📱 Social Media Dashboard</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportSocialReport()">⬇ Export Report</button>
       <button class="btn primary" onclick="getSocialAIAdvice()">🤖 AI Analysis</button>
@@ -1765,8 +1765,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb"><b>🕐 سجل التقارير</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <input class="input" id="history-search" placeholder="بحث..." style="width:200px;padding:6px 10px;font-size:12px;" oninput="renderHistory()"/>
       <button class="btn red-btn" onclick="if(confirm('حذف كل السجل؟')){submissions=[];saveSubmissions();renderHistory()}">🗑 حذف الكل</button>
@@ -1802,8 +1802,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">الأدوات › <b>📖 StoryBrand 7 Framework</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportPDF('storybrand','StoryBrand Framework')">⬇ PDF</button>
       <button class="btn primary" onclick="openShare('storybrand','StoryBrand 7 Framework')">🔗 Share</button>
@@ -1854,8 +1854,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">الأدوات › <b>🧠 Brand Personality Engine</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportPDF('brand-personality','Brand Personality Report')">⬇ PDF</button>
     </div>
@@ -1983,8 +1983,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb">الأدوات › <b>🔍 SEO Analyzer</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
       <button class="btn" onclick="exportPDF('seo','SEO Analysis Report')">⬇ PDF</button>
     </div>
@@ -2042,8 +2042,8 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="breadcrumb"><b data-t="nav_forms">النماذج</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
     </div>
   </div>
