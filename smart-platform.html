@@ -396,39 +396,39 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="logo-sub" style="margin-top:4px;">مدعومة بـ Claude AI</div>
   </div>
   <div class="nav" id="sideNav">
-    <div class="nav-sec">الرئيسية</div>
-    <div class="nav-item active" id="nav-dashboard" onclick="go('dashboard',this)"><span class="nav-icon">◈</span>لوحة التحكم</div>
-    <div class="nav-item" id="nav-input" onclick="go('input',this)"><span class="nav-icon">⊕</span>إدخال جديد</div>
-    <div class="nav-sec">المخرجات</div>
-    <div class="nav-item" id="nav-reports" onclick="go('reports',this)"><span class="nav-icon">▤</span>التقارير</div>
-    <div class="nav-item" id="nav-history" onclick="go('history',this)"><span class="nav-icon">🕐</span>السجل</div>
-    <div class="nav-item" id="nav-outputs" onclick="go('outputs',this)"><span class="nav-icon">▦</span>المخرجات</div>
-    <div class="nav-sec">الأدوات</div>
-    <div class="nav-item" id="nav-tools" onclick="go('tools',this)"><span class="nav-icon">🛠</span>أدواتي</div>
-    <div class="nav-item" id="nav-crm" onclick="go('crm',this)"><span class="nav-icon">👥</span>نظام CRM</div>
-    <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span>لوحة KPI</div>
-    <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span>خطة 90 يوم</div>
-    <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span>Visual Identity</div>
-    <div class="nav-item" id="nav-storybrand" onclick="go('storybrand',this)"><span class="nav-icon">📖</span>StoryBrand 7</div>
-    <div class="nav-item" id="nav-brand-personality" onclick="go('brand-personality',this)"><span class="nav-icon">🧠</span>Brand Personality</div>
-    <div class="nav-item" id="nav-cta-analyzer" onclick="go('cta-analyzer',this)"><span class="nav-icon">🎯</span>CTA Analyzer</div>
-    <div class="nav-item" id="nav-seo" onclick="go('seo',this)"><span class="nav-icon">🔍</span>SEO Analyzer</div>
-    <div class="nav-sec">خدمات بصمة</div>
-    <div class="nav-item" id="nav-content-writer" onclick="go('content-writer',this)"><span class="nav-icon">✍️</span>كتابة المحتوى</div>
-    <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span>الخطة الشهرية</div>
-    <div class="nav-item" id="nav-voiceover" onclick="go('voiceover',this)"><span class="nav-icon">🎙️</span>فويس أوفر</div>
-    <div class="nav-item" id="nav-scheduler" onclick="go('scheduler',this)"><span class="nav-icon">🗓️</span>جدول المحتوى</div>
+    <div class="nav-sec" data-t="sec_main">الرئيسية</div>
+    <div class="nav-item active" id="nav-dashboard" onclick="go('dashboard',this)"><span class="nav-icon">◈</span><span data-t="nav_dashboard">لوحة التحكم</span></div>
+    <div class="nav-item" id="nav-input" onclick="go('input',this)"><span class="nav-icon">⊕</span><span data-t="nav_input">إدخال جديد</span></div>
+    <div class="nav-sec" data-t="sec_outputs">المخرجات</div>
+    <div class="nav-item" id="nav-reports" onclick="go('reports',this)"><span class="nav-icon">▤</span><span data-t="nav_reports">التقارير</span></div>
+    <div class="nav-item" id="nav-history" onclick="go('history',this)"><span class="nav-icon">🕐</span><span data-t="nav_history">السجل</span></div>
+    <div class="nav-item" id="nav-outputs" onclick="go('outputs',this)"><span class="nav-icon">▦</span><span data-t="nav_outputs">المخرجات</span></div>
+    <div class="nav-sec" data-t="sec_tools">الأدوات</div>
+    <div class="nav-item" id="nav-tools" onclick="go('tools',this)"><span class="nav-icon">🛠</span><span data-t="nav_tools">أدواتي</span></div>
+    <div class="nav-item" id="nav-crm" onclick="go('crm',this)"><span class="nav-icon">👥</span><span data-t="nav_crm">نظام CRM</span></div>
+    <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span><span data-t="nav_kpi">لوحة KPI</span></div>
+    <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span><span data-t="nav_plan">خطة 90 يوم</span></div>
+    <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span><span data-t="nav_brand">Visual Identity</span></div>
+    <div class="nav-item" id="nav-storybrand" onclick="go('storybrand',this)"><span class="nav-icon">📖</span><span data-t="nav_storybrand">StoryBrand 7</span></div>
+    <div class="nav-item" id="nav-brand-personality" onclick="go('brand-personality',this)"><span class="nav-icon">🧠</span><span data-t="nav_personality">Brand Personality</span></div>
+    <div class="nav-item" id="nav-cta-analyzer" onclick="go('cta-analyzer',this)"><span class="nav-icon">🎯</span><span data-t="nav_cta">CTA Analyzer</span></div>
+    <div class="nav-item" id="nav-seo" onclick="go('seo',this)"><span class="nav-icon">🔍</span><span data-t="nav_seo">SEO Analyzer</span></div>
+    <div class="nav-sec" data-t="sec_services">خدمات بصمة</div>
+    <div class="nav-item" id="nav-content-writer" onclick="go('content-writer',this)"><span class="nav-icon">✍️</span><span data-t="nav_writer">كتابة المحتوى</span></div>
+    <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span><span data-t="nav_monthly">الخطة الشهرية</span></div>
+    <div class="nav-item" id="nav-voiceover" onclick="go('voiceover',this)"><span class="nav-icon">🎙️</span><span data-t="nav_voiceover">فويس أوفر</span></div>
+    <div class="nav-item" id="nav-scheduler" onclick="go('scheduler',this)"><span class="nav-icon">🗓️</span><span data-t="nav_scheduler">جدول المحتوى</span></div>
     <div class="nav-sec">Social Media</div>
     <div class="nav-item" id="nav-social" onclick="go('social',this)"><span class="nav-icon">📱</span>Social Dashboard</div>
-    <div class="nav-sec">Design Studio</div>
-    <div class="nav-item" id="nav-design-hub" onclick="go('design-hub',this)"><span class="nav-icon">🖌️</span>Design Tools Hub</div>
-    <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span>Chat with Claude</div>
-    <div class="nav-item" id="nav-mockup" onclick="go('mockup',this)"><span class="nav-icon">🖼️</span>Design Mockups</div>
-    <div class="nav-item" id="nav-uiux" onclick="go('uiux',this)"><span class="nav-icon">✏️</span>UI/UX Advisor</div>
+    <div class="nav-sec" data-t="sec_design">Design Studio</div>
+    <div class="nav-item" id="nav-design-hub" onclick="go('design-hub',this)"><span class="nav-icon">🖌️</span><span data-t="nav_hub">Design Tools Hub</span></div>
+    <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span><span data-t="nav_chat">Chat with Claude</span></div>
+    <div class="nav-item" id="nav-mockup" onclick="go('mockup',this)"><span class="nav-icon">🖼️</span><span data-t="nav_mockup">Design Mockups</span></div>
+    <div class="nav-item" id="nav-uiux" onclick="go('uiux',this)"><span class="nav-icon">✏️</span><span data-t="nav_uiux">UI/UX Advisor</span></div>
     <div class="nav-sec">الإعدادات</div>
     <div class="nav-item" id="nav-forms" onclick="go('forms',this)"><span class="nav-icon">📋</span><span data-t="nav_forms">النماذج</span></div>
-    <div class="nav-item" id="nav-admin" onclick="go('admin',this)" style="display:none;"><span class="nav-icon">👑</span>Admin Panel</div>
-    <div class="nav-item" id="nav-settings" onclick="go('settings',this)"><span class="nav-icon">◌</span>الإعدادات</div>
+    <div class="nav-item" id="nav-admin" onclick="go('admin',this)" style="display:none;"><span class="nav-icon">👑</span><span data-t="nav_admin">Admin Panel</span></div>
+    <div class="nav-item" id="nav-settings" onclick="go('settings',this)"><span class="nav-icon">◌</span><span data-t="nav_settings">الإعدادات</span></div>
   </div>
   <div class="sidebar-footer">
     <div style="display:flex;align-items:center;gap:8px;">
@@ -439,7 +439,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       </div>
     </div>
     <div id="usageDisplay" style="margin-top:6px;"></div>
-    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:6px;width:100%;text-align:right;">تسجيل الخروج ↩</button>
+    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:6px;width:100%;text-align:right;" data-t="btn_logout">تسجيل الخروج ↩</button>
   </div>
 </div>
 
