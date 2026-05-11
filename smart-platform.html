@@ -409,6 +409,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span>لوحة KPI</div>
     <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span>خطة 90 يوم</div>
     <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span>Visual Identity</div>
+    <div class="nav-item" id="nav-storybrand" onclick="go('storybrand',this)"><span class="nav-icon">📖</span>StoryBrand 7</div>
+    <div class="nav-item" id="nav-brand-personality" onclick="go('brand-personality',this)"><span class="nav-icon">🧠</span>Brand Personality</div>
+    <div class="nav-item" id="nav-cta-analyzer" onclick="go('cta-analyzer',this)"><span class="nav-icon">🎯</span>CTA Analyzer</div>
+    <div class="nav-item" id="nav-seo" onclick="go('seo',this)"><span class="nav-icon">🔍</span>SEO Analyzer</div>
     <div class="nav-sec">خدمات بصمة</div>
     <div class="nav-item" id="nav-content-writer" onclick="go('content-writer',this)"><span class="nav-icon">✍️</span>كتابة المحتوى</div>
     <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span>الخطة الشهرية</div>
@@ -1735,6 +1739,234 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   </div>
 </div>
 
+<!-- ───── STORYBRAND 7 ────────────────────────────────────────────── -->
+<div class="page" id="page-storybrand">
+  <div class="topbar">
+    <div class="breadcrumb">الأدوات › <b>📖 StoryBrand 7 Framework</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportPDF('storybrand','StoryBrand Framework')">⬇ PDF</button>
+      <button class="btn primary" onclick="openShare('storybrand','StoryBrand 7 Framework')">🔗 Share</button>
+    </div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">📖 StoryBrand 7 Framework</div>
+      <div style="font-size:12px;color:var(--txt2);line-height:1.7;">بناء قصة العلامة التجارية باستخدام إطار StoryBrand 7 عناصر — البطل، المرشد، المشكلة، الخطة، النجاح، الفشل، والدعوة للعمل</div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-hdr"><span class="card-title">معلومات شركتك</span></div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">اسم الشركة / العلامة التجارية <span class="req">*</span></div>
+          <input class="input" id="sb-brand" placeholder="مثال: بصمة" value=""/>
+        </div>
+        <div class="field"><div class="field-label">القطاع / الصناعة <span class="req">*</span></div>
+          <input class="input" id="sb-industry" placeholder="مثال: تسويق رقمي، مطاعم، عقارات..."/>
+        </div>
+      </div>
+      <div class="field"><div class="field-label">وصف المنتج أو الخدمة الرئيسية</div>
+        <textarea class="input" id="sb-product" rows="2" placeholder="ماذا تقدم؟ وما الذي يجعلك مميزاً؟"></textarea>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="sb-audience" placeholder="من هم عملاؤك المثاليون؟"/>
+        </div>
+        <div class="field"><div class="field-label">نموذج العمل</div>
+          <select class="input" id="sb-model">
+            <option value="B2C">B2C — موجه للمستهلكين</option>
+            <option value="B2B">B2B — موجه للشركات</option>
+            <option value="Both">كلاهما</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><div class="field-label">أكبر تحديات عملائك</div>
+        <textarea class="input" id="sb-challenges" rows="2" placeholder="ما المشاكل التي يواجهها عملاؤك وتحلها أنت؟"></textarea>
+      </div>
+      <button class="btn primary" style="width:100%;padding:11px;" onclick="generateStoryBrand()">🤖 توليد StoryBrand Framework</button>
+    </div>
+    <div id="storyBrandOutput"></div>
+  </div>
+</div>
+
+<!-- ───── BRAND PERSONALITY ENGINE ───────────────────────────────── -->
+<div class="page" id="page-brand-personality">
+  <div class="topbar">
+    <div class="breadcrumb">الأدوات › <b>🧠 Brand Personality Engine</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportPDF('brand-personality','Brand Personality Report')">⬇ PDF</button>
+    </div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🧠 محرك تحليل شخصية العلامة التجارية</div>
+      <div style="font-size:12px;color:var(--txt2);">يحدد شخصيتك التجارية (B2B أو B2C) ومدى التجانس بين Business، Brand، وBehavior</div>
+    </div>
+    <div class="two-col" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">معلومات العلامة التجارية</span></div>
+        <div class="field"><div class="field-label">اسم العلامة التجارية <span class="req">*</span></div>
+          <input class="input" id="bp-brand" placeholder="اسم شركتك"/>
+        </div>
+        <div class="field"><div class="field-label">القطاع</div>
+          <input class="input" id="bp-industry" placeholder="مثال: تقنية، غذاء، صحة..."/>
+        </div>
+        <div class="field"><div class="field-label">نوع العمل</div>
+          <select class="input" id="bp-type">
+            <option value="B2C">B2C — أفراد ومستهلكون</option>
+            <option value="B2B">B2B — شركات ومؤسسات</option>
+            <option value="Both">كلاهما</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">وصف جمهورك المستهدف</div>
+          <textarea class="input" id="bp-audience" rows="2" placeholder="من هم؟ ما أعمارهم؟ ما اهتماماتهم؟"></textarea>
+        </div>
+        <div class="field"><div class="field-label">كيف تصف نفسك؟</div>
+          <textarea class="input" id="bp-self" rows="2" placeholder="كيف تريد أن يراك عملاؤك؟"></textarea>
+        </div>
+        <div class="field"><div class="field-label">أمثلة من محتواك الحالي (اختياري)</div>
+          <textarea class="input" id="bp-content" rows="2" placeholder="ألصق بعض منشوراتك أو رسائلك التسويقية..."></textarea>
+        </div>
+        <button class="btn primary" style="width:100%;padding:10px;" onclick="generateBrandPersonality()">🤖 تحليل الشخصية التجارية</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:10px;">📋 الشخصيات التجارية الأساسية</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;">
+            <div style="padding:9px;background:rgba(255,255,255,0.6);border-radius:var(--r);">
+              <div style="font-weight:500;color:var(--acc-d);margin-bottom:3px;">B2C — المرح والحيوية</div>
+              <div style="color:var(--txt2);">شخصية دافئة، عفوية، قريبة من الجمهور، تستخدم العواطف</div>
+            </div>
+            <div style="padding:9px;background:rgba(255,255,255,0.6);border-radius:var(--r);">
+              <div style="font-weight:500;color:var(--acc-d);margin-bottom:3px;">B2B — الرسمية والحكمة</div>
+              <div style="color:var(--txt2);">شخصية احترافية، مدعومة بالأرقام، تستهدف صناع القرار</div>
+            </div>
+            <div style="padding:9px;background:rgba(255,255,255,0.6);border-radius:var(--r);">
+              <div style="font-weight:500;color:var(--acc-d);margin-bottom:3px;">نموذج 3B</div>
+              <div style="color:var(--txt2);">Business + Brand + Behavior — مدى التجانس بينهم</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:500;margin-bottom:8px;">🎭 الشخصيات العالمية</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            ${['البطل','المرشد','المستكشف','المبدع','الحاكم','المحب','المهرج','الرعاية','الساحر','البطل الثوري'].map(p=>`<div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">${p}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="brandPersonalityOutput"></div>
+  </div>
+</div>
+
+<!-- ───── CTA ANALYZER ────────────────────────────────────────────── -->
+<div class="page" id="page-cta-analyzer">
+  <div class="topbar">
+    <div class="breadcrumb">الأدوات › <b>🎯 CTA Analyzer</b></div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🎯 محلل وضوح الرسائل التسويقية (CTA)</div>
+      <div style="font-size:12px;color:var(--txt2);">تحليل مدى وضوح دعوة الجمهور للتصرف في منشوراتك وإعلاناتك</div>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">تحليل المحتوى</span></div>
+        <div class="field"><div class="field-label">منصة النشر</div>
+          <select class="input" id="cta-platform">
+            <option>إنستجرام</option><option>تويتر X</option><option>لينكد إن</option>
+            <option>تيك توك</option><option>فيسبوك</option><option>سناب شات</option>
+            <option>يوتيوب</option><option>إعلان مدفوع</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">المحتوى / المنشور <span class="req">*</span></div>
+          <textarea class="input" id="cta-content" rows="5" placeholder="الصق نص منشورك أو إعلانك هنا..."></textarea>
+        </div>
+        <div class="field"><div class="field-label">الهدف من المنشور</div>
+          <select class="input" id="cta-goal">
+            <option>زيادة المبيعات</option>
+            <option>جذب متابعين جدد</option>
+            <option>زيادة التفاعل</option>
+            <option>توليد leads</option>
+            <option>بناء الوعي بالعلامة</option>
+            <option>تحويل الزوار لعملاء</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="cta-audience" placeholder="من تستهدف بهذا المنشور؟"/>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn primary" style="flex:1;padding:10px;" onclick="analyzeCTA()">🤖 تحليل الـ CTA</button>
+          <button class="btn" onclick="document.getElementById('cta-content').value='';document.getElementById('ctaOutput').innerHTML=''">مسح</button>
+        </div>
+
+        <!-- Batch analyzer -->
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--bdr);">
+          <div style="font-size:12px;font-weight:500;margin-bottom:8px;">📋 تحليل متعدد (حتى 5 منشورات)</div>
+          <textarea class="input" id="cta-batch" rows="4" placeholder="افصل كل منشور بسطر فارغ:&#10;&#10;المنشور الأول هنا...&#10;&#10;المنشور الثاني هنا..."></textarea>
+          <button class="btn" style="width:100%;margin-top:8px;" onclick="analyzeBatchCTA()">🤖 تحليل المجموعة</button>
+        </div>
+      </div>
+      <div id="ctaOutput">
+        <div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">الصق منشوراً وانقر "تحليل" للحصول على تقرير مفصل</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── SEO ANALYZER ────────────────────────────────────────────── -->
+<div class="page" id="page-seo">
+  <div class="topbar">
+    <div class="breadcrumb">الأدوات › <b>🔍 SEO Analyzer</b></div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportPDF('seo','SEO Analysis Report')">⬇ PDF</button>
+    </div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🔍 تحليل SEO للمواقع والمتاجر</div>
+      <div style="font-size:12px;color:var(--txt2);">تحليل تقني وتسويقي لمحركات البحث — كلمات مفتاحية، بنية الصفحة، توصيات التحسين</div>
+    </div>
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-hdr"><span class="card-title">إعدادات التحليل</span></div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">رابط الموقع أو المتجر <span class="req">*</span></div>
+          <input class="input" id="seo-url" placeholder="https://www.yourwebsite.com"/>
+        </div>
+        <div class="field"><div class="field-label">نوع الموقع</div>
+          <select class="input" id="seo-type">
+            <option value="website">موقع شركة</option>
+            <option value="ecommerce">متجر إلكتروني</option>
+            <option value="blog">مدونة</option>
+            <option value="portfolio">بورتفوليو</option>
+            <option value="landing">صفحة هبوط</option>
+          </select>
+        </div>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">القطاع / المجال</div>
+          <input class="input" id="seo-industry" placeholder="مثال: مطاعم، عيادات، ملابس..."/>
+        </div>
+        <div class="field"><div class="field-label">الكلمات المفتاحية الحالية (اختياري)</div>
+          <input class="input" id="seo-keywords" placeholder="كلمات تريد الظهور بها في جوجل..."/>
+        </div>
+      </div>
+      <div class="field"><div class="field-label">المنافسون (اختياري)</div>
+        <input class="input" id="seo-competitors" placeholder="روابط أو أسماء المنافسين مفصولة بفاصلة..."/>
+      </div>
+      <div class="field"><div class="field-label">الجمهور المستهدف جغرافياً</div>
+        <select class="input" id="seo-region">
+          <option>المملكة العربية السعودية</option>
+          <option>الإمارات العربية المتحدة</option>
+          <option>منطقة الخليج</option>
+          <option>الوطن العربي</option>
+          <option>عالمي</option>
+        </select>
+      </div>
+      <button class="btn primary" style="width:100%;padding:11px;" onclick="generateSEOAnalysis()">🤖 تحليل SEO بالذكاء الاصطناعي</button>
+    </div>
+    <div id="seoOutput"></div>
+  </div>
+</div>
+
 </div><!-- /main -->
 </div><!-- /app -->
 
@@ -1952,6 +2184,10 @@ function go(id, navEl){
   if(id==='history') renderHistory()
   if(id==='reports') addToReports_all()
   if(id==='social') initSocialDashboard()
+  if(id==='storybrand') initStoryBrand()
+  if(id==='brand-personality') initBrandPersonality()
+  if(id==='cta-analyzer') initCTAAnalyzer()
+  if(id==='seo') initSEO()
   if(id==='design-hub') initDesignHub()
   if(id==='content-writer') initContentWriter()
   if(id==='monthly-plan') initMonthlyPlan()
