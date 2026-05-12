@@ -613,9 +613,15 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <!-- API Key — Admin Only -->
     <div class="card" id="apiKeyCard">
       <div class="card-hdr"><span class="card-title">🔑 Anthropic API Key</span><span class="pill purple" style="font-size:10px;">Admin Only</span></div>
-      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Enter your API key from <b>console.anthropic.com</b> — saved in your browser only.</p>
+      <p style="font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px;">Enter your API key from <b>console.anthropic.com</b> — saved in this browser only. Each device needs its own key.</p>
       <div class="field"><input class="input" id="apiKeyInput" type="password" placeholder="sk-ant-api03-..."/><div class="hint">Starts with sk-ant-api03-</div></div>
-      <div style="display:flex;gap:8px;"><button class="btn primary" onclick="saveKey()">✓ Save Key</button><button class="btn" onclick="clearKey()">Delete</button></div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn primary" id="saveKeyBtn" onclick="saveKey()">✓ Save Key</button>
+        <button class="btn" id="clearKeyBtn" onclick="clearKey()">Delete</button>
+      </div>
+      <div id="apiNote" style="display:none;margin-top:9px;padding:9px 12px;background:var(--amb-l);border-radius:var(--r);font-size:12px;color:var(--amb);">
+        ⚠️ Only the Admin (مدير عام) can change the API key. Contact your admin if you need to update it.
+      </div>
       <div id="keyMsg" style="margin-top:9px;font-size:12px;"></div>
     </div>
 
@@ -2179,9 +2185,9 @@ const DEEPSEEK_MODEL = 'deepseek-chat'
 const MODEL = 'claude-sonnet-4-5'
 const ROLE_LABELS = {admin:'مدير عام', analyst:'محلل', employee:'موظف'}
 const ROLE_PERMS = {
-  admin: {canInput:true, canView:true, canEdit:true, canManageUsers:true},
-  analyst: {canInput:false, canView:true, canEdit:false, canManageUsers:false},
-  employee: {canInput:true, canView:false, canEdit:false, canManageUsers:false}
+  admin: {canInput:true, canView:true, canEdit:true, canManageUsers:true, canSeeAPI:true},
+  analyst: {canInput:false, canView:true, canEdit:false, canManageUsers:false, canSeeAPI:false},
+  employee: {canInput:true, canView:false, canEdit:false, canManageUsers:false, canSeeAPI:false}
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -3079,7 +3085,19 @@ function initSettings(){
     const apiCard = document.getElementById('apiKeyCard')
     const dsCard = document.getElementById('deepseekKeyCard')
     const isAdmin = currentUser && (currentUser.role==='admin'||currentUser.isSuperAdmin)
-    if(apiCard){ apiCard.style.display=isAdmin?'block':'none'; if(isAdmin){const ki=document.getElementById('apiKeyInput');if(ki)ki.value=k} }
+    const isAnyUser = !!currentUser
+    // API key: visible to ALL users (they need it on their own device), editable by admin only
+    if(apiCard){
+      apiCard.style.display='block'
+      const ki=document.getElementById('apiKeyInput')
+      if(ki){ ki.value=k; ki.disabled=!isAdmin }
+      const saveKeyBtn=document.getElementById('saveKeyBtn')
+      const clearKeyBtn=document.getElementById('clearKeyBtn')
+      if(saveKeyBtn) saveKeyBtn.style.display=isAdmin?'inline-flex':'none'
+      if(clearKeyBtn) clearKeyBtn.style.display=isAdmin?'inline-flex':'none'
+      const apiNote=document.getElementById('apiNote')
+      if(apiNote) apiNote.style.display=isAdmin?'none':'block'
+    }
     if(dsCard){ dsCard.style.display=isAdmin?'block':'none'; if(isAdmin){const dki=document.getElementById('deepseekKeyInput');if(dki)dki.value=getDeepSeekKey()} }
     const myNewUser = document.getElementById('my-newuser')
     const myCurrPass = document.getElementById('my-currpass')
@@ -3171,7 +3189,8 @@ function saveNewUser(){
   const users=getUsers()
   if(users.find(x=>x.username===u)){err.textContent='اسم المستخدم مستخدم بالفعل';err.style.display='block';return}
   const plan=document.getElementById('nu-plan')?.value||'basic'
-  users.push({username:u,password:p,fullname:fn||u,role:selectedRole,plan})
+  const roleToSave = selectedRole||'employee'
+  users.push({username:u,password:p,fullname:fn||u,role:roleToSave,plan,status:'active',expiryDate:'',lastLogin:'',createdAt:new Date().toISOString(),isSuperAdmin:false})
   saveUsers(users)
   closeModal('addUserModal')
   renderUsersTable()
