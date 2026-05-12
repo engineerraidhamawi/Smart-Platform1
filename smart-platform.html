@@ -449,58 +449,58 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── DASHBOARD ──────────────────────────────────────────────── -->
 <div class="page active" id="page-dashboard">
   <div class="topbar">
-    <div class="breadcrumb"><b>لوحة التحكم</b></div>
+    <div class="breadcrumb"><b data-t="nav_dashboard">لوحة التحكم</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
-      <button class="btn primary" onclick="go('input',null)">+ إدخال جديد</button>
+      <button class="btn primary" onclick="go('input',null)" data-t="btn_new_input">+ إدخال جديد</button>
     </div>
   </div>
   <div class="page-body">
+    <div id="expiryWarning" style="display:none;"></div>
     <div class="metrics-row">
-      <div class="metric"><div class="m-label">مخرجات هذا الشهر</div><div class="m-val" id="d-total">0</div><div class="m-chg up">ابدأ الآن</div></div>
-      <div class="metric"><div class="m-label">تقارير مكتملة</div><div class="m-val" id="d-reports">0</div><div class="m-chg">جاهز</div></div>
-      <div class="metric"><div class="m-label">عملاء CRM</div><div class="m-val" id="d-clients">0</div><div class="m-chg">إدارة العملاء</div></div>
-      <div class="metric"><div class="m-label">API</div><div class="m-val" id="d-api" style="font-size:13px;">غير مفعّل</div><div class="m-chg" id="d-api-sub" style="color:var(--red);">اذهب للإعدادات</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_outputs">مخرجات هذا الشهر</div><div class="m-val" id="d-total">0</div><div class="m-chg up" data-t="dash_start">ابدأ الآن</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_reports">تقارير مكتملة</div><div class="m-val" id="d-reports">0</div><div class="m-chg" data-t="status_completed">مكتمل</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_clients">عملاء CRM</div><div class="m-val" id="d-clients">0</div><div class="m-chg" data-t="dash_manage_clients">إدارة العملاء</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_api">API</div><div class="m-val" id="d-api" style="font-size:13px;" data-t="api_inactive">غير مفعّل</div><div class="m-chg" id="d-api-sub" style="color:var(--red);" data-t="dash_go_settings">اذهب للإعدادات</div></div>
     </div>
     <div class="two-col">
       <div class="card">
-        <div class="card-hdr"><span class="card-title">آخر المخرجات</span><button class="card-act" onclick="go('reports',null)">عرض الكل</button></div>
-        <div id="d-recent"><div style="text-align:center;padding:28px;color:var(--txt2);font-size:12px;">لا توجد مخرجات بعد<br><span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)">ابدأ إدخالاً جديداً ↗</span></div></div>
+        <div class="card-hdr"><span class="card-title" data-t="dash_recent">آخر المخرجات</span><button class="card-act" onclick="go('reports',null)" data-t="dash_view_all">عرض الكل</button></div>
+        <div id="d-recent"><div style="text-align:center;padding:28px;color:var(--txt2);font-size:12px;" id="d-recent-empty">لا توجد مخرجات بعد<br><span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)" data-t="dash_start_now">ابدأ إدخالاً جديداً ↗</span></div></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div class="card">
-          <div class="card-hdr"><span class="card-title">البدء السريع</span></div>
+          <div class="card-hdr"><span class="card-title" data-t="dash_quick_start">البدء السريع</span></div>
           <div class="mod-grid" style="margin-bottom:10px;">
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▤</div><div class="mod-name" style="font-size:10px;">تقرير إداري</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">✦</div><div class="mod-name" style="font-size:10px;">محتوى تسويقي</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▦</div><div class="mod-name" style="font-size:10px;">لوحة تحليل</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">◉</div><div class="mod-name" style="font-size:10px;">دراسة تحليلية</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▤</div><div class="mod-name" style="font-size:10px;" data-t="type_report">تقرير إداري</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">✦</div><div class="mod-name" style="font-size:10px;" data-t="type_marketing">محتوى تسويقي</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▦</div><div class="mod-name" style="font-size:10px;" data-t="type_dashboard">لوحة تحليل</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">◉</div><div class="mod-name" style="font-size:10px;" data-t="type_study">دراسة تحليلية</div></div>
           </div>
-          <button class="btn primary" style="width:100%;" onclick="go('input',null)">+ بدء إدخال جديد</button>
+          <button class="btn primary" style="width:100%;" onclick="go('input',null)" data-t="btn_new_input">+ بدء إدخال جديد</button>
+        </div>
+        <div class="card" style="background:var(--acc-l);border-color:#7F77DD;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:6px;">🔑 API Key</div>
+          <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:10px;" id="d-key-status" data-t="dash_add_key">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
+          <button class="btn primary" style="width:100%;font-size:11px;" onclick="go('settings',null)">⚙ <span data-t="nav_settings">الإعدادات</span></button>
         </div>
         <div class="card">
-          <div class="card-hdr"><span class="card-title">🖌️ Design Tools</span><button class="card-act" onclick="go('design-hub',null)">View All</button></div>
+          <div class="card-hdr"><span style="font-size:12px;font-weight:500;" data-t="dash_design_tools">🖌️ Design Tools</span><button class="card-act" onclick="go('design-hub',null)" data-t="dash_view_all">عرض الكل</button></div>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:7px;">
-            <button onclick="openDesignTool('canva')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;transition:all .12s;" onmouseover="this.style.borderColor='#8B3DFF'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/canva-1.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Canva</span></button>
-            <button onclick="openDesignTool('adobe')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;transition:all .12s;" onmouseover="this.style.borderColor='#FF0000'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/adobe-express.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Adobe Express</span></button>
-            <button onclick="openDesignTool('microsoft')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;transition:all .12s;" onmouseover="this.style.borderColor='#0078D4'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/microsoft-5.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Microsoft Designer</span></button>
-            <button onclick="openDesignTool('picsart')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;transition:all .12s;" onmouseover="this.style.borderColor='#FF3C6E'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/picsart.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Picsart</span></button>
+            <button onclick="openDesignTool('canva')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#8B3DFF'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/canva-1.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Canva</span></button>
+            <button onclick="openDesignTool('adobe')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#FF0000'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:#FF0000;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">Ae</span><span style="font-size:11px;font-weight:500;">Adobe Express</span></button>
+            <button onclick="openDesignTool('microsoft')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#0078D4'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:#0078D4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">M</span><span style="font-size:11px;font-weight:500;">Microsoft Designer</span></button>
+            <button onclick="openDesignTool('picsart')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#FF3C6E'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:linear-gradient(135deg,#FF3C6E,#FF8C42);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">Pa</span><span style="font-size:11px;font-weight:500;">Picsart</span></button>
           </div>
-        </div>
-        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
-          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:6px;">🔑 API Key</div>
-          <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:10px;" id="d-key-status">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
-          <button class="btn primary" style="width:100%;font-size:11px;" onclick="go('settings',null)">⚙ الإعدادات</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ───── INPUT WIZARD ────────────────────────────────────────────── -->
 <div class="page" id="page-input">
   <div class="topbar"><div class="breadcrumb">الرئيسية › <b>إدخال جديد</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
@@ -2428,11 +2428,11 @@ function updateDashboard(){
     }
   }
   const hk = !!getKey()
-  document.getElementById('d-api').textContent = hk?'✓ مفعّل':'غير مفعّل'
+  document.getElementById('d-api').textContent = hk?t('api_active'):t('api_inactive')
   document.getElementById('d-api').style.color = hk?'var(--grn)':'var(--red)'
-  document.getElementById('d-api-sub').textContent = hk?'جاهز للإنتاج':'اذهب للإعدادات'
+  document.getElementById('d-api-sub').textContent = hk?(currentLang==='ar'?'جاهز للإنتاج':'Ready'):t('dash_go_settings')
   document.getElementById('d-api-sub').style.color = hk?'var(--grn)':'var(--red)'
-  document.getElementById('d-key-status').textContent = hk?'المفتاح مفعّل — جاهز للإنتاج ✓':'أضف مفتاحك لتفعيل الذكاء الاصطناعي'
+  document.getElementById('d-key-status').textContent = hk?t('dash_key_ready'):t('dash_add_key')
 
   if(!submissions.length) return
   const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
@@ -5789,6 +5789,27 @@ const TRANSLATIONS = {
     'settings_current_password': 'كلمة المرور الحالية',
     'settings_save_changes': '✓ حفظ التغييرات',
     // Tooltips
+    'dash_outputs': 'مخرجات هذا الشهر',
+    'dash_reports': 'تقارير مكتملة',
+    'dash_clients': 'عملاء CRM',
+    'dash_api': 'حالة API',
+    'dash_start': 'ابدأ الآن',
+    'dash_manage_clients': 'إدارة العملاء',
+    'api_inactive': 'غير مفعّل',
+    'api_active': '✓ مفعّل',
+    'dash_go_settings': 'اذهب للإعدادات',
+    'dash_recent': 'آخر المخرجات',
+    'dash_view_all': 'عرض الكل',
+    'dash_start_now': 'ابدأ إدخالاً جديداً ↗',
+    'dash_quick_start': 'البدء السريع',
+    'dash_add_key': 'أضف مفتاحك لتفعيل الذكاء الاصطناعي',
+    'dash_key_ready': 'المفتاح مفعّل — جاهز للإنتاج ✓',
+    'dash_design_tools': '🖌️ أدوات التصميم',
+    'type_report': 'تقرير إداري',
+    'type_marketing': 'محتوى تسويقي',
+    'type_dashboard': 'لوحة تحليل',
+    'type_study': 'دراسة تحليلية',
+    'dash_no_outputs': 'لا توجد مخرجات بعد',
     'tip_api_key': 'مفتاح API من console.anthropic.com — يُحفظ في متصفحك فقط',
     'tip_deepseek': 'سجّل في platform.deepseek.com واحصل على $10 مجاناً',
     'tip_usage': 'عدد التقارير المستخدمة هذا الشهر',
@@ -5911,6 +5932,27 @@ const TRANSLATIONS = {
     'settings_current_password': 'Current Password',
     'settings_save_changes': '✓ Save Changes',
     // Tooltips
+    'dash_outputs': 'Outputs This Month',
+    'dash_reports': 'Completed Reports',
+    'dash_clients': 'CRM Clients',
+    'dash_api': 'API Status',
+    'dash_start': 'Start Now',
+    'dash_manage_clients': 'Manage Clients',
+    'api_inactive': 'Not Active',
+    'api_active': '✓ Active',
+    'dash_go_settings': 'Go to Settings',
+    'dash_recent': 'Recent Outputs',
+    'dash_view_all': 'View All',
+    'dash_start_now': 'Start New Input ↗',
+    'dash_quick_start': 'Quick Start',
+    'dash_add_key': 'Add your key to activate AI',
+    'dash_key_ready': 'Key active — ready for production ✓',
+    'dash_design_tools': '🖌️ Design Tools',
+    'type_report': 'Admin Report',
+    'type_marketing': 'Marketing Content',
+    'type_dashboard': 'Analysis Board',
+    'type_study': 'Market Study',
+    'dash_no_outputs': 'No outputs yet',
     'tip_api_key': 'API key from console.anthropic.com — saved in your browser only',
     'tip_deepseek': 'Sign up at platform.deepseek.com and get $10 free credit',
     'tip_usage': 'Number of reports used this month',
