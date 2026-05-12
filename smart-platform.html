@@ -1028,6 +1028,11 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       </select>
     </div>
     <div class="field"><div class="field-label">Expiry Date <span style="font-size:10px;color:var(--txt3);">(leave empty for no expiry)</span></div><input class="input" type="date" id="eu-expiry"/></div>
+    <div class="field">
+      <div class="field-label">🔑 API Key <span style="font-size:10px;color:var(--txt3);">(set on behalf of user — leave empty to keep current)</span></div>
+      <input class="input" type="password" id="eu-apikey" placeholder="sk-ant-api03-..."/>
+      <div class="hint">If set, this key will be used automatically when the user logs in on any device</div>
+    </div>
     <div id="editUserErr" style="color:var(--red);font-size:12px;margin-bottom:8px;display:none;"></div>
     <div class="nav-row">
       <button class="btn primary" onclick="saveEditUser()">✓ Save Changes</button>
@@ -2212,7 +2217,12 @@ function setSession(u){localStorage.setItem('sp_session',u)}
 function clearSession(){localStorage.removeItem('sp_session')}
 function saveCRM(){localStorage.setItem('sp_crm',JSON.stringify(crmClients))}
 function loadCRM(){try{crmClients=JSON.parse(localStorage.getItem('sp_crm')||'[]')}catch{crmClients=[]}}
-function getKey(){return localStorage.getItem('ant_key')||''}
+function getKey(){
+  // First check if current user has a personal API key set by admin
+  if(currentUser && currentUser.apiKey) return currentUser.apiKey
+  // Fall back to locally saved key
+  return localStorage.getItem('ant_key')||''
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // AUTH
@@ -2325,6 +2335,10 @@ function loginSuccess(u){
   if(idx>-1){users[idx].lastLogin=new Date().toISOString();saveUsers(users)}
 
   currentUser = {...u, lastLogin: new Date().toISOString()}
+  // Load user's personal API key if set by admin
+  if(u.apiKey){
+    localStorage.setItem('ant_key', u.apiKey)
+  }
   document.getElementById('loginOverlay').style.display='none'
   document.getElementById('sideUsername').textContent = u.fullname||u.username
   document.getElementById('sideAva').textContent = (u.fullname||u.username).charAt(0).toUpperCase()
@@ -3117,16 +3131,28 @@ function initSettings(){
 
 function saveKey(){
   const v=document.getElementById('apiKeyInput').value.trim()
-  if(!v.startsWith('sk-ant-')){document.getElementById('keyMsg').innerHTML='<span style="color:var(--red);">⚠ المفتاح يجب أن يبدأ بـ sk-ant-</span>';return}
+  if(!v.startsWith('sk-ant-')){document.getElementById('keyMsg').innerHTML='<span style="color:var(--red);">⚠ Key must start with sk-ant-</span>';return}
+  // Save to localStorage
   localStorage.setItem('ant_key',v)
-  document.getElementById('keyMsg').innerHTML='<span style="color:var(--grn);">✓ تم حفظ المفتاح!</span>'
+  // Also save to user account so it works on any device
+  if(currentUser){
+    const users=getUsers()
+    const idx=users.findIndex(u=>u.username===currentUser.username)
+    if(idx>-1){users[idx].apiKey=v;saveUsers(users);currentUser.apiKey=v}
+  }
+  document.getElementById('keyMsg').innerHTML='<span style="color:var(--grn);">✓ API key saved!</span>'
   updateDashboard()
 }
 
 function clearKey(){
   localStorage.removeItem('ant_key')
+  if(currentUser){
+    const users=getUsers()
+    const idx=users.findIndex(u=>u.username===currentUser.username)
+    if(idx>-1){delete users[idx].apiKey;saveUsers(users);delete currentUser.apiKey}
+  }
   document.getElementById('apiKeyInput').value=''
-  document.getElementById('keyMsg').innerHTML='<span style="color:var(--txt2);">تم حذف المفتاح.</span>'
+  document.getElementById('keyMsg').innerHTML='<span style="color:var(--txt2);">Key deleted.</span>'
   updateDashboard()
 }
 
@@ -4096,7 +4122,7 @@ function renderAdminPanel(){
         <div style="font-weight:500;">${u.fullname||u.username}</div>
         <div style="font-size:10px;color:var(--txt2);">@${u.username}${u.isSuperAdmin?' 👑':''}</div>
       </td>
-      <td><span class="pill ${u.role==='admin'?'purple':u.role==='analyst'?'green':'gray'}">${u.isSuperAdmin?'Super Admin':ROLE_LABELS[u.role]||u.role}</span></td>
+      <td><span class="pill ${u.role==='admin'?'purple':u.role==='analyst'?'green':'gray'}">${u.isSuperAdmin?'Super Admin':ROLE_LABELS[u.role]||u.role}</span>${u.apiKey?'<span class="pill green" style="margin-right:4px;font-size:9px;">🔑 API</span>':''}</td>
       <td><span style="font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;background:${sc.bg};color:${sc.c};">${sc.l}</span></td>
       <td style="font-size:11px;color:var(--txt2);">${u.expiryDate||'No expiry'}</td>
       <td style="font-size:12px;font-weight:500;color:${daysColor};">${daysLeft}</td>
@@ -4130,8 +4156,11 @@ function openEditUser(idx){
   document.getElementById('eu-status').value = u.status||'active'
   document.getElementById('eu-expiry').value = u.expiryDate||''
   const ep=document.getElementById('eu-plan'); if(ep)ep.value=u.plan||'basic'
-  document.getElementById('editUserTitle').textContent = 'Edit: '+( u.fullname||u.username)
+  document.getElementById('editUserTitle').textContent = 'Edit: '+(u.fullname||u.username)
   document.getElementById('editUserErr').style.display='none'
+  // Show API key field — masked
+  const euApiKey = document.getElementById('eu-apikey')
+  if(euApiKey) euApiKey.value = u.apiKey ? '••••••••••••••••' : ''
   openModal('editUserModal')
 }
 
@@ -4154,6 +4183,16 @@ function saveEditUser(){
   users[idx].status = document.getElementById('eu-status').value
   users[idx].expiryDate = document.getElementById('eu-expiry').value||''
   users[idx].plan = document.getElementById('eu-plan')?.value||'basic'
+  // Save API key if entered (not the masked placeholder)
+  const newApiKey = document.getElementById('eu-apikey')?.value?.trim()
+  if(newApiKey && !newApiKey.includes('•')){
+    if(!newApiKey.startsWith('sk-ant-')){
+      errEl.textContent='API key must start with sk-ant-'
+      errEl.style.display='block'
+      return
+    }
+    users[idx].apiKey = newApiKey
+  }
   if(newPass){
     if(newPass.length<6){errEl.textContent='Password must be at least 6 characters';errEl.style.display='block';return}
     users[idx].password = newPass
