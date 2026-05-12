@@ -3084,21 +3084,26 @@ function initSettings(){
     const k=getKey()
     const apiCard = document.getElementById('apiKeyCard')
     const dsCard = document.getElementById('deepseekKeyCard')
-    const isAdmin = currentUser && (currentUser.role==='admin'||currentUser.isSuperAdmin)
-    const isAnyUser = !!currentUser
-    // API key: visible to ALL users (they need it on their own device), editable by admin only
+    // Simple rule: admin role + superadmin = full API access
+    // analyst + employee = no API access
+    const userRole = currentUser?.role||'employee'
+    const canManageAPI = userRole==='admin' || currentUser?.isSuperAdmin===true
+    
     if(apiCard){
       apiCard.style.display='block'
       const ki=document.getElementById('apiKeyInput')
-      if(ki){ ki.value=k; ki.disabled=!isAdmin }
+      if(ki){ ki.value=k; ki.disabled=false }
       const saveKeyBtn=document.getElementById('saveKeyBtn')
       const clearKeyBtn=document.getElementById('clearKeyBtn')
-      if(saveKeyBtn) saveKeyBtn.style.display=isAdmin?'inline-flex':'none'
-      if(clearKeyBtn) clearKeyBtn.style.display=isAdmin?'inline-flex':'none'
+      if(saveKeyBtn) saveKeyBtn.style.display=canManageAPI?'inline-flex':'none'
+      if(clearKeyBtn) clearKeyBtn.style.display=canManageAPI?'inline-flex':'none'
       const apiNote=document.getElementById('apiNote')
-      if(apiNote) apiNote.style.display=isAdmin?'none':'block'
+      if(apiNote) apiNote.style.display=canManageAPI?'none':'block'
     }
-    if(dsCard){ dsCard.style.display=isAdmin?'block':'none'; if(isAdmin){const dki=document.getElementById('deepseekKeyInput');if(dki)dki.value=getDeepSeekKey()} }
+    if(dsCard){ 
+      dsCard.style.display=canManageAPI?'block':'none'
+      if(canManageAPI){const dki=document.getElementById('deepseekKeyInput');if(dki)dki.value=getDeepSeekKey()}
+    }
     const myNewUser = document.getElementById('my-newuser')
     const myCurrPass = document.getElementById('my-currpass')
     const myNewPass = document.getElementById('my-newpass')
@@ -5593,9 +5598,9 @@ function initEmailPaymentSettings(){
   const ppr=document.getElementById('pay-premium'); if(ppr)ppr.value=localStorage.getItem('pay_premium')||''
   const emailCard=document.getElementById('emailCard')
   const payCard=document.getElementById('paymentCard')
-  const isAdmin=currentUser&&(currentUser.role==='admin'||currentUser.isSuperAdmin)
-  if(emailCard)emailCard.style.display=isAdmin?'block':'none'
-  if(payCard)payCard.style.display=isAdmin?'block':'none'
+  const canAdmin=currentUser&&(currentUser.role==='admin'||currentUser.isSuperAdmin===true)
+  if(emailCard)emailCard.style.display=canAdmin?'block':'none'
+  if(payCard)payCard.style.display=canAdmin?'block':'none'
 }
 
 // ══════════════════════════════════════════════════════════════════
@@ -5789,6 +5794,12 @@ const TRANSLATIONS = {
     'tip_usage': 'عدد التقارير المستخدمة هذا الشهر',
     'tip_export_pdf': 'تصدير التقرير كملف PDF جاهز للطباعة',
     'tip_share_wa': 'مشاركة التقرير عبر واتساب',
+    'sec_main': 'الرئيسية',
+    'sec_outputs': 'المخرجات',
+    'sec_tools': 'الأدوات',
+    'sec_services': 'خدمات بصمة',
+    'sec_design': 'Design Studio',
+    'sec_social': 'السوشيال ميديا',
   },
   en: {
     // Nav
@@ -5904,6 +5915,12 @@ const TRANSLATIONS = {
     'tip_usage': 'Number of reports used this month',
     'tip_export_pdf': 'Export report as print-ready PDF',
     'tip_share_wa': 'Share report via WhatsApp',
+    'sec_main': 'Main',
+    'sec_outputs': 'Outputs',
+    'sec_tools': 'Tools',
+    'sec_services': 'Basmah Services',
+    'sec_design': 'Design Studio',
+    'sec_social': 'Social Media',
   }
 }
 
@@ -5923,13 +5940,35 @@ function applyTranslations(){
   document.querySelectorAll('[data-t]').forEach(el=>{
     const key = el.getAttribute('data-t')
     const val = t(key)
-    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder = val
-    else el.textContent = val
+    // Only update if we have a real translation (not just the key itself)
+    if(!val || val===key) return
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){
+      el.placeholder = val
+    } else {
+      el.textContent = val
+    }
   })
   // Update title
   document.title = currentLang==='ar' ? 'بصمة — مدعومة بالذكاء الاصطناعي' : 'Basmah — Powered by AI'
-  // Re-render current page content if needed
-  updateDashboard()
+  // Update sidebar section headers that might not have data-t yet
+  updateSidebarSections()
+}
+
+function updateSidebarSections(){
+  const sidebarSections = {
+    ar: ['الرئيسية','المخرجات','الأدوات','خدمات بصمة','Social Media','Design Studio','الإعدادات'],
+    en: ['Main','Outputs','Tools','Basmah Services','Social Media','Design Studio','Settings']
+  }
+  // Find all nav-sec divs and update them if they contain known section names
+  const arSections = sidebarSections.ar
+  const enSections = sidebarSections.en
+  document.querySelectorAll('.nav-sec').forEach(el=>{
+    const txt = el.getAttribute('data-t')
+    if(txt){
+      const val = t(txt)
+      if(val && val!==txt) el.textContent = val
+    }
+  })
 }
 
 function updateLangButtons(){
@@ -5942,7 +5981,10 @@ function updateLangButtons(){
 function initLang(){
   document.documentElement.lang = currentLang
   document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr'
+  const app = document.querySelector('.app')
+  if(app) app.style.direction = currentLang === 'ar' ? 'rtl' : 'ltr'
   updateLangButtons()
+  setTimeout(()=>{applyTranslations(); updateLangButtons()}, 200)
 }
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
