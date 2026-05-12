@@ -6014,6 +6014,17 @@ function setLang(lang){
   localStorage.setItem('sp_lang', lang)
   document.documentElement.lang = lang
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr'
+  // Switch full app direction
+  const app = document.querySelector('.app')
+  if(app) app.style.direction = lang === 'ar' ? 'rtl' : 'ltr'
+  // Switch sidebar border side
+  const sidebar = document.querySelector('.sidebar')
+  if(sidebar){
+    sidebar.style.borderLeft = lang === 'ar' ? '1px solid var(--bdr)' : 'none'
+    sidebar.style.borderRight = lang === 'ar' ? 'none' : '1px solid var(--bdr)'
+  }
+  // Switch text alignment for all text
+  document.body.style.textAlign = lang === 'ar' ? 'right' : 'left'
   applyTranslations()
   updateLangButtons()
 }
