@@ -502,7 +502,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <div class="page" id="page-input">
-  <div class="topbar"><div class="breadcrumb">الرئيسية › <b>إدخال جديد</b></div><div class="tb-right">
+  <div class="topbar"><div class="breadcrumb">الرئيسية › <b data-t="page_input">إدخال جديد</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
@@ -544,7 +544,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ───── REPORTS ─────────────────────────────────────────────────── -->
 <div class="page" id="page-reports">
-  <div class="topbar"><div class="breadcrumb">المخرجات › <b>جميع التقارير</b></div><div class="tb-right">
+  <div class="topbar"><div class="breadcrumb">المخرجات › <b data-t="page_reports">جميع التقارير</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
@@ -556,7 +556,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <div class="page" id="page-tools">
   <div class="topbar"><div class="breadcrumb"><b>🛠 أدواتي الذكية</b></div></div>
   <div class="page-body">
-    <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">الأدوات الذكية</div><div style="font-size:12px;color:var(--txt2);">كل أداة تُبنى تلقائياً بواسطة Claude AI بناءً على بيانات شركتك</div></div>
+    <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;" data-t="tools_title">الأدوات الذكية</div><div style="font-size:12px;color:var(--txt2);" data-t="tools_desc">كل أداة تُبنى تلقائياً بواسطة Claude AI بناءً على بيانات شركتك</div></div>
     <div class="tools-grid">
       <div class="tool-card" onclick="go('crm',null)"><div style="font-size:28px;margin-bottom:10px;">👥</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">نظام CRM</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">إدارة العملاء والصفقات والمتابعات</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
       <div class="tool-card" onclick="go('kpi',null)"><div style="font-size:28px;margin-bottom:10px;">📊</div><div style="font-size:14px;font-weight:500;margin-bottom:5px;">لوحة KPI</div><div style="font-size:12px;color:var(--txt2);line-height:1.7;">مؤشرات أداء مخصصة لشركتك</div><div style="margin-top:10px;"><span class="pill green">متاح</span></div></div>
@@ -571,7 +571,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ───── CRM ──────────────────────────────────────────────────────── -->
 <div class="page" id="page-crm">
-  <div class="topbar"><div class="breadcrumb">الأدوات › <b>نظام CRM</b></div><div class="tb-right">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b data-t="page_crm">نظام CRM</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
@@ -583,7 +583,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ───── KPI ──────────────────────────────────────────────────────── -->
 <div class="page" id="page-kpi">
-  <div class="topbar"><div class="breadcrumb">الأدوات › <b>لوحة KPI</b></div><div class="tb-right">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b data-t="page_kpi">لوحة KPI</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
@@ -595,7 +595,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ───── PLAN ─────────────────────────────────────────────────────── -->
 <div class="page" id="page-plan">
-  <div class="topbar"><div class="breadcrumb">الأدوات › <b>خطة العمل 90 يوم</b></div><div class="tb-right">
+  <div class="topbar"><div class="breadcrumb">الأدوات › <b data-t="page_plan">خطة العمل 90 يوم</b></div><div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
@@ -607,7 +607,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <!-- ───── SETTINGS ─────────────────────────────────────────────────── -->
 <div class="page" id="page-settings">
-  <div class="topbar"><div class="breadcrumb"><b>الإعدادات</b></div></div>
+  <div class="topbar"><div class="breadcrumb"><b data-t="page_settings">الإعدادات</b></div></div>
   <div class="page-body" style="display:flex;flex-direction:column;gap:14px;max-width:700px;">
 
     <!-- API Key — Admin Only -->
@@ -1773,7 +1773,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── REPORT HISTORY ──────────────────────────────────────────── -->
 <div class="page" id="page-history">
   <div class="topbar">
-    <div class="breadcrumb"><b>🕐 سجل التقارير</b></div>
+    <div class="breadcrumb"><b>🕐 <span data-t="page_history">سجل التقارير</span></b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
@@ -5351,7 +5351,7 @@ function renderHistory(){
   )
 
   if(!filtered.length){
-    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt2);font-size:13px;">لا توجد نتائج</div>'
+    body.innerHTML='<div style="text-align:center;padding:40px;color:var(--txt2);font-size:13px;" data-t="history_no_reports">لا توجد نتائج</div>'
     return
   }
 
@@ -5849,6 +5849,55 @@ const TRANSLATIONS = {
     'type_dashboard': 'لوحة تحليل',
     'type_study': 'دراسة تحليلية',
     'dash_no_outputs': 'لا توجد مخرجات بعد',
+
+    // Page titles and breadcrumbs
+    'page_input': 'إدخال جديد',
+    'page_outputs': 'المخرجات',
+    'page_reports': 'جميع التقارير',
+    'page_tools': 'أدواتي الذكية',
+    'page_crm': 'نظام CRM',
+    'page_kpi': 'لوحة KPI',
+    'page_plan': 'خطة العمل 90 يوم',
+    'page_history': 'سجل التقارير',
+    'page_settings': 'الإعدادات',
+    // Common UI
+    'btn_cancel_input': 'إلغاء',
+    'btn_regenerate': '🔄 إعادة توليد',
+    'btn_voice': '🔊 صوت',
+    'btn_add_account': '+ Add Account',
+    'btn_export_report': '⬇ تصدير',
+    'btn_clear_all': '🗑 حذف الكل',
+    'lbl_search': 'بحث...',
+    'lbl_company_name': 'اسم الشركة',
+    'lbl_sector': 'القطاع',
+    'lbl_size': 'الحجم',
+    'lbl_period': 'الفترة الزمنية',
+    'lbl_revenue': 'الإيرادات',
+    'lbl_orders': 'الطلبات',
+    'lbl_language': 'لغة المخرجات',
+    'lbl_detail': 'مستوى التفاصيل',
+    'lbl_modules': 'وحدات الإنتاج',
+    'lbl_website': 'رابط الموقع (اختياري)',
+    'step1_title': 'معلومات النشاط التجاري',
+    'step1_desc': 'أخبرنا عن شركتك لتوليد مخرجات مخصصة.',
+    'step2_title': 'البيانات والأرقام',
+    'step3_title': 'اختيار المخرجات',
+    'step4_title': 'مراجعة وإرسال',
+    'btn_start_gen': '🚀 بدء التوليد',
+    'tools_title': 'الأدوات الذكية',
+    'tools_desc': 'كل أداة تُبنى تلقائياً بواسطة Claude AI',
+    'crm_add_client': '+ إضافة عميل',
+    'crm_no_clients': 'لا توجد مخرجات بعد',
+    'kpi_generate': '🤖 توليد KPI بالذكاء الاصطناعي',
+    'plan_generate': '🤖 توليد الخطة بالذكاء الاصطناعي',
+    'settings_api_key': 'مفتاح Anthropic API',
+    'settings_account': 'حسابي',
+    'settings_users': 'إدارة المستخدمين',
+    'history_no_reports': 'لا توجد تقارير',
+    'out_report': 'التقرير الإداري الشامل',
+    'out_dashboard': 'لوحة التحليل التفاعلية',
+    'out_marketing': 'المحتوى التسويقي',
+    'out_study': 'الدراسة التحليلية',
     'tip_api_key': 'مفتاح API من console.anthropic.com — يُحفظ في متصفحك فقط',
     'tip_deepseek': 'سجّل في platform.deepseek.com واحصل على $10 مجاناً',
     'tip_usage': 'عدد التقارير المستخدمة هذا الشهر',
@@ -5992,6 +6041,55 @@ const TRANSLATIONS = {
     'type_dashboard': 'Analysis Board',
     'type_study': 'Market Study',
     'dash_no_outputs': 'No outputs yet',
+
+    // Page titles and breadcrumbs
+    'page_input': 'New Input',
+    'page_outputs': 'Outputs',
+    'page_reports': 'All Reports',
+    'page_tools': 'My Smart Tools',
+    'page_crm': 'CRM System',
+    'page_kpi': 'KPI Board',
+    'page_plan': '90-Day Work Plan',
+    'page_history': 'Report History',
+    'page_settings': 'Settings',
+    // Common UI
+    'btn_cancel_input': 'Cancel',
+    'btn_regenerate': '🔄 Regenerate',
+    'btn_voice': '🔊 Voice',
+    'btn_add_account': '+ Add Account',
+    'btn_export_report': '⬇ Export',
+    'btn_clear_all': '🗑 Delete All',
+    'lbl_search': 'Search...',
+    'lbl_company_name': 'Company Name',
+    'lbl_sector': 'Sector',
+    'lbl_size': 'Size',
+    'lbl_period': 'Time Period',
+    'lbl_revenue': 'Revenue',
+    'lbl_orders': 'Orders',
+    'lbl_language': 'Output Language',
+    'lbl_detail': 'Detail Level',
+    'lbl_modules': 'Output Modules',
+    'lbl_website': 'Website URL (optional)',
+    'step1_title': 'Business Information',
+    'step1_desc': 'Tell us about your company to generate tailored outputs.',
+    'step2_title': 'Data & Numbers',
+    'step3_title': 'Select Outputs',
+    'step4_title': 'Review & Submit',
+    'btn_start_gen': '🚀 Start Generation',
+    'tools_title': 'Smart Tools',
+    'tools_desc': 'Each tool is built automatically by Claude AI',
+    'crm_add_client': '+ Add Client',
+    'crm_no_clients': 'No outputs yet',
+    'kpi_generate': '🤖 Generate KPI with AI',
+    'plan_generate': '🤖 Generate Plan with AI',
+    'settings_api_key': 'Anthropic API Key',
+    'settings_account': 'My Account',
+    'settings_users': 'User Management',
+    'history_no_reports': 'No reports found',
+    'out_report': 'Comprehensive Management Report',
+    'out_dashboard': 'Interactive Analysis Board',
+    'out_marketing': 'Marketing Content',
+    'out_study': 'Market Study',
     'tip_api_key': 'API key from console.anthropic.com — saved in your browser only',
     'tip_deepseek': 'Sign up at platform.deepseek.com and get $10 free credit',
     'tip_usage': 'Number of reports used this month',
@@ -6079,6 +6177,369 @@ function initLang(){
   if(app) app.style.direction = currentLang === 'ar' ? 'rtl' : 'ltr'
   updateLangButtons()
   setTimeout(()=>{applyTranslations(); updateLangButtons()}, 200)
+}
+
+// ══════════════════════════════════════════════════════════════════
+// FORMS GENERATOR
+// ══════════════════════════════════════════════════════════════════
+let currentFormType = 'quotation'
+let formLogoData = ''
+
+const FORM_CONFIGS = {
+  quotation: {
+    icon:'📄', titleAr:'عرض سعر', titleEn:'Quotation',
+    fields:[
+      {id:'to-name',labelAr:'اسم العميل',labelEn:'Client Name',ph:'Client name'},
+      {id:'to-address',labelAr:'عنوان العميل',labelEn:'Client Address',ph:'Client address'},
+      {id:'to-email',labelAr:'بريد العميل',labelEn:'Client Email',ph:'client@email.com'},
+      {id:'quote-num',labelAr:'رقم العرض',labelEn:'Quote Number',ph:'QUO-2026-001'},
+      {id:'quote-date',labelAr:'التاريخ',labelEn:'Date',type:'date'},
+      {id:'quote-valid',labelAr:'صالح حتى',labelEn:'Valid Until',type:'date'},
+      {id:'quote-items',labelAr:'البنود (الوصف | الكمية | السعر)',labelEn:'Items (Description | Qty | Price)',type:'textarea',ph:'Service description | 1 | 5000'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax Rate %',ph:'15'},
+      {id:'quote-notes',labelAr:'ملاحظات وشروط',labelEn:'Notes & Terms',type:'textarea',ph:'Valid for 30 days...'}
+    ]
+  },
+  invoice: {
+    icon:'🧾', titleAr:'فاتورة', titleEn:'Invoice',
+    fields:[
+      {id:'to-name',labelAr:'اسم العميل',labelEn:'Client Name',ph:'Client name'},
+      {id:'to-address',labelAr:'عنوان العميل',labelEn:'Client Address',ph:'Client address'},
+      {id:'inv-num',labelAr:'رقم الفاتورة',labelEn:'Invoice Number',ph:'INV-2026-001'},
+      {id:'inv-date',labelAr:'تاريخ الفاتورة',labelEn:'Invoice Date',type:'date'},
+      {id:'inv-due',labelAr:'تاريخ الاستحقاق',labelEn:'Due Date',type:'date'},
+      {id:'quote-items',labelAr:'البنود (الوصف | الكمية | السعر)',labelEn:'Items (Description | Qty | Price)',type:'textarea',ph:'Service | 1 | 1000'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax %',ph:'15'},
+      {id:'inv-paid',labelAr:'المبلغ المدفوع مسبقاً',labelEn:'Amount Paid',ph:'0'},
+      {id:'inv-method',labelAr:'طريقة الدفع',labelEn:'Payment Method',ph:'Bank Transfer / Cash'},
+      {id:'inv-bank',labelAr:'بيانات البنك (IBAN)',labelEn:'Bank Details (IBAN)',ph:'SA00 0000 0000 0000 0000 0000'}
+    ]
+  },
+  contract: {
+    icon:'📝', titleAr:'عقد خدمات', titleEn:'Service Contract',
+    fields:[
+      {id:'to-name',labelAr:'اسم الطرف الثاني',labelEn:'Second Party',ph:'Client / Company name'},
+      {id:'to-address',labelAr:'عنوان الطرف الثاني',labelEn:'Second Party Address',ph:'Address'},
+      {id:'contract-num',labelAr:'رقم العقد',labelEn:'Contract Number',ph:'CON-2026-001'},
+      {id:'contract-start',labelAr:'تاريخ البدء',labelEn:'Start Date',type:'date'},
+      {id:'contract-end',labelAr:'تاريخ الانتهاء',labelEn:'End Date',type:'date'},
+      {id:'contract-scope',labelAr:'نطاق العمل والخدمات',labelEn:'Scope of Work',type:'textarea',ph:'Detailed description of services...'},
+      {id:'contract-value',labelAr:'القيمة الإجمالية',labelEn:'Total Value',ph:'50000'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax %',ph:'15'},
+      {id:'contract-payment',labelAr:'شروط الدفع',labelEn:'Payment Terms',type:'textarea',ph:'50% upfront, 50% on completion'},
+      {id:'quote-notes',labelAr:'شروط إضافية',labelEn:'Additional Terms',type:'textarea',ph:'Any special conditions...'}
+    ]
+  },
+  proposal: {
+    icon:'📊', titleAr:'عرض مشروع', titleEn:'Project Proposal',
+    fields:[
+      {id:'to-name',labelAr:'اسم العميل',labelEn:'Client Name',ph:'Client name'},
+      {id:'prop-title',labelAr:'عنوان المشروع',labelEn:'Project Title',ph:'Digital Identity Development'},
+      {id:'prop-date',labelAr:'تاريخ العرض',labelEn:'Proposal Date',type:'date'},
+      {id:'prop-overview',labelAr:'نظرة عامة على المشروع',labelEn:'Project Overview',type:'textarea',ph:'Brief project description and goals...'},
+      {id:'contract-scope',labelAr:'نطاق العمل',labelEn:'Scope of Work',type:'textarea',ph:'Phase 1: ...\nPhase 2: ...'},
+      {id:'prop-timeline',labelAr:'الجدول الزمني',labelEn:'Timeline',type:'textarea',ph:'Phase 1: Week 1-2\nPhase 2: Week 3-4'},
+      {id:'contract-value',labelAr:'التكلفة الإجمالية',labelEn:'Total Cost',ph:'25000'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax %',ph:'15'},
+      {id:'prop-why',labelAr:'لماذا نحن؟',labelEn:'Why Us?',type:'textarea',ph:'5+ years experience, specialized team...'}
+    ]
+  },
+  receipt: {
+    icon:'🧾', titleAr:'إيصال دفع', titleEn:'Payment Receipt',
+    fields:[
+      {id:'to-name',labelAr:'اسم الدافع',labelEn:'Payer Name',ph:'Client name'},
+      {id:'rec-num',labelAr:'رقم الإيصال',labelEn:'Receipt Number',ph:'REC-2026-001'},
+      {id:'rec-date',labelAr:'تاريخ الاستلام',labelEn:'Date Received',type:'date'},
+      {id:'rec-amount',labelAr:'المبلغ المستلم',labelEn:'Amount Received',ph:'5000'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax %',ph:'15'},
+      {id:'rec-method',labelAr:'طريقة الدفع',labelEn:'Payment Method',ph:'Bank Transfer'},
+      {id:'rec-ref',labelAr:'رقم المرجع',labelEn:'Reference Number',ph:'TRF-XXXXXXXXXX'},
+      {id:'rec-for',labelAr:'مقابل خدمة',labelEn:'Payment For',ph:'Invoice No. INV-2026-001'},
+      {id:'quote-notes',labelAr:'ملاحظات',labelEn:'Notes',type:'textarea',ph:'Any additional notes...'}
+    ]
+  },
+  po: {
+    icon:'🛒', titleAr:'أمر شراء', titleEn:'Purchase Order',
+    fields:[
+      {id:'to-name',labelAr:'اسم المورد',labelEn:'Vendor Name',ph:'Vendor name'},
+      {id:'to-address',labelAr:'عنوان المورد',labelEn:'Vendor Address',ph:'Vendor address'},
+      {id:'to-email',labelAr:'بريد المورد',labelEn:'Vendor Email',ph:'vendor@email.com'},
+      {id:'po-num',labelAr:'رقم أمر الشراء',labelEn:'PO Number',ph:'PO-2026-001'},
+      {id:'po-date',labelAr:'التاريخ',labelEn:'Date',type:'date'},
+      {id:'po-delivery',labelAr:'تاريخ التسليم',labelEn:'Delivery Date',type:'date'},
+      {id:'quote-items',labelAr:'المواد (الوصف | الكمية | سعر الوحدة)',labelEn:'Items (Description | Qty | Unit Price)',type:'textarea',ph:'Brochure printing | 1000 | 2'},
+      {id:'quote-tax',labelAr:'نسبة الضريبة %',labelEn:'Tax %',ph:'15'},
+      {id:'quote-notes',labelAr:'شروط التسليم والدفع',labelEn:'Payment & Delivery Terms',type:'textarea',ph:'Payment on delivery...'}
+    ]
+  },
+  minutes: {
+    icon:'📋', titleAr:'محضر اجتماع', titleEn:'Meeting Minutes',
+    fields:[
+      {id:'meet-title',labelAr:'عنوان الاجتماع',labelEn:'Meeting Title',ph:'Project Follow-up Meeting'},
+      {id:'meet-date',labelAr:'التاريخ',labelEn:'Date',type:'date'},
+      {id:'meet-time',labelAr:'الوقت',labelEn:'Time',ph:'10:00 AM'},
+      {id:'meet-location',labelAr:'المكان / المنصة',labelEn:'Location / Platform',ph:'Office / Zoom / Teams'},
+      {id:'meet-attendees',labelAr:'الحاضرون (كل شخص في سطر)',labelEn:'Attendees (one per line)',type:'textarea',ph:'Ahmed Mohamed - Project Manager\nSara Ali - Designer'},
+      {id:'meet-agenda',labelAr:'جدول الأعمال',labelEn:'Agenda',type:'textarea',ph:'1. Project progress review\n2. Challenges discussion\n3. Next steps'},
+      {id:'meet-discussion',labelAr:'ملخص النقاشات والقرارات',labelEn:'Discussion & Decisions',type:'textarea',ph:'It was agreed that...\nDecided to...'},
+      {id:'meet-actions',labelAr:'بنود العمل (المهمة | المسؤول | الموعد)',labelEn:'Action Items (Task | Owner | Deadline)',type:'textarea',ph:'Submit designs | Sara | May 20\nReview contract | Ahmed | May 22'},
+      {id:'meet-next',labelAr:'موعد الاجتماع القادم',labelEn:'Next Meeting Date',type:'date'}
+    ]
+  },
+  nda: {
+    icon:'🔒', titleAr:'اتفاقية سرية', titleEn:'NDA',
+    fields:[
+      {id:'to-name',labelAr:'اسم الطرف الثاني',labelEn:'Second Party Name',ph:'Person or Company'},
+      {id:'to-address',labelAr:'عنوان الطرف الثاني',labelEn:'Second Party Address',ph:'Address'},
+      {id:'nda-date',labelAr:'تاريخ الاتفاقية',labelEn:'Agreement Date',type:'date'},
+      {id:'nda-purpose',labelAr:'الغرض من الاتفاقية',labelEn:'Purpose',type:'textarea',ph:'Joint study of potential collaboration in...'},
+      {id:'nda-scope',labelAr:'نطاق المعلومات السرية',labelEn:'Scope of Confidential Info',type:'textarea',ph:'Includes commercial, financial, technical information...'},
+      {id:'nda-duration',labelAr:'مدة الاتفاقية',labelEn:'Duration',ph:'2 years'},
+      {id:'nda-jurisdiction',labelAr:'القانون المطبق',labelEn:'Governing Law',ph:'Kingdom of Saudi Arabia'},
+      {id:'quote-notes',labelAr:'شروط إضافية',labelEn:'Additional Terms',type:'textarea',ph:'Any special conditions...'}
+    ]
+  }
+}
+
+function initForms(){
+  selectFormType('quotation', document.getElementById('ftype-quotation'))
+  autoFillCompany()
+  // Set today's date on date fields
+  const today = new Date().toISOString().split('T')[0]
+  const dateFields = ['quote-date','inv-date','po-date','prop-date','rec-date','meet-date','nda-date','contract-start']
+  dateFields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=today })
+}
+
+function selectFormType(type, el){
+  currentFormType = type
+  document.querySelectorAll('[id^=ftype-]').forEach(e=>{
+    e.style.borderColor='var(--bdr)'; e.style.background='var(--bg2)'
+    const label = e.querySelector('div:last-child')
+    if(label) label.style.color='var(--txt)'
+  })
+  if(el){
+    el.style.borderColor='var(--acc)'; el.style.background='var(--acc-l)'
+    const label = el.querySelector('div:last-child')
+    if(label) label.style.color='var(--acc-d)'
+  }
+  renderDynamicFields(type)
+}
+
+function renderDynamicFields(type){
+  const config = FORM_CONFIGS[type]
+  if(!config) return
+  const titleEl = document.getElementById('formTypeTitle')
+  if(titleEl) titleEl.textContent = config.icon + ' ' + (currentLang==='en' ? config.titleEn : config.titleAr)
+  const el = document.getElementById('dynamicFieldsContent')
+  if(!el) return
+  el.innerHTML = config.fields.map(f=>`
+  <div class="field" style="margin-bottom:10px;">
+    <div class="field-label" style="font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:5px;">${currentLang==='en'?(f.labelEn||f.labelAr):f.labelAr}</div>
+    ${f.type==='textarea'
+      ? `<textarea class="input" id="${f.id}" rows="3" placeholder="${f.ph||''}" style="font-size:12px;resize:vertical;"></textarea>`
+      : `<input class="input" id="${f.id}" type="${f.type||'text'}" placeholder="${f.ph||''}" style="font-size:12px;"/>`
+    }
+  </div>`).join('')
+}
+
+function autoFillCompany(){
+  const nameEl = document.getElementById('fc-name')
+  if(nameEl && fd.companyName && !nameEl.value) nameEl.value = fd.companyName
+  const logoUrlEl = document.getElementById('fc-logo-url')
+  if(logoUrlEl && !logoUrlEl.value){
+    logoUrlEl.value = 'https://cdn.files.salla.network/theme/780764171/9b2bb6fc-cf78-454a-a05e-6b464f4d2221.webp'
+    updateLogoPreview()
+  }
+}
+
+function updateLogoPreview(){
+  const url = document.getElementById('fc-logo-url')?.value?.trim()
+  const preview = document.getElementById('logo-preview')
+  const img = document.getElementById('logo-preview-img')
+  if(url && preview && img){ img.src=url; preview.style.display='block'; formLogoData=url }
+}
+
+function handleLogoUpload(input){
+  const file = input.files?.[0]
+  if(!file) return
+  const reader = new FileReader()
+  reader.onload = (e)=>{
+    formLogoData = e.target.result
+    const preview = document.getElementById('logo-preview')
+    const img = document.getElementById('logo-preview-img')
+    if(preview && img){ img.src=formLogoData; preview.style.display='block' }
+  }
+  reader.readAsDataURL(file)
+}
+
+function getFormFieldValue(id){ return document.getElementById(id)?.value?.trim()||'' }
+
+function parseItems(itemsText){
+  return (itemsText||'').split('\n').filter(l=>l.trim()).map(line=>{
+    const parts = line.split('|').map(p=>p.trim())
+    return {desc:parts[0]||'', qty:parseFloat(parts[1])||1, price:parseFloat(parts[2])||0}
+  })
+}
+
+function calcTotals(items, taxRate){
+  const subtotal = items.reduce((s,i)=>s+(i.qty*i.price),0)
+  const tax = subtotal*(taxRate/100)
+  return {subtotal, tax, total:subtotal+tax}
+}
+
+function generateForm(){
+  const company = {
+    name: getFormFieldValue('fc-name')||'Company Name',
+    address: getFormFieldValue('fc-address'),
+    phone: getFormFieldValue('fc-phone'),
+    email: getFormFieldValue('fc-email'),
+    cr: getFormFieldValue('fc-cr'),
+    vat: getFormFieldValue('fc-vat'),
+    contact: getFormFieldValue('fc-contact')
+  }
+  if(!company.name || company.name==='Company Name'){
+    alert(currentLang==='ar'?'يرجى إدخال اسم الشركة':'Please enter company name')
+    return
+  }
+  const color = document.getElementById('fc-color')?.value||'#6b5fcd'
+  const logo = formLogoData || document.getElementById('fc-logo-url')?.value?.trim()||''
+  const formLang = document.getElementById('fc-form-lang')?.value||'ar'
+  const isAr = formLang==='ar'||formLang==='both'
+  const dir = formLang==='en'?'ltr':'rtl'
+  const config = FORM_CONFIGS[currentFormType]
+  if(!config) return
+
+  // Build items table for financial forms
+  const items = parseItems(getFormFieldValue('quote-items'))
+  const taxRate = parseFloat(getFormFieldValue('quote-tax')||'15')
+  const {subtotal, tax, total} = calcTotals(items, taxRate)
+
+  const logoHtml = logo ? `<img src="${logo}" style="max-height:60px;max-width:180px;object-fit:contain;" onerror="this.style.display='none'"/>` : ''
+
+  // Header
+  const header = `<div style="background:${color};padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <div>${logoHtml}</div>
+    <div style="text-align:${isAr?'left':'right'};">
+      <div style="font-size:22px;font-weight:700;color:#fff;">${formLang==='both'?(config.titleAr+' / '+config.titleEn):isAr?config.titleAr:config.titleEn}</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:2px;">${company.name}</div>
+    </div>
+  </div>`
+
+  // Company block
+  const fromLabel = isAr?'من':'From'
+  const toLabel = isAr?'إلى':'To'
+  const companyBlock = `<div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid ${color}20;">
+    <div style="padding:16px 20px;border-${isAr?'left':'right'}:1px solid #e0e0e0;">
+      <div style="font-size:10px;font-weight:700;color:${color};text-transform:uppercase;margin-bottom:6px;">${fromLabel}</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:3px;">${company.name}</div>
+      <div style="font-size:11px;color:#555;line-height:1.8;">${[company.address,company.phone,company.email,company.cr?(isAr?'س.ت: ':'CR: ')+company.cr:'',company.vat?(isAr?'الرقم الضريبي: ':'VAT: ')+company.vat:''].filter(Boolean).join('<br>')}</div>
+    </div>
+    <div style="padding:16px 20px;">
+      <div style="font-size:10px;font-weight:700;color:${color};text-transform:uppercase;margin-bottom:6px;">${toLabel}</div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:3px;">${getFormFieldValue('to-name')||'—'}</div>
+      <div style="font-size:11px;color:#555;line-height:1.8;">${[getFormFieldValue('to-address'),getFormFieldValue('to-email')].filter(Boolean).join('<br>')}</div>
+    </div>
+  </div>`
+
+  // Items table
+  const itemsTable = items.length ? `
+  <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;">
+    <thead>
+      <tr style="background:${color};color:#fff;">
+        <th style="padding:9px 12px;text-align:${isAr?'right':'left'};">${isAr?'الوصف':'Description'}</th>
+        <th style="padding:9px 12px;text-align:center;width:70px;">${isAr?'الكمية':'Qty'}</th>
+        <th style="padding:9px 12px;text-align:center;width:100px;">${isAr?'السعر':'Unit Price'}</th>
+        <th style="padding:9px 12px;text-align:center;width:110px;">${isAr?'الإجمالي':'Total'}</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${items.map((item,i)=>`<tr style="background:${i%2?'#f9f9f9':'#fff'};border-bottom:1px solid #eee;">
+        <td style="padding:9px 12px;">${item.desc}</td>
+        <td style="padding:9px 12px;text-align:center;">${item.qty}</td>
+        <td style="padding:9px 12px;text-align:center;">${item.price.toLocaleString()}</td>
+        <td style="padding:9px 12px;text-align:center;font-weight:500;">${(item.qty*item.price).toLocaleString()}</td>
+      </tr>`).join('')}
+    </tbody>
+  </table>
+  <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+    <div style="width:260px;">
+      <div style="display:flex;justify-content:space-between;padding:7px 12px;background:#f5f5f5;"><span style="font-size:12px;color:#555;">${isAr?'المجموع قبل الضريبة':'Subtotal'}</span><span style="font-size:12px;">${subtotal.toLocaleString()}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:7px 12px;"><span style="font-size:12px;color:#555;">${isAr?'ضريبة القيمة المضافة':'VAT'} (${taxRate}%)</span><span style="font-size:12px;">${tax.toLocaleString()}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 12px;background:${color};border-radius:0 0 6px 6px;"><span style="font-size:13px;font-weight:700;color:#fff;">${isAr?'الإجمالي النهائي':'Total'}</span><span style="font-size:14px;font-weight:700;color:#fff;">${total.toLocaleString()}</span></div>
+    </div>
+  </div>` : ''
+
+  // Notes
+  const notes = getFormFieldValue('quote-notes')
+  const notesBlock = notes ? `<div style="padding:10px 14px;background:#fffbf0;border-radius:6px;border-${isAr?'right':'left'}:3px solid #BA7517;margin-bottom:14px;">
+    <div style="font-size:10px;font-weight:700;color:#BA7517;margin-bottom:4px;">${isAr?'ملاحظات':'Notes'}</div>
+    <div style="font-size:11px;color:#555;line-height:1.7;white-space:pre-line;">${notes}</div>
+  </div>` : ''
+
+  // Signature block
+  const sig = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;padding:20px 24px;border-top:1px solid #e8e8e8;margin-top:10px;">
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:600;color:${color};margin-bottom:28px;">${isAr?'توقيع الطرف الأول':'First Party Signature'}</div>
+      <div style="border-top:1px solid #ccc;padding-top:6px;font-size:11px;color:#555;">${company.name}</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-size:11px;font-weight:600;color:${color};margin-bottom:28px;">${isAr?'توقيع الطرف الثاني':'Second Party Signature'}</div>
+      <div style="border-top:1px solid #ccc;padding-top:6px;font-size:11px;color:#555;">${getFormFieldValue('to-name')||'—'}</div>
+    </div>
+  </div>
+  <div style="padding:10px 20px;background:#f5f5f5;text-align:center;font-size:10px;color:#999;">${isAr?'تم إنشاء هذا المستند بواسطة منصة بصمة الذكية':'Generated by Basmah Smart Platform'} · ${new Date().toLocaleDateString()}</div>`
+
+  // Extra fields for non-financial forms
+  const extraFields = config.fields
+    .filter(f=>!['to-name','to-address','to-email','quote-items','quote-tax','quote-notes'].includes(f.id))
+    .filter(f=>getFormFieldValue(f.id))
+    .map(f=>`<div style="margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:700;color:${color};margin-bottom:4px;">${currentLang==='en'?(f.labelEn||f.labelAr):f.labelAr}</div>
+      <div style="font-size:12px;line-height:1.8;padding:9px;background:#f8f8f8;border-radius:6px;white-space:pre-line;">${getFormFieldValue(f.id)}</div>
+    </div>`).join('')
+
+  // Assemble full form
+  let formHTML = ''
+  if(['quotation','invoice','po','receipt'].includes(currentFormType)){
+    formHTML = header + `<div style="padding:12px 20px 4px;">${companyBlock}</div><div style="padding:12px 20px;">${itemsTable}${notesBlock}</div>` + sig
+  } else if(currentFormType==='minutes'){
+    formHTML = header + `<div style="padding:20px 24px;">${extraFields}</div>` + sig
+  } else {
+    formHTML = header + `<div style="padding:4px 0;">${companyBlock}</div><div style="padding:16px 24px;">${extraFields}${notesBlock}</div>` + sig
+  }
+
+  const preview = document.getElementById('formPreview')
+  if(preview){
+    preview.innerHTML = `<div style="width:100%;max-width:800px;margin:20px auto;background:#fff;box-shadow:0 2px 20px rgba(0,0,0,0.12);border-radius:8px;overflow:hidden;direction:${dir};font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;" id="generatedForm">${formHTML}</div>`
+  }
+}
+
+function printForm(){
+  const form = document.getElementById('generatedForm')
+  if(!form){alert(currentLang==='ar'?'يرجى توليد النموذج أولاً':'Please generate the form first');return}
+  const w = window.open('','_blank','width=900,height=700')
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"/><title>Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>*{box-sizing:border-box;}body{margin:0;padding:20px;font-family:'IBM Plex Sans Arabic',Tahoma,sans-serif;}@media print{body{padding:0;}.no-print{display:none;}}</style>
+  </head><body>${form.outerHTML}</body></html>`)
+  w.document.close()
+  setTimeout(()=>{w.focus();w.print()},800)
+}
+
+function downloadWordForm(){
+  const form = document.getElementById('generatedForm')
+  if(!form){alert(currentLang==='ar'?'يرجى توليد النموذج أولاً':'Please generate the form first');return}
+  const config = FORM_CONFIGS[currentFormType]
+  const title = currentLang==='en'?config.titleEn:config.titleAr
+  const html = `<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+  <head><meta charset="UTF-8"/>
+  <style>body{font-family:Arial,sans-serif;margin:2cm;}table{width:100%;border-collapse:collapse;}</style>
+  </head><body>${form.innerHTML}</body></html>`
+  const blob = new Blob(['\ufeff'+html],{type:'application/msword'})
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href=url; a.download=title+'-'+new Date().toISOString().split('T')[0]+'.doc'; a.click()
+  URL.revokeObjectURL(url)
 }
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
