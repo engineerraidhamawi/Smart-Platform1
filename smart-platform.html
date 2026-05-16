@@ -10,28 +10,29 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#f8f7f4;--bg2:#ffffff;--bg3:#f0ede8;
-  --txt:#181816;--txt2:#6b6964;--txt3:#a8a5a0;
-  --bdr:#e2dfd8;--bdr2:#ccc9c2;
-  --acc:#6b5fcd;--acc-l:#F0EEFF;--acc-d:#4a3d9a;
-  --grn:#0F6E56;--grn-l:#E1F5EE;
-  --red:#993C1D;--red-l:#FAECE7;
-  --amb:#BA7517;--amb-l:#FAEEDA;
+  --bg:#F0F4FA;--bg2:#ffffff;--bg3:#EFF6FF;
+  --txt:#0F1E35;--txt2:#3B5070;--txt3:#8BA3BE;
+  --bdr:#BFDBFE;--bdr2:#93C5FD;
+  --acc:#1E3A5F;--acc-l:#EFF6FF;--acc-d:#152B47;
+  --gold:#D4AF37;--gold-l:#FEF9E7;--gold-d:#92681C;
+  --grn:#16A34A;--grn-l:#F0FDF4;
+  --red:#DC2626;--red-l:#FEF2F2;
+  --amb:#D97706;--amb-l:#FFFBEB;
   --r:8px;--r2:12px;--r3:16px;
 }
 body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;}
 .app{display:flex;height:100vh;position:relative;}
 
 /* ── Sidebar ── */
-.sidebar{width:205px;min-width:205px;background:var(--bg2);border-left:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;}
-.logo{padding:16px;border-bottom:1px solid var(--bdr);}
-.logo-name{font-size:14px;font-weight:600;color:var(--txt);}
-.logo-sub{font-size:10px;color:var(--txt3);margin-top:2px;}
+.sidebar{width:205px;min-width:205px;background:#1E3A5F;border-left:1px solid #152B47;display:flex;flex-direction:column;overflow:hidden;}
+.logo{padding:16px;border-bottom:1px solid rgba(255,255,255,0.1);}
+.logo-name{font-size:14px;font-weight:600;color:#ffffff;}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;}
 .nav{flex:1;padding:6px 5px;overflow-y:auto;}
 .nav-sec{font-size:9px;font-weight:600;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase;padding:10px 8px 3px;}
 .nav-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--r);margin:1px 0;font-size:12px;color:var(--txt2);cursor:pointer;transition:all .12s;}
 .nav-item:hover{background:var(--bg3);}
-.nav-item.active{background:var(--acc-l);color:var(--acc-d);font-weight:500;}
+.nav-item.active{background:rgba(212,175,55,0.2);color:#D4AF37;font-weight:500;}
 .nav-item.disabled{opacity:.4;cursor:default;pointer-events:none;}
 .nav-icon{width:16px;text-align:center;font-size:13px;flex-shrink:0;}
 .sidebar-footer{padding:10px;border-top:1px solid var(--bdr);}
@@ -48,7 +49,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 /* ── Buttons ── */
 .btn{font-family:inherit;font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--r);cursor:pointer;border:1px solid var(--bdr2);background:transparent;color:var(--txt);transition:all .12s;white-space:nowrap;}
 .btn:hover{background:var(--bg3);}
-.btn.primary{background:var(--acc);color:#fff;border-color:var(--acc);}
+.btn.primary{background:#1E3A5F;color:#D4AF37;border-color:#1E3A5F;}
 .btn.primary:hover{opacity:.88;}
 .btn.primary:disabled{opacity:.4;cursor:default;}
 .btn.green{background:var(--grn);color:#fff;border-color:var(--grn);}
@@ -70,7 +71,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
 /* ── Metrics ── */
 .metrics-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;}
-.metric{background:var(--bg3);border-radius:var(--r);padding:12px;}
+.metric{background:#ffffff;border-radius:var(--r);padding:12px;border:1px solid #BFDBFE;border-top:2px solid #D4AF37;}
 .m-label{font-size:10px;color:var(--txt2);margin-bottom:4px;}
 .m-val{font-size:20px;font-weight:500;}
 .m-chg{font-size:10px;margin-top:3px;}
@@ -78,7 +79,7 @@ body{font-family:'IBM Plex Sans Arabic',sans-serif;background:var(--bg);color:va
 
 /* ── Pills ── */
 .pill{display:inline-block;font-size:10px;font-weight:500;padding:2px 9px;border-radius:999px;}
-.pill.purple{background:var(--acc-l);color:var(--acc-d);}
+.pill.purple{background:#EFF6FF;color:#1E3A5F;}
 .pill.green{background:var(--grn-l);color:var(--grn);}
 .pill.gray{background:var(--bg3);color:var(--txt2);border:1px solid var(--bdr);}
 .pill.red{background:var(--red-l);color:var(--red);}
@@ -141,7 +142,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 .out-tabs-bar{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;gap:2px;flex-shrink:0;overflow-x:auto;}
 .out-tab{padding:11px 16px;font-size:12px;font-weight:500;color:var(--txt2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .12s;}
 .out-tab:hover{color:var(--txt);}
-.out-tab.active{color:var(--acc);border-bottom-color:var(--acc);}
+.out-tab.active{color:#1E3A5F;border-bottom-color:#D4AF37;}
 .out-tab.disabled{opacity:.35;cursor:default;}
 .out-page{display:none;flex:1;overflow-y:auto;padding:18px 22px;flex-direction:column;gap:12px;}
 .out-page.active{display:flex;}
@@ -433,7 +434,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       </div>
     </div>
     <div id="usageDisplay" style="margin-top:6px;"></div>
-    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:var(--red);cursor:pointer;font-family:inherit;margin-top:6px;width:100%;text-align:right;" data-t="btn_logout">تسجيل الخروج ↩</button>
+    <button onclick="logout()" style="font-size:10px;background:none;border:none;color:rgba(255,100,100,0.8);cursor:pointer;font-family:inherit;margin-top:6px;width:100%;text-align:right;" data-t="btn_logout">تسجيل الخروج ↩</button>
   </div>
 </div>
 
@@ -453,45 +454,85 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     </div>
   </div>
   <div class="page-body">
-    <div id="expiryWarning" style="display:none;"></div>
-    <div class="metrics-row">
-      <div class="metric"><div class="m-label" data-t="dash_outputs">مخرجات هذا الشهر</div><div class="m-val" id="d-total">0</div><div class="m-chg up" data-t="dash_start">ابدأ الآن</div></div>
-      <div class="metric"><div class="m-label" data-t="dash_reports">تقارير مكتملة</div><div class="m-val" id="d-reports">0</div><div class="m-chg" data-t="status_completed">مكتمل</div></div>
+    <div id="expiryWarning"></div>
+
+    <!-- KPI Metrics Row -->
+    <div class="metrics-row" style="margin-bottom:14px;">
+      <div class="metric"><div class="m-label" data-t="dash_outputs">مخرجات هذا الشهر</div><div class="m-val" id="d-total">0</div><div class="m-chg up" id="d-total-chg">—</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_reports">تقارير مكتملة</div><div class="m-val" id="d-reports">0</div><div class="m-chg" id="d-reports-chg">—</div></div>
       <div class="metric"><div class="m-label" data-t="dash_clients">عملاء CRM</div><div class="m-val" id="d-clients">0</div><div class="m-chg" data-t="dash_manage_clients">إدارة العملاء</div></div>
-      <div class="metric"><div class="m-label" data-t="dash_api">API</div><div class="m-val" id="d-api" style="font-size:13px;" data-t="api_inactive">غير مفعّل</div><div class="m-chg" id="d-api-sub" style="color:var(--red);" data-t="dash_go_settings">اذهب للإعدادات</div></div>
+      <div class="metric"><div class="m-label" data-t="dash_api">API</div><div class="m-val" id="d-api" style="font-size:13px;">—</div><div class="m-chg" id="d-api-sub" style="cursor:pointer;" onclick="go('settings',null)">—</div></div>
+      <div class="metric"><div class="m-label">Users</div><div class="m-val" id="d-users">0</div><div class="m-chg" id="d-users-chg">—</div></div>
+      <div class="metric"><div class="m-label">Usage Rate</div><div class="m-val" id="d-usage-rate">0%</div><div class="m-chg" id="d-usage-bar">—</div></div>
     </div>
-    <div class="two-col">
+
+    <div class="two-col" style="margin-bottom:14px;">
+      <!-- Reports Chart -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">📈 Reports Generated (Last 6 Months)</span><button class="card-act" onclick="go('history',null)" data-t="dash_view_all">عرض الكل</button></div>
+        <canvas id="reportsChart" height="160"></canvas>
+      </div>
+
+      <!-- Output Type Breakdown -->
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">📊 Output Breakdown</span></div>
+        <div style="display:flex;gap:12px;align-items:center;">
+          <canvas id="typeChart" width="140" height="140" style="flex-shrink:0;"></canvas>
+          <div id="typeChartLegend" style="flex:1;font-size:11px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-bottom:14px;">
+      <!-- Recent Outputs -->
       <div class="card">
         <div class="card-hdr"><span class="card-title" data-t="dash_recent">آخر المخرجات</span><button class="card-act" onclick="go('reports',null)" data-t="dash_view_all">عرض الكل</button></div>
-        <div id="d-recent"><div style="text-align:center;padding:28px;color:var(--txt2);font-size:12px;" id="d-recent-empty">لا توجد مخرجات بعد<br><span style="color:var(--acc);cursor:pointer;" onclick="go('input',null)" data-t="dash_start_now">ابدأ إدخالاً جديداً ↗</span></div></div>
+        <div id="d-recent">
+          <div style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;" data-t="dash_no_outputs">لا توجد مخرجات بعد</div>
+        </div>
       </div>
+
+      <!-- Quick Start + API + Design -->
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div class="card">
           <div class="card-hdr"><span class="card-title" data-t="dash_quick_start">البدء السريع</span></div>
           <div class="mod-grid" style="margin-bottom:10px;">
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▤</div><div class="mod-name" style="font-size:10px;" data-t="type_report">تقرير إداري</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">✦</div><div class="mod-name" style="font-size:10px;" data-t="type_marketing">محتوى تسويقي</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">▦</div><div class="mod-name" style="font-size:10px;" data-t="type_dashboard">لوحة تحليل</div></div>
-            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:12px 8px;"><div class="mod-icon">◉</div><div class="mod-name" style="font-size:10px;" data-t="type_study">دراسة تحليلية</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:10px 6px;"><div class="mod-icon">▤</div><div class="mod-name" style="font-size:10px;" data-t="type_report">تقرير إداري</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:10px 6px;"><div class="mod-icon">✦</div><div class="mod-name" style="font-size:10px;" data-t="type_marketing">محتوى تسويقي</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:10px 6px;"><div class="mod-icon">▦</div><div class="mod-name" style="font-size:10px;" data-t="type_dashboard">لوحة تحليل</div></div>
+            <div class="mod-card" onclick="go('input',null)" style="text-align:center;padding:10px 6px;"><div class="mod-icon">◉</div><div class="mod-name" style="font-size:10px;" data-t="type_study">دراسة تحليلية</div></div>
           </div>
           <button class="btn primary" style="width:100%;" onclick="go('input',null)" data-t="btn_new_input">+ بدء إدخال جديد</button>
         </div>
         <div class="card" style="background:var(--acc-l);border-color:#7F77DD;">
-          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:6px;">🔑 API Key</div>
-          <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:10px;" id="d-key-status" data-t="dash_add_key">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:4px;">🔑 API Key</div>
+          <div style="font-size:12px;color:var(--acc-d);line-height:1.7;margin-bottom:8px;" id="d-key-status" data-t="dash_add_key">أضف مفتاحك لتفعيل الذكاء الاصطناعي</div>
           <button class="btn primary" style="width:100%;font-size:11px;" onclick="go('settings',null)">⚙ <span data-t="nav_settings">الإعدادات</span></button>
-        </div>
-        <div class="card">
-          <div class="card-hdr"><span style="font-size:12px;font-weight:500;" data-t="dash_design_tools">🖌️ Design Tools</span><button class="card-act" onclick="go('design-hub',null)" data-t="dash_view_all">عرض الكل</button></div>
-          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:7px;">
-            <button onclick="openDesignTool('canva')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#8B3DFF'" onmouseout="this.style.borderColor='var(--bdr)'"><img src="https://cdn.worldvectorlogo.com/logos/canva-1.svg" style="width:18px;height:18px;object-fit:contain;"/><span style="font-size:11px;font-weight:500;">Canva</span></button>
-            <button onclick="openDesignTool('adobe')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#FF0000'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:#FF0000;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">Ae</span><span style="font-size:11px;font-weight:500;">Adobe Express</span></button>
-            <button onclick="openDesignTool('microsoft')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#0078D4'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:#0078D4;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">M</span><span style="font-size:11px;font-weight:500;">Microsoft Designer</span></button>
-            <button onclick="openDesignTool('picsart')" style="display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--bdr);border-radius:var(--r);background:var(--bg2);cursor:pointer;font-family:inherit;" onmouseover="this.style.borderColor='#FF3C6E'" onmouseout="this.style.borderColor='var(--bdr)'"><span style="width:18px;height:18px;background:linear-gradient(135deg,#FF3C6E,#FF8C42);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;font-weight:700;">Pa</span><span style="font-size:11px;font-weight:500;">Picsart</span></button>
-          </div>
         </div>
       </div>
     </div>
+
+    <!-- Whop Banner -->
+    <div id="whopBanner" style="display:none;background:linear-gradient(135deg,#6b5fcd,#9b5de5);border-radius:var(--r2);padding:16px 20px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;">🚀 Upgrade Your Plan</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.85);">Get more reports, more features, and priority support</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a id="whopBasicLink" href="#" target="_blank" style="padding:8px 16px;background:rgba(255,255,255,0.2);color:#fff;border-radius:var(--r);font-size:11px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,0.4);">Basic — 99 SAR</a>
+        <a id="whopProLink" href="#" target="_blank" style="padding:8px 16px;background:#fff;color:#6b5fcd;border-radius:var(--r);font-size:11px;font-weight:600;text-decoration:none;">Pro — 249 SAR</a>
+        <a id="whopPremiumLink" href="#" target="_blank" style="padding:8px 16px;background:rgba(255,255,255,0.15);color:#fff;border-radius:var(--r);font-size:11px;font-weight:500;text-decoration:none;border:1px solid rgba(255,255,255,0.4);">Premium — 499 SAR</a>
+      </div>
+    </div>
+
+    <!-- User Activity (Superadmin only) -->
+    <div id="d-user-activity" style="display:none;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">👥 User Activity This Month</span><button class="card-act" onclick="go('admin',null)">Admin Panel</button></div>
+        <div id="userActivityList"></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -744,7 +785,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── CHAT WITH CLAUDE ────────────────────────────────────── -->
 <div class="page" id="page-chat">
   <div class="topbar">
-    <div class="breadcrumb">Design Studio › <b>Chat with Claude</b></div>
+    <div class="breadcrumb">Design Studio › <b data-t="nav_chat">Chat with Claude</b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
@@ -786,7 +827,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── DESIGN MOCKUPS ──────────────────────────────────────── -->
 <div class="page" id="page-mockup">
   <div class="topbar">
-    <div class="breadcrumb">Design Studio › <b>Design Mockups</b></div>
+    <div class="breadcrumb">Design Studio › <b data-t="nav_mockup">Design Mockups</b></div>
   </div>
   <div class="page-body">
     <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">Design Mockup Generator</div><div style="font-size:12px;color:var(--txt2);">Generate professional design templates powered by Claude AI</div></div>
@@ -852,7 +893,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── UI/UX ADVISOR ───────────────────────────────────────── -->
 <div class="page" id="page-uiux">
   <div class="topbar">
-    <div class="breadcrumb">Design Studio › <b>UI/UX Advisor</b></div>
+    <div class="breadcrumb">Design Studio › <b data-t="nav_uiux">UI/UX Advisor</b></div>
   </div>
   <div class="page-body">
     <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">UI/UX Design Advisor</div><div style="font-size:12px;color:var(--txt2);">Get expert AI feedback on your designs, colors, layouts and user experience</div></div>
@@ -1042,7 +1083,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 
 <div class="page" id="page-design-hub">
   <div class="topbar">
-    <div class="breadcrumb">Design Studio › <b>Design Tools Hub</b></div>
+    <div class="breadcrumb">Design Studio › <b data-t="nav_hub">Design Tools Hub</b></div>
   </div>
   <div class="page-body">
     <div style="margin-bottom:18px;">
@@ -1352,7 +1393,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 <!-- ───── MARKETING HUB ───────────────────────────────────────────── -->
 <div class="page" id="page-marketing-hub">
   <div class="topbar">
-    <div class="breadcrumb"><b>📣 Marketing Hub</b></div>
+    <div class="breadcrumb"><b>📣 <span data-t="nav_marketing_hub">Marketing Hub</span></b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
@@ -2293,7 +2334,27 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   </div>
 </div>
 </div><!-- /main -->
+<!-- FORGOT PASSWORD MODAL -->
+<div class="modal-overlay" id="forgotPasswordModal">
+  <div class="modal-box" style="max-width:420px;">
+    <div class="modal-title">🔑 إعادة تعيين كلمة المرور</div>
+    <div class="modal-sub">أدخل اسم المستخدم وكلمة المرور الجديدة</div>
+    <div class="field"><div class="field-label">اسم المستخدم</div><input class="input" id="fp-username" placeholder="اسم المستخدم"/></div>
+    <div class="field"><div class="field-label">كلمة المرور الجديدة</div><input class="input" type="password" id="fp-newpass" placeholder="كلمة مرور جديدة (6+ أحرف)"/></div>
+    <div class="field"><div class="field-label">تأكيد كلمة المرور</div><input class="input" type="password" id="fp-confirm" placeholder="أعد إدخال كلمة المرور"/></div>
+    <div id="fp-err" style="display:none;color:var(--red);font-size:12px;margin-bottom:8px;"></div>
+    <div id="fp-note" style="font-size:11px;color:var(--txt2);margin-bottom:12px;padding:8px;background:var(--bg3);border-radius:var(--r);">
+      ⚠️ يتطلب إعادة التعيين معرفة بيانات المستخدم. إذا نسيت كلمة المرور تماماً، تواصل مع المدير.
+    </div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="doForgotPassword()">✓ تغيير كلمة المرور</button>
+      <button class="btn" onclick="closeModal('forgotPasswordModal')">إلغاء</button>
+    </div>
+  </div>
+</div>
 </div><!-- /app -->
+<div id="toastContainer" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
+
 
 <script>
 // ══════════════════════════════════════════════════════════════════════════════
@@ -2546,48 +2607,141 @@ function go(id, navEl){
 // DASHBOARD
 // ══════════════════════════════════════════════════════════════════════════════
 function updateDashboard(){
-  const total = submissions.reduce((a,s)=>a+Object.keys(s.results).length,0)
-  const reports = submissions.reduce((a,s)=>a+(s.results.report?1:0),0)
-  document.getElementById('d-total').textContent = total
-  document.getElementById('d-reports').textContent = reports
-  document.getElementById('d-clients').textContent = crmClients.length
-  // Show expiry warning
-  if(currentUser && currentUser.expiryDate && !currentUser.isSuperAdmin){
-    const expiry = new Date(currentUser.expiryDate)
-    const now = new Date()
-    const daysLeft = Math.ceil((expiry-now)/(1000*60*60*24))
-    const warningEl = document.getElementById('expiryWarning')
-    if(warningEl){
-      if(daysLeft<=7 && daysLeft>0){
-        warningEl.style.display='block'
-        warningEl.innerHTML=`<div style="background:var(--amb-l);border:1px solid #DCA030;border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--amb);margin-bottom:12px;">⚠️ Your subscription expires in <b>${daysLeft} day${daysLeft===1?'':'s'}</b>. Please contact the admin to renew.</div>`
-      } else if(daysLeft<=0){
-        warningEl.style.display='block'
-        warningEl.innerHTML=`<div style="background:var(--red-l);border:1px solid #E8A090;border-radius:var(--r);padding:10px 14px;font-size:12px;color:var(--red);margin-bottom:12px;">🔴 Your subscription has expired. Please contact the admin to renew.</div>`
-      } else { warningEl.style.display='none' }
+  const hk = !!getKey()
+  const apiEl = document.getElementById('d-api')
+  const apiSub = document.getElementById('d-api-sub')
+  const keyStatus = document.getElementById('d-key-status')
+  if(apiEl) apiEl.textContent = hk ? t('api_active') : t('api_inactive')
+  if(apiEl) apiEl.style.color = hk ? 'var(--grn)' : 'var(--red)'
+  if(apiSub) apiSub.textContent = hk ? (currentLang==='ar'?'جاهز للإنتاج':'Ready for production') : t('dash_go_settings')
+  if(apiSub) apiSub.style.color = hk ? 'var(--grn)' : 'var(--red)'
+  if(keyStatus) keyStatus.textContent = hk ? t('dash_key_ready') : t('dash_add_key')
+
+  // Stats
+  const totalEl = document.getElementById('d-total')
+  const reportsEl = document.getElementById('d-reports')
+  const clientsEl = document.getElementById('d-clients')
+  const usersEl = document.getElementById('d-users')
+  const usageEl = document.getElementById('d-usage-rate')
+  const used = getUserUsage(); const limit = getUserLimit()
+
+  if(totalEl) totalEl.textContent = submissions.length
+  if(reportsEl) reportsEl.textContent = submissions.filter(s=>s.results.report).length
+  if(clientsEl) clientsEl.textContent = crmClients.length
+  if(usersEl){const users=getUsers(); usersEl.textContent=users.length}
+  if(usageEl) usageEl.textContent = limit===Infinity?'∞':Math.round((used/limit)*100)+'%'
+
+  // Whop banner
+  const whopBanner = document.getElementById('whopBanner')
+  if(whopBanner){
+    const isAdmin = currentUser&&(currentUser.role==='admin'||currentUser.isSuperAdmin)
+    whopBanner.style.display = isAdmin ? 'none' : 'flex'
+    const bl=localStorage.getItem('pay_basic')||'#'
+    const pl=localStorage.getItem('pay_pro')||'#'
+    const prl=localStorage.getItem('pay_premium')||'#'
+    const wb=document.getElementById('whopBasicLink'); if(wb)wb.href=bl
+    const wp=document.getElementById('whopProLink'); if(wp)wp.href=pl
+    const wpr=document.getElementById('whopPremiumLink'); if(wpr)wpr.href=prl
+  }
+
+  // User activity (superadmin only)
+  const actDiv = document.getElementById('d-user-activity')
+  if(actDiv) actDiv.style.display = currentUser?.isSuperAdmin ? 'block' : 'none'
+  if(currentUser?.isSuperAdmin) renderUserActivityList()
+
+  // Recent outputs
+  const recent = document.getElementById('d-recent')
+  if(recent){
+    if(!submissions.length){
+      recent.innerHTML = '<div style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;" data-t="dash_no_outputs">لا توجد مخرجات بعد</div>'
+    } else {
+      const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+      const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+      recent.innerHTML = [...submissions].reverse().slice(0,5).map(s=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px;border-radius:var(--r);margin-bottom:4px;background:var(--bg3);">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div style="width:28px;height:28px;border-radius:var(--r);background:var(--acc-l);display:flex;align-items:center;justify-content:center;font-size:12px;">${icons[Object.keys(s.results)[0]]||'▤'}</div>
+          <div><div style="font-size:12px;font-weight:500;">${s.formData.companyName||'—'}</div><div style="font-size:10px;color:var(--txt2);">${new Date(s.id).toLocaleDateString(currentLang==='ar'?'ar-SA':'en-US')}</div></div>
+        </div>
+        <button class="btn xs" onclick="viewSub(${s.id},'${Object.keys(s.results)[0]}')">عرض</button>
+      </div>`).join('')
     }
   }
-  const hk = !!getKey()
-  document.getElementById('d-api').textContent = hk?t('api_active'):t('api_inactive')
-  document.getElementById('d-api').style.color = hk?'var(--grn)':'var(--red)'
-  document.getElementById('d-api-sub').textContent = hk?(currentLang==='ar'?'جاهز للإنتاج':'Ready'):t('dash_go_settings')
-  document.getElementById('d-api-sub').style.color = hk?'var(--grn)':'var(--red)'
-  document.getElementById('d-key-status').textContent = hk?t('dash_key_ready'):t('dash_add_key')
 
-  if(!submissions.length) return
-  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
-  const bgs={report:'#F0EEFF',dashboard:'#E1F5EE',marketing:'#FBEAF0',study:'#FAECE7'}
-  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
-  let h='<div style="display:flex;flex-direction:column;gap:7px;">'
-  submissions.slice(-4).reverse().forEach(s=>{
-    Object.keys(s.results).slice(0,1).forEach(k=>{
-      h+=`<div style="display:flex;align-items:center;gap:9px;padding:8px 9px;background:var(--bg3);border-radius:var(--r);cursor:pointer;" onclick="viewSub(${s.id},'${k}')">
-        <div style="width:28px;height:28px;border-radius:7px;background:${bgs[k]};display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">${icons[k]}</div>
-        <div style="flex:1;min-width:0;"><div style="font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${labels[k]} — ${s.formData.companyName}</div><div style="font-size:10px;color:var(--txt2);">مكتمل ✓</div></div>
-        <span class="pill green">✓</span></div>`
-    })
+  // Charts
+  setTimeout(renderDashboardCharts, 100)
+  updateUsageDisplay()
+}
+
+function renderUserActivityList(){
+  const el = document.getElementById('userActivityList'); if(!el) return
+  const users = getUsers().filter(u=>!u.isSuperAdmin)
+  if(!users.length){el.innerHTML='<div style="text-align:center;padding:20px;color:var(--txt2);font-size:12px;">No users yet</div>';return}
+  el.innerHTML = users.map(u=>{
+    const key = getUsageKey(u.username)
+    const used = parseInt(localStorage.getItem(key)||'0')
+    const plan = u.plan||'basic'
+    const limit = PLAN_LIMITS[plan]||20
+    const pct = limit===Infinity?0:Math.min(100,Math.round((used/limit)*100))
+    const color = pct>=80?'var(--red)':pct>=60?'var(--amb)':'var(--grn)'
+    return`<div style="display:flex;align-items:center;gap:10px;padding:8px;border-radius:var(--r);margin-bottom:4px;background:var(--bg3);">
+      <div style="width:32px;height:32px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0;">${(u.fullname||u.username).charAt(0).toUpperCase()}</div>
+      <div style="flex:1;">
+        <div style="font-size:12px;font-weight:500;">${u.fullname||u.username}</div>
+        <div style="font-size:10px;color:var(--txt2);">${u.role} · ${plan}</div>
+      </div>
+      <div style="text-align:center;min-width:60px;">
+        <div style="font-size:13px;font-weight:600;color:${color};">${used}/${limit===Infinity?'∞':limit}</div>
+        <div style="font-size:9px;color:var(--txt2);">reports</div>
+      </div>
+      <button class="btn xs" onclick="viewUserActivity('${u.username}')">Details</button>
+    </div>`
+  }).join('')
+}
+
+let dashChartInstances = {}
+function renderDashboardCharts(){
+  // Chart 1: Reports per month (last 6 months)
+  const ctx1 = document.getElementById('reportsChart')
+  if(!ctx1) return
+  if(dashChartInstances.reports){ dashChartInstances.reports.destroy() }
+  const months=[]; const counts=[]
+  for(let i=5;i>=0;i--){
+    const d=new Date(); d.setMonth(d.getMonth()-i)
+    const label=d.toLocaleString(currentLang==='ar'?'ar-SA':'en-US',{month:'short'})
+    const yr=d.getFullYear(); const mo=d.getMonth()
+    const count=submissions.filter(s=>{const sd=new Date(s.id);return sd.getFullYear()===yr&&sd.getMonth()===mo}).length
+    months.push(label); counts.push(count)
+  }
+  const isDark = document.documentElement.classList.contains('dark')
+  const gridColor = 'rgba(128,128,128,0.15)'
+  dashChartInstances.reports = new Chart(ctx1,{
+    type:'bar',
+    data:{labels:months,datasets:[{label:'Reports',data:counts,backgroundColor:'rgba(107,95,205,0.7)',borderColor:'#6b5fcd',borderWidth:1.5,borderRadius:6}]},
+    options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1,color:'var(--txt2)'},grid:{color:gridColor}},x:{ticks:{color:'var(--txt2)'},grid:{display:false}}}}
   })
-  document.getElementById('d-recent').innerHTML = h+'</div>'
+
+  // Chart 2: Output type breakdown (doughnut)
+  const ctx2 = document.getElementById('typeChart')
+  if(!ctx2) return
+  if(dashChartInstances.type){ dashChartInstances.type.destroy() }
+  const typeCounts={report:0,dashboard:0,marketing:0,study:0}
+  submissions.forEach(s=>Object.keys(s.results).forEach(k=>{if(typeCounts[k]!==undefined)typeCounts[k]++}))
+  const typeColors=['#6b5fcd','#1D9E75','#D85A30','#BA7517']
+  const typeLabels={report:'تقرير',dashboard:'لوحة',marketing:'تسويق',study:'دراسة'}
+  const typeData=Object.values(typeCounts)
+  const typeNames=Object.keys(typeCounts).map(k=>typeLabels[k]||k)
+  if(typeData.every(v=>v===0)){
+    ctx2.parentElement.innerHTML='<div style="text-align:center;padding:20px;color:var(--txt2);font-size:12px;">No data yet</div>'
+    return
+  }
+  dashChartInstances.type = new Chart(ctx2,{
+    type:'doughnut',
+    data:{labels:typeNames,datasets:[{data:typeData,backgroundColor:typeColors,borderWidth:2,borderColor:'var(--bg2)'}]},
+    options:{responsive:false,plugins:{legend:{display:false}},cutout:'65%'}
+  })
+  const legend = document.getElementById('typeChartLegend')
+  if(legend) legend.innerHTML = typeNames.map((n,i)=>`<div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;"><div style="width:10px;height:10px;border-radius:2px;background:${typeColors[i]};flex-shrink:0;"></div><span>${n}: <b>${typeData[i]}</b></span></div>`).join('')
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -3260,6 +3414,7 @@ function saveKey(){
   if(!v.startsWith('sk-ant-')){document.getElementById('keyMsg').innerHTML='<span style="color:var(--red);">⚠ Key must start with sk-ant-</span>';return}
   // Save to localStorage
   localStorage.setItem('ant_key',v)
+  showToast('API key saved! ✓','success')
   // Also save to user account so it works on any device
   if(currentUser){
     const users=getUsers()
@@ -3272,6 +3427,7 @@ function saveKey(){
 
 function clearKey(){
   localStorage.removeItem('ant_key')
+  showToast('API key deleted','info')
   if(currentUser){
     const users=getUsers()
     const idx=users.findIndex(u=>u.username===currentUser.username)
@@ -3351,6 +3507,7 @@ function saveNewUser(){
   saveUsers(users)
   closeModal('addUserModal')
   renderUsersTable()
+  showToast('User added successfully','success')
   document.getElementById('nu-username').value=''
   document.getElementById('nu-password').value=''
   document.getElementById('nu-fullname').value=''
@@ -6035,6 +6192,8 @@ const TRANSLATIONS = {
     'sec_services': 'خدمات بصمة',
     'sec_design': 'استوديو التصميم',
     'sec_social': 'السوشيال ميديا',
+    'nav_outputs': 'المخرجات',
+    'page_admin': 'لوحة الإدارة',
     'sec_settings': 'الإعدادات',
     'sec_marketing': 'التسويق',
     'nav_marketing_hub': 'مركز التسويق',
@@ -6229,6 +6388,8 @@ const TRANSLATIONS = {
     'sec_services': 'Basmah Services',
     'sec_design': 'Design Studio',
     'sec_social': 'Social Media',
+    'nav_outputs': 'Outputs',
+    'page_admin': 'Admin Panel',
     'sec_settings': 'Settings',
     'sec_marketing': 'Marketing',
     'nav_marketing_hub': 'Marketing Hub',
@@ -6434,12 +6595,11 @@ const FORM_CONFIGS = {
 function initForms(){
   selectFormType('quotation', document.getElementById('ftype-quotation'))
   autoFillCompany()
-  // Set today's date on date fields after fields are rendered
   setTimeout(()=>{
     const today = new Date().toISOString().split('T')[0]
-    const dateFields = ['quote-date','inv-date','po-date','prop-date','rec-date','meet-date','nda-date','contract-start']
-    dateFields.forEach(id=>{ const el=document.getElementById(id); if(el) el.value=today })
-  }, 100)
+    // Auto-set today on any visible date fields
+    document.querySelectorAll('#page-forms input[type="date"]').forEach(el=>{ if(!el.value) el.value=today })
+  }, 150)
 }
 
 function selectFormType(type, el){
@@ -6504,7 +6664,7 @@ function handleLogoUpload(input){
   reader.readAsDataURL(file)
 }
 
-function getFormFieldValue(id){ return document.getElementById(id)?.value?.trim()||'' }
+function getFormFieldValue(id, fallback){ return document.getElementById(id)?.value?.trim()||(fallback!==undefined?fallback:'') }
 
 function parseItems(itemsText){
   return (itemsText||'').split('\n').filter(l=>l.trim()).map(line=>{
@@ -6529,9 +6689,9 @@ function generateForm(){
     vat: getFormFieldValue('fc-vat'),
     contact: getFormFieldValue('fc-contact')
   }
-  // Auto-fill company name if empty
+  // Auto-fill company name if empty - never block
   if(!company.name || company.name==='Company Name'){
-    company.name = fd.companyName || (currentUser?.fullname||currentUser?.username||'Company Name')
+    company.name = fd.companyName || (currentUser?.fullname||currentUser?.username||'Company')
   }
   const color = document.getElementById('fc-color')?.value||'#6b5fcd'
   const logo = formLogoData || document.getElementById('fc-logo-url')?.value?.trim()||''
@@ -6542,7 +6702,7 @@ function generateForm(){
   if(!config) return
 
   // Build items table for financial forms
-  const items = parseItems(getFormFieldValue('quote-items'))
+  const items = parseItems(getFormFieldValue('quote-items')||'')
   const taxRate = parseFloat(getFormFieldValue('quote-tax')||'15')
   const {subtotal, tax, total} = calcTotals(items, taxRate)
 
@@ -7188,6 +7348,127 @@ function renderCampaignCalendar(){
 
 function updateCampaignStatus(idx,status){campaigns[idx].status=status;saveCampaigns();renderCampaignCalendar()}
 function deleteCampaign(idx){if(confirm('Delete this campaign?')){campaigns.splice(idx,1);saveCampaigns();renderCampaignCalendar()}}
+
+// ══════════════════════════════════════════════════════════════════
+// TOAST NOTIFICATIONS
+// ══════════════════════════════════════════════════════════════════
+function showToast(msg, type, duration){
+  type = type||'success'; duration = duration||3000
+  const container = document.getElementById('toastContainer')
+  if(!container) return
+  const cfg = {success:{bg:'#1D9E75',icon:'✓'},error:{bg:'#D85A30',icon:'✕'},warning:{bg:'#BA7517',icon:'⚠'},info:{bg:'#6b5fcd',icon:'ℹ'}}
+  const c = cfg[type]||cfg.success
+  const toast = document.createElement('div')
+  toast.style.cssText = 'background:'+c.bg+';color:#fff;padding:10px 20px;border-radius:10px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:8px;box-shadow:0 4px 16px rgba(0,0,0,0.2);pointer-events:auto;opacity:0;transform:translateY(10px);transition:all .25s;min-width:220px;max-width:380px;font-family:inherit;'
+  toast.innerHTML = '<span style="font-size:14px;">'+c.icon+'</span><span>'+msg+'</span>'
+  container.appendChild(toast)
+  setTimeout(function(){toast.style.opacity='1';toast.style.transform='translateY(0)'},10)
+  setTimeout(function(){toast.style.opacity='0';toast.style.transform='translateY(10px)';setTimeout(function(){toast.remove()},300)}, duration)
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PASSWORD RESET
+// ══════════════════════════════════════════════════════════════════
+function showForgotPassword(){
+  openModal('forgotPasswordModal')
+}
+
+function doForgotPassword(){
+  const username = document.getElementById('fp-username')?.value?.trim()
+  const newpass = document.getElementById('fp-newpass')?.value
+  const confirm = document.getElementById('fp-confirm')?.value
+  const errEl = document.getElementById('fp-err')
+  errEl.style.display='none'
+
+  if(!username){errEl.textContent='يرجى إدخال اسم المستخدم';errEl.style.display='block';return}
+  if(!newpass||newpass.length<6){errEl.textContent='كلمة المرور يجب أن تكون 6 أحرف على الأقل';errEl.style.display='block';return}
+  if(newpass!==confirm){errEl.textContent='كلمات المرور غير متطابقة';errEl.style.display='block';return}
+
+  const users = getUsers()
+  const idx = users.findIndex(u=>u.username.toLowerCase()===username.toLowerCase())
+  if(idx===-1){errEl.textContent='اسم المستخدم غير موجود';errEl.style.display='block';return}
+
+  users[idx].password = newpass
+  saveUsers(users)
+  closeModal('forgotPasswordModal')
+  showToast('تم تغيير كلمة المرور بنجاح ✓','success')
+  // Clear fields
+  ;['fp-username','fp-newpass','fp-confirm'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})
+}
+
+// ══════════════════════════════════════════════════════════════════
+// PER-USER ACTIVITY DASHBOARD
+// ══════════════════════════════════════════════════════════════════
+function viewUserActivity(username){
+  const users = getUsers()
+  const u = users.find(x=>x.username===username)
+  if(!u) return
+
+  const userSubs = submissions.filter(s=>s.userId===username||s.formData.generatedBy===username)
+  const usageKey = getUsageKey(username)
+  const used = parseInt(localStorage.getItem(usageKey)||'0')
+  const plan = u.plan||'basic'
+  const limit = PLAN_LIMITS[plan]||20
+  const pct = limit===Infinity?0:Math.min(100,Math.round((used/limit)*100))
+  const pColor = pct>=80?'var(--red)':pct>=60?'var(--amb)':'var(--grn)'
+
+  const icons={report:'▤',dashboard:'▦',marketing:'✦',study:'◉'}
+  const labels={report:'تقرير إداري',dashboard:'لوحة تحليل',marketing:'محتوى تسويقي',study:'دراسة تحليلية'}
+
+  // Get CRM clients added by this user
+  const userClients = crmClients.filter(c=>c.addedBy===username)
+
+  // Open activity in a modal
+  const modal = document.createElement('div')
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;'
+  modal.innerHTML=`
+  <div style="background:var(--bg2);border-radius:var(--r3);max-width:700px;width:100%;max-height:80vh;overflow-y:auto;padding:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <div>
+        <div style="font-size:16px;font-weight:600;">${u.fullname||u.username}</div>
+        <div style="font-size:12px;color:var(--txt2);">${u.role} · ${plan} plan · Last login: ${u.lastLogin?new Date(u.lastLogin).toLocaleDateString():'Never'}</div>
+      </div>
+      <button onclick="this.closest('[style*=fixed]').remove()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--txt2);">✕</button>
+    </div>
+
+    <!-- Usage stats -->
+    <div class="metrics-row" style="margin-bottom:16px;">
+      <div class="metric"><div class="m-label">Reports Used</div><div class="m-val" style="color:${pColor};">${used}/${limit===Infinity?'∞':limit}</div><div class="m-chg">This month</div></div>
+      <div class="metric"><div class="m-label">Total Reports</div><div class="m-val">${submissions.length}</div><div class="m-chg">All time</div></div>
+      <div class="metric"><div class="m-label">CRM Clients</div><div class="m-val">${userClients.length}</div><div class="m-chg">Added by user</div></div>
+      <div class="metric"><div class="m-label">Usage Rate</div><div class="m-val" style="color:${pColor};">${pct}%</div><div class="m-chg">Of monthly limit</div></div>
+    </div>
+
+    <!-- Usage bar -->
+    <div style="margin-bottom:16px;">
+      <div style="font-size:11px;color:var(--txt2);margin-bottom:5px;">Monthly Usage</div>
+      <div style="height:8px;background:var(--bg3);border-radius:999px;overflow:hidden;">
+        <div style="width:${pct}%;height:100%;background:${pColor};border-radius:999px;transition:width .5s;"></div>
+      </div>
+    </div>
+
+    <!-- Recent reports -->
+    <div style="font-size:12px;font-weight:500;margin-bottom:8px;">📊 All Reports Generated</div>
+    ${submissions.length ? submissions.slice().reverse().slice(0,20).map(s=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:var(--bg3);border-radius:var(--r);margin-bottom:4px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:14px;">${icons[Object.keys(s.results)[0]]||'▤'}</span>
+        <div>
+          <div style="font-size:12px;font-weight:500;">${s.formData.companyName||'—'}</div>
+          <div style="font-size:10px;color:var(--txt2);">${Object.keys(s.results).map(k=>labels[k]||k).join(' · ')} · ${new Date(s.id).toLocaleDateString('ar-SA')}</div>
+        </div>
+      </div>
+      <span style="font-size:10px;color:var(--txt2);">${s.elapsed||0}s</span>
+    </div>`).join('') : '<div style="text-align:center;padding:20px;color:var(--txt2);font-size:12px;">No reports yet</div>'}
+
+    ${userClients.length ? `
+    <div style="font-size:12px;font-weight:500;margin-bottom:8px;margin-top:14px;">👥 CRM Clients Added</div>
+    ${userClients.map(c=>`<div style="padding:8px 10px;background:var(--bg3);border-radius:var(--r);margin-bottom:4px;font-size:12px;">${c.company} — ${c.name}</div>`).join('')}
+    ` : ''}
+  </div>`
+  document.body.appendChild(modal)
+  modal.addEventListener('click', e=>{if(e.target===modal) modal.remove()})
+}
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════════════════
