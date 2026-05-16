@@ -294,6 +294,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
   .reports-grid { grid-template-columns: 1fr !important; }
   .m-val { font-size: 16px !important; }
 }
+.mh-panel{display:none;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:99px;}
 </style>
@@ -409,22 +410,15 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
     <div class="nav-item" id="nav-kpi" onclick="go('kpi',this)"><span class="nav-icon">📊</span><span data-t="nav_kpi">لوحة KPI</span></div>
     <div class="nav-item" id="nav-plan" onclick="go('plan',this)"><span class="nav-icon">📋</span><span data-t="nav_plan">خطة 90 يوم</span></div>
     <div class="nav-item" id="nav-brand" onclick="go('brand',this)"><span class="nav-icon">🎨</span><span data-t="nav_brand">Visual Identity</span></div>
-    <div class="nav-item" id="nav-storybrand" onclick="go('storybrand',this)"><span class="nav-icon">📖</span><span data-t="nav_storybrand">StoryBrand 7</span></div>
-    <div class="nav-item" id="nav-brand-personality" onclick="go('brand-personality',this)"><span class="nav-icon">🧠</span><span data-t="nav_personality">Brand Personality</span></div>
-    <div class="nav-item" id="nav-cta-analyzer" onclick="go('cta-analyzer',this)"><span class="nav-icon">🎯</span><span data-t="nav_cta">CTA Analyzer</span></div>
-    <div class="nav-item" id="nav-seo" onclick="go('seo',this)"><span class="nav-icon">🔍</span><span data-t="nav_seo">SEO Analyzer</span></div>
-    <div class="nav-sec" data-t="sec_services">خدمات بصمة</div>
-    <div class="nav-item" id="nav-content-writer" onclick="go('content-writer',this)"><span class="nav-icon">✍️</span><span data-t="nav_writer">كتابة المحتوى</span></div>
-    <div class="nav-item" id="nav-monthly-plan" onclick="go('monthly-plan',this)"><span class="nav-icon">📅</span><span data-t="nav_monthly">الخطة الشهرية</span></div>
-    <div class="nav-item" id="nav-voiceover" onclick="go('voiceover',this)"><span class="nav-icon">🎙️</span><span data-t="nav_voiceover">فويس أوفر</span></div>
-    <div class="nav-item" id="nav-scheduler" onclick="go('scheduler',this)"><span class="nav-icon">🗓️</span><span data-t="nav_scheduler">جدول المحتوى</span></div>
-    <div class="nav-sec" data-t="sec_social">Social Media</div>
-    <div class="nav-item" id="nav-social" onclick="go('social',this)"><span class="nav-icon">📱</span><span data-t="nav_social">لوحة السوشيال</span></div>
+
+
     <div class="nav-sec" data-t="sec_design">Design Studio</div>
     <div class="nav-item" id="nav-design-hub" onclick="go('design-hub',this)"><span class="nav-icon">🖌️</span><span data-t="nav_hub">Design Tools Hub</span></div>
     <div class="nav-item" id="nav-chat" onclick="go('chat',this)"><span class="nav-icon">💬</span><span data-t="nav_chat">Chat with Claude</span></div>
     <div class="nav-item" id="nav-mockup" onclick="go('mockup',this)"><span class="nav-icon">🖼️</span><span data-t="nav_mockup">Design Mockups</span></div>
     <div class="nav-item" id="nav-uiux" onclick="go('uiux',this)"><span class="nav-icon">✏️</span><span data-t="nav_uiux">UI/UX Advisor</span></div>
+    <div class="nav-sec" data-t="sec_marketing">التسويق</div>
+    <div class="nav-item" id="nav-marketing-hub" onclick="go('marketing-hub',this)"><span class="nav-icon">📣</span><span data-t="nav_marketing_hub">Marketing Hub</span></div>
     <div class="nav-sec" data-t="sec_settings">الإعدادات</div>
     <div class="nav-item" id="nav-forms" onclick="go('forms',this)"><span class="nav-icon">📋</span><span data-t="nav_forms">النماذج</span></div>
     <div class="nav-item" id="nav-admin" onclick="go('admin',this)" style="display:none;"><span class="nav-icon">👑</span><span data-t="nav_admin">Admin Panel</span></div>
@@ -1042,322 +1036,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── CONTENT WRITER ─────────────────────────────────────────── -->
-<div class="page" id="page-content-writer">
-  <div class="topbar">
-    <div class="breadcrumb">خدمات بصمة › <b>كتابة المحتوى</b></div>
-  </div>
-  <div class="page-body">
-    <div style="margin-bottom:16px;">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">✍️ كتابة المحتوى بالذكاء الاصطناعي</div>
-      <div style="font-size:12px;color:var(--txt2);">ولّد محتوى احترافياً لمنصات التواصل، المدونات، الإعلانات وأكثر</div>
-    </div>
-    <div class="two-col" style="margin-bottom:14px;">
-      <div class="card">
-        <div class="card-hdr"><span class="card-title">إعدادات المحتوى</span></div>
-        <div class="field"><div class="field-label">نوع المحتوى <span class="req">*</span></div>
-          <select class="input" id="cw-type">
-            <option value="instagram">منشور إنستجرام</option>
-            <option value="twitter">تغريدة تويتر X</option>
-            <option value="snapchat">قصة سناب شات</option>
-            <option value="tiktok">كابشن تيك توك</option>
-            <option value="linkedin">منشور لينكد إن</option>
-            <option value="blog">مقال مدونة</option>
-            <option value="ad">إعلان مدفوع</option>
-            <option value="email">رسالة بريد إلكتروني</option>
-            <option value="whatsapp">رسالة واتساب تسويقية</option>
-            <option value="product">وصف منتج</option>
-          </select>
-        </div>
-        <div class="field"><div class="field-label">الموضوع أو الفكرة الرئيسية <span class="req">*</span></div>
-          <textarea class="input" id="cw-topic" rows="3" placeholder="مثال: إطلاق منتج جديد، عرض موسمي، نصيحة، قصة نجاح..."></textarea>
-        </div>
-        <div class="two-fields">
-          <div class="field"><div class="field-label">القطاع / المجال</div>
-            <input class="input" id="cw-industry" placeholder="مثال: مطعم، عيادة، متجر..."/>
-          </div>
-          <div class="field"><div class="field-label">الأسلوب</div>
-            <select class="input" id="cw-tone">
-              <option value="professional">احترافي</option>
-              <option value="friendly">ودّي وعفوي</option>
-              <option value="funny">فكاهي</option>
-              <option value="motivational">تحفيزي</option>
-              <option value="educational">تعليمي</option>
-              <option value="luxury">فاخر وراقي</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><div class="field-label">الجمهور المستهدف</div>
-          <input class="input" id="cw-audience" placeholder="مثال: نساء 25-40، رجال أعمال، أمهات..."/>
-        </div>
-        <div class="field"><div class="field-label">الكلمات المفتاحية (اختياري)</div>
-          <input class="input" id="cw-keywords" placeholder="كلمات تريد تضمينها مفصولة بفاصلة..."/>
-        </div>
-        <div class="field"><div class="field-label">عدد النسخ</div>
-          <select class="input" id="cw-count">
-            <option value="1">نسخة واحدة</option>
-            <option value="3" selected>3 نسخ متنوعة</option>
-            <option value="5">5 نسخ</option>
-          </select>
-        </div>
-        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateContent()">🤖 ولّد المحتوى</button>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
-          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:8px;">💡 نصائح لمحتوى أفضل</div>
-          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--acc-d);">
-            <div>✓ كن محدداً في الموضوع</div>
-            <div>✓ حدد جمهورك بدقة</div>
-            <div>✓ اختر الأسلوب المناسب للمنصة</div>
-            <div>✓ أضف كلمات مفتاحية لنتائج أفضل</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-hdr"><span class="card-title">📊 إحصائيات اليوم</span></div>
-          <div style="display:flex;flex-direction:column;gap:8px;">
-            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>محتوى تم توليده</span><span id="cw-count-stat" style="font-weight:500;">0</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>آخر نوع</span><span id="cw-last-type" style="font-weight:500;">—</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="cwOutput"></div>
-  </div>
-</div>
 
-<!-- ───── MONTHLY PLAN ────────────────────────────────────────────── -->
-<div class="page" id="page-monthly-plan">
-  <div class="topbar">
-    <div class="breadcrumb">خدمات بصمة › <b>الخطة الشهرية</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <button class="btn" onclick="exportMonthlyPlan()">⬇ تصدير PDF</button>
-    </div>
-  </div>
-  <div class="page-body">
-    <div style="margin-bottom:16px;">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">📅 الخطة الشهرية للمحتوى</div>
-      <div style="font-size:12px;color:var(--txt2);">خطة نشر شاملة لمدة شهر كامل مع مواضيع وأفكار لكل منشور</div>
-    </div>
-    <div class="card" style="margin-bottom:14px;max-width:620px;">
-      <div class="card-hdr"><span class="card-title">إعداد الخطة الشهرية</span></div>
-      <div class="two-fields">
-        <div class="field"><div class="field-label">اسم النشاط / الشركة <span class="req">*</span></div>
-          <input class="input" id="mp-name" placeholder="مثال: مطعم نور"/>
-        </div>
-        <div class="field"><div class="field-label">القطاع <span class="req">*</span></div>
-          <input class="input" id="mp-industry" placeholder="مثال: مطاعم، عيادات، ملابس..."/>
-        </div>
-      </div>
-      <div class="two-fields">
-        <div class="field"><div class="field-label">المنصات المستهدفة</div>
-          <div class="chip-row" id="mp-platforms">
-            <div class="chip sel" onclick="this.classList.toggle('sel')">إنستجرام</div>
-            <div class="chip" onclick="this.classList.toggle('sel')">تويتر X</div>
-            <div class="chip" onclick="this.classList.toggle('sel')">سناب شات</div>
-            <div class="chip" onclick="this.classList.toggle('sel')">تيك توك</div>
-            <div class="chip" onclick="this.classList.toggle('sel')">لينكد إن</div>
-          </div>
-        </div>
-        <div class="field"><div class="field-label">الشهر</div>
-          <input class="input" id="mp-month" placeholder="مثال: يونيو 2026"/>
-        </div>
-      </div>
-      <div class="field"><div class="field-label">أهداف الشهر</div>
-        <textarea class="input" id="mp-goals" rows="2" placeholder="مثال: زيادة المتابعين، الترويج لمنتج جديد، رمضان..."></textarea>
-      </div>
-      <div class="two-fields">
-        <div class="field"><div class="field-label">عدد المنشورات أسبوعياً</div>
-          <select class="input" id="mp-frequency">
-            <option value="3">3 منشورات</option>
-            <option value="5" selected>5 منشورات</option>
-            <option value="7">يومي (7)</option>
-            <option value="14">يومين (14)</option>
-          </select>
-        </div>
-        <div class="field"><div class="field-label">الأسلوب العام</div>
-          <select class="input" id="mp-tone">
-            <option>احترافي</option>
-            <option>ودّي</option>
-            <option>تعليمي</option>
-            <option>تحفيزي</option>
-            <option>متنوع</option>
-          </select>
-        </div>
-      </div>
-      <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateMonthlyPlan()">🤖 ولّد الخطة الشهرية</button>
-    </div>
-    <div id="mpOutput"></div>
-  </div>
-</div>
 
-<!-- ───── VOICE OVER ───────────────────────────────────────────────── -->
-<div class="page" id="page-voiceover">
-  <div class="topbar">
-    <div class="breadcrumb">خدمات بصمة › <b>فويس أوفر</b></div>
-  </div>
-  <div class="page-body">
-    <div style="margin-bottom:16px;">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🎙️ كتابة نص الفويس أوفر</div>
-      <div style="font-size:12px;color:var(--txt2);">ولّد نصوص فويس أوفر احترافية للإعلانات والفيديوهات والمحتوى المرئي</div>
-    </div>
-    <div class="two-col" style="margin-bottom:14px;">
-      <div class="card">
-        <div class="card-hdr"><span class="card-title">إعدادات الفويس أوفر</span></div>
-        <div class="field"><div class="field-label">نوع الفيديو <span class="req">*</span></div>
-          <select class="input" id="vo-type">
-            <option value="ad">إعلان تجاري (15-30 ثانية)</option>
-            <option value="promo">فيديو ترويجي (30-60 ثانية)</option>
-            <option value="explainer">فيديو شرح (60-90 ثانية)</option>
-            <option value="social">فيديو سوشيال ميديا (15-60 ثانية)</option>
-            <option value="documentary">وثائقي/معرفي (2-5 دقائق)</option>
-            <option value="intro">مقدمة قناة (10-20 ثانية)</option>
-          </select>
-        </div>
-        <div class="field"><div class="field-label">موضوع الفيديو / المنتج <span class="req">*</span></div>
-          <textarea class="input" id="vo-topic" rows="3" placeholder="مثال: إعلان عن افتتاح مطعم جديد في الرياض يقدم مأكولات يمنية أصيلة..."></textarea>
-        </div>
-        <div class="two-fields">
-          <div class="field"><div class="field-label">أسلوب الصوت</div>
-            <select class="input" id="vo-style">
-              <option>رسمي وجاد</option>
-              <option>ودّي وحيوي</option>
-              <option>حماسي</option>
-              <option>هادئ وفاخر</option>
-              <option>إخباري</option>
-              <option>عاطفي</option>
-            </select>
-          </div>
-          <div class="field"><div class="field-label">اللهجة</div>
-            <select class="input" id="vo-dialect">
-              <option>فصحى راقية</option>
-              <option>خليجية</option>
-              <option>سعودية</option>
-              <option>مصرية</option>
-              <option>شامية</option>
-            </select>
-          </div>
-        </div>
-        <div class="field"><div class="field-label">الجمهور المستهدف</div>
-          <input class="input" id="vo-audience" placeholder="مثال: عائلات سعودية، شباب 18-30..."/>
-        </div>
-        <div class="field"><div class="field-label">نقاط رئيسية يجب ذكرها</div>
-          <textarea class="input" id="vo-points" rows="2" placeholder="مثال: العنوان، الموعد، رقم التواصل، العرض الخاص..."></textarea>
-        </div>
-        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateVoiceover()">🤖 ولّد نص الفويس أوفر</button>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
-          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:10px;">⏱️ معدلات القراءة</div>
-          <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;">
-            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 15 ثانية:</b> ~37 كلمة</div>
-            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 30 ثانية:</b> ~75 كلمة</div>
-            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو دقيقة:</b> ~150 كلمة</div>
-            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو 3 دقائق:</b> ~450 كلمة</div>
-          </div>
-        </div>
-        <div class="card">
-          <div style="font-size:12px;font-weight:500;margin-bottom:8px;">📌 نصائح الفويس أوفر</div>
-          <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--txt2);">
-            <div>• ابدأ بجملة تجذب الانتباه</div>
-            <div>• استخدم جمل قصيرة وواضحة</div>
-            <div>• ضع CTA في النهاية دائماً</div>
-            <div>• تجنب الكلمات الصعبة النطق</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="voOutput"></div>
-  </div>
-</div>
 
-<!-- ───── CONTENT SCHEDULER ───────────────────────────────────────── -->
-<div class="page" id="page-scheduler">
-  <div class="topbar">
-    <div class="breadcrumb">خدمات بصمة › <b>جدول المحتوى</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <button class="btn" onclick="exportSchedule()">⬇ تصدير CSV</button>
-      <button class="btn primary" onclick="addSchedulePost()">+ إضافة منشور</button>
-    </div>
-  </div>
-  <div class="page-body" id="schedulerBody">
-    <div style="margin-bottom:16px;">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🗓️ جدول المحتوى</div>
-      <div style="font-size:12px;color:var(--txt2);">تنظيم ومتابعة خطة نشر المحتوى لجميع المنصات</div>
-    </div>
-    <!-- Stats -->
-    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;">
-      <div class="metric"><div class="m-label">إجمالي المنشورات</div><div class="m-val" id="sch-total">0</div></div>
-      <div class="metric"><div class="m-label">تم النشر</div><div class="m-val up" id="sch-published">0</div></div>
-      <div class="metric"><div class="m-label">قيد الإعداد</div><div class="m-val" id="sch-draft" style="color:var(--amb);">0</div></div>
-      <div class="metric"><div class="m-label">مجدولة</div><div class="m-val" id="sch-scheduled" style="color:var(--acc);">0</div></div>
-    </div>
-    <!-- Schedule table -->
-    <div class="card">
-      <div class="card-hdr"><span class="card-title">جدول المنشورات</span></div>
-      <div style="overflow-x:auto;">
-        <table class="crm-table" id="scheduleTable">
-          <thead><tr>
-            <th>التاريخ</th><th>المنصة</th><th>الموضوع</th><th>الأسلوب</th><th>الحالة</th><th>إجراء</th>
-          </tr></thead>
-          <tbody id="scheduleBody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;">لا توجد منشورات — اضغط "+ إضافة منشور" أو "ولّد بالذكاء" لإنشاء جدول تلقائي</td></tr></tbody>
-        </table>
-      </div>
-    </div>
-    <!-- Generate schedule -->
-    <div class="card" style="margin-top:14px;">
-      <div class="card-hdr"><span class="card-title">🤖 ولّد جدول تلقائي بالذكاء الاصطناعي</span></div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
-        <div class="field" style="flex:1;min-width:150px;margin-bottom:0;"><div class="field-label">اسم النشاط</div><input class="input" id="sg-name" placeholder="مثال: مطعم نور"/></div>
-        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">عدد الأسابيع</div>
-          <select class="input" id="sg-weeks"><option value="2">أسبوعان</option><option value="4" selected>شهر كامل</option></select>
-        </div>
-        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">منشورات/أسبوع</div>
-          <select class="input" id="sg-per-week"><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option></select>
-        </div>
-        <button class="btn primary" style="padding:8px 16px;flex-shrink:0;" onclick="generateSchedule()">🤖 ولّد الجدول</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- ── ADD SCHEDULE POST MODAL ── -->
-<div class="modal-overlay" id="addPostModal">
-  <div class="modal-box">
-    <div class="modal-title">إضافة منشور للجدول</div>
-    <div class="two-fields">
-      <div class="field"><div class="field-label">التاريخ <span class="req">*</span></div><input class="input" type="date" id="sp-date"/></div>
-      <div class="field"><div class="field-label">المنصة <span class="req">*</span></div>
-        <select class="input" id="sp-platform">
-          <option>إنستجرام</option><option>تويتر X</option><option>سناب شات</option>
-          <option>تيك توك</option><option>لينكد إن</option><option>فيسبوك</option>
-        </select>
-      </div>
-    </div>
-    <div class="field"><div class="field-label">الموضوع <span class="req">*</span></div><input class="input" id="sp-topic" placeholder="موضوع المنشور..."/></div>
-    <div class="two-fields">
-      <div class="field"><div class="field-label">الأسلوب</div>
-        <select class="input" id="sp-tone"><option>احترافي</option><option>ودّي</option><option>تعليمي</option><option>ترفيهي</option></select>
-      </div>
-      <div class="field"><div class="field-label">الحالة</div>
-        <select class="input" id="sp-status"><option value="draft">قيد الإعداد</option><option value="scheduled">مجدول</option><option value="published">تم النشر</option></select>
-      </div>
-    </div>
-    <div class="field"><div class="field-label">ملاحظات</div><input class="input" id="sp-notes" placeholder="أي تفاصيل إضافية..."/></div>
-    <div class="nav-row">
-      <button class="btn primary" onclick="saveSchedulePost()">✓ إضافة</button>
-      <button class="btn" onclick="closeModal('addPostModal')">إلغاء</button>
-    </div>
-  </div>
-</div>
-
-<!-- ───── DESIGN TOOLS HUB ───────────────────────────────────────── -->
 <div class="page" id="page-design-hub">
   <div class="topbar">
     <div class="breadcrumb">Design Studio › <b>Design Tools Hub</b></div>
@@ -1453,7 +1135,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
           </select>
         </div>
         <div class="field" style="margin-bottom:0;"><div class="field-label">Brand/Company <span class="req">*</span></div>
-          <input class="input" id="db-brand" placeholder="e.g. بصمة" value="${fd.companyName||''}"/>
+          <input class="input" id="db-brand" placeholder="e.g. بصمة" value=""/>
         </div>
         <div class="field" style="margin-bottom:0;"><div class="field-label">Purpose</div>
           <input class="input" id="db-purpose" placeholder="e.g. Announce new product, Ramadan offer..."/>
@@ -1496,32 +1178,666 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── SOCIAL MEDIA DASHBOARD ─────────────────────────────────── -->
-<div class="page" id="page-social">
+
+<div class="page" id="page-history">
   <div class="topbar">
-    <div class="breadcrumb"><b>📱 Social Media Dashboard</b></div>
+    <div class="breadcrumb"><b>🕐 <span data-t="page_history">سجل التقارير</span></b></div>
     <div class="tb-right">
       <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
         <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
         <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
       </div>
-      <button class="btn" onclick="exportSocialReport()">⬇ Export Report</button>
-      <button class="btn primary" onclick="getSocialAIAdvice()">🤖 AI Analysis</button>
+      <input class="input" id="history-search" placeholder="بحث..." style="width:200px;padding:6px 10px;font-size:12px;" oninput="renderHistory()"/>
+      <button class="btn red-btn" onclick="if(confirm('حذف كل السجل؟')){submissions=[];saveSubmissions();renderHistory()}">🗑 حذف الكل</button>
+    </div>
+  </div>
+  <div class="page-body" id="historyBody">
+    <div style="text-align:center;padding:40px;color:var(--txt2);">لا يوجد سجل بعد</div>
+  </div>
+</div>
+
+<!-- ───── ONBOARDING TOUR ──────────────────────────────────────── -->
+<div id="onboardingOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border-radius:var(--r3);padding:32px;max-width:520px;width:90%;position:relative;">
+    <div style="position:absolute;top:16px;right:16px;">
+      <button onclick="skipTour()" style="background:none;border:none;color:var(--txt2);cursor:pointer;font-size:12px;font-family:inherit;">تخطي الجولة ✕</button>
+    </div>
+    <!-- Progress dots -->
+    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:20px;" id="tourDots"></div>
+    <!-- Tour content -->
+    <div id="tourContent"></div>
+    <!-- Navigation -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;">
+      <button class="btn" id="tourPrev" onclick="tourStep(-1)">→ السابق</button>
+      <span id="tourCounter" style="font-size:11px;color:var(--txt2);"></span>
+      <button class="btn primary" id="tourNext" onclick="tourStep(1)">التالي ←</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───── STORYBRAND 7 ────────────────────────────────────────────── -->
+
+
+
+
+<div class="page" id="page-forms">
+  <div class="topbar">
+    <div class="breadcrumb"><b data-t="nav_forms">النماذج</b></div>
+    <div class="tb-right">
+      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div style="margin-bottom:18px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;" data-t="forms_title">مولّد النماذج</div>
+      <div style="font-size:12px;color:var(--txt2);" data-t="forms_subtitle">أنشئ نماذج احترافية جاهزة للطباعة والتنزيل</div>
+    </div>
+
+    <!-- Form Type Selector -->
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px;">
+      <div class="tool-card" id="ftype-quotation" onclick="selectFormType('quotation',this)" style="text-align:center;padding:14px 8px;border-color:var(--acc);background:var(--acc-l);">
+        <div style="font-size:24px;margin-bottom:6px;">📄</div>
+        <div style="font-size:11px;font-weight:600;color:var(--acc-d);">عرض سعر<br><span style="font-size:9px;">Quotation</span></div>
+      </div>
+      <div class="tool-card" id="ftype-invoice" onclick="selectFormType('invoice',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">🧾</div>
+        <div style="font-size:11px;font-weight:600;">فاتورة<br><span style="font-size:9px;color:var(--txt2);">Invoice</span></div>
+      </div>
+      <div class="tool-card" id="ftype-contract" onclick="selectFormType('contract',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📝</div>
+        <div style="font-size:11px;font-weight:600;">عقد<br><span style="font-size:9px;color:var(--txt2);">Contract</span></div>
+      </div>
+      <div class="tool-card" id="ftype-proposal" onclick="selectFormType('proposal',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📊</div>
+        <div style="font-size:11px;font-weight:600;">عرض مشروع<br><span style="font-size:9px;color:var(--txt2);">Proposal</span></div>
+      </div>
+      <div class="tool-card" id="ftype-receipt" onclick="selectFormType('receipt',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">🧾</div>
+        <div style="font-size:11px;font-weight:600;">إيصال دفع<br><span style="font-size:9px;color:var(--txt2);">Receipt</span></div>
+      </div>
+      <div class="tool-card" id="ftype-po" onclick="selectFormType('po',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">🛒</div>
+        <div style="font-size:11px;font-weight:600;">أمر شراء<br><span style="font-size:9px;color:var(--txt2);">Purchase Order</span></div>
+      </div>
+      <div class="tool-card" id="ftype-minutes" onclick="selectFormType('minutes',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">📋</div>
+        <div style="font-size:11px;font-weight:600;">محضر اجتماع<br><span style="font-size:9px;color:var(--txt2);">Meeting Minutes</span></div>
+      </div>
+      <div class="tool-card" id="ftype-nda" onclick="selectFormType('nda',this)" style="text-align:center;padding:14px 8px;">
+        <div style="font-size:24px;margin-bottom:6px;">🔒</div>
+        <div style="font-size:11px;font-weight:600;">اتفاقية سرية<br><span style="font-size:9px;color:var(--txt2);">NDA</span></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <!-- Left: Input Panel -->
+      <div style="display:flex;flex-direction:column;gap:12px;">
+
+        <!-- Company Info -->
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🏢 <span data-t="forms_company">معلومات الشركة</span></span><button class="btn xs" onclick="autoFillCompany()">🤖 Auto-fill</button></div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label" data-t="forms_company_name">اسم الشركة</div><input class="input" id="fc-name" placeholder="بصمة لحلول الأعمال"/></div>
+            <div class="field"><div class="field-label">الشخص المسؤول</div><input class="input" id="fc-contact" placeholder="اسم المسؤول"/></div>
+          </div>
+          <div class="field"><div class="field-label" data-t="forms_company_address">العنوان</div><input class="input" id="fc-address" placeholder="الرياض، المملكة العربية السعودية"/></div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label" data-t="forms_company_phone">رقم الهاتف</div><input class="input" id="fc-phone" placeholder="+966 5X XXX XXXX"/></div>
+            <div class="field"><div class="field-label" data-t="forms_company_email">البريد الإلكتروني</div><input class="input" id="fc-email" placeholder="info@company.com"/></div>
+          </div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label" data-t="forms_company_cr">رقم السجل التجاري</div><input class="input" id="fc-cr" placeholder="1234567890"/></div>
+            <div class="field"><div class="field-label" data-t="forms_company_vat">الرقم الضريبي</div><input class="input" id="fc-vat" placeholder="300XXXXXXXXX"/></div>
+          </div>
+        </div>
+
+        <!-- Logo & Branding -->
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🎨 الشعار والألوان</span></div>
+          <div class="field"><div class="field-label" data-t="forms_logo_url">رابط الشعار (URL)</div>
+            <input class="input" id="fc-logo-url" placeholder="https://yoursite.com/logo.png" oninput="updateLogoPreview()"/>
+          </div>
+          <div class="field"><div class="field-label" data-t="forms_logo_upload">أو رفع الشعار</div>
+            <input type="file" id="fc-logo-file" accept="image/*" onchange="handleLogoUpload(this)" style="font-size:12px;"/>
+            <div id="logo-preview" style="margin-top:8px;display:none;"><img id="logo-preview-img" style="max-height:60px;max-width:180px;object-fit:contain;border:1px solid var(--bdr);border-radius:var(--r);padding:4px;"/></div>
+          </div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label" data-t="forms_color">لون العلامة التجارية</div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <input type="color" id="fc-color" value="#6b5fcd" style="width:40px;height:36px;border:1px solid var(--bdr2);border-radius:var(--r);cursor:pointer;padding:2px;" oninput="document.getElementById('fc-color-hex').value=this.value"/>
+                <input class="input" id="fc-color-hex" value="#6b5fcd" style="flex:1;" oninput="document.getElementById('fc-color').value=this.value"/>
+              </div>
+            </div>
+            <div class="field"><div class="field-label" data-t="forms_lang">لغة النموذج</div>
+              <select class="input" id="fc-form-lang">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="both">ثنائي</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Form Fields -->
+        <div class="card" id="formDynamicFields">
+          <div class="card-hdr"><span class="card-title" id="formTypeTitle">📄 بيانات عرض السعر</span></div>
+          <div id="dynamicFieldsContent"></div>
+          <button class="btn primary" style="width:100%;padding:10px;margin-top:8px;" onclick="generateForm()">🤖 توليد النموذج</button>
+        </div>
+      </div>
+
+      <!-- Right: Preview Panel -->
+      <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
+        <div style="padding:12px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;">
+          <span class="card-title" data-t="forms_preview">معاينة النموذج</span>
+          <div style="display:flex;gap:7px;">
+            <button class="btn sm" onclick="printForm()">🖨️ طباعة / PDF</button>
+            <button class="btn sm primary" onclick="downloadWordForm()">📄 Word</button>
+          </div>
+        </div>
+        <div id="formPreview" style="flex:1;overflow-y:auto;padding:0;background:#f5f5f5;min-height:500px;display:flex;align-items:center;justify-content:center;">
+          <div style="text-align:center;color:var(--txt2);">
+            <div style="font-size:40px;margin-bottom:10px;">📄</div>
+            <div style="font-size:13px;">اختر نوع النموذج وأدخل البيانات<br>ثم اضغط "توليد النموذج"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── MARKETING HUB ───────────────────────────────────────────── -->
+<div class="page" id="page-marketing-hub">
+  <div class="topbar">
+    <div class="breadcrumb"><b>📣 Marketing Hub</b></div>
+    <div class="tb-right">
+      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
+        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
+        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
+      </div>
     </div>
   </div>
 
-  <!-- Sub-tabs -->
-  <div style="background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 20px;display:flex;gap:2px;flex-shrink:0;overflow-x:auto;">
-    <div class="out-tab active" id="stab-overview" onclick="switchSocialTab('overview')">📊 Overview</div>
-    <div class="out-tab" id="stab-content" onclick="switchSocialTab('content')">✍️ Content Hub</div>
-    <div class="out-tab" id="stab-calendar" onclick="switchSocialTab('calendar')">📅 Calendar</div>
-    <div class="out-tab" id="stab-analytics" onclick="switchSocialTab('analytics')">📈 Analytics</div>
-    <div class="out-tab" id="stab-hashtags" onclick="switchSocialTab('hashtags')">🔖 Hashtags</div>
-    <div class="out-tab" id="stab-competitor" onclick="switchSocialTab('competitor')">🔍 Competitor</div>
+  <!-- Tabs -->
+  <div style="background:var(--bg2);border-bottom:1px solid var(--bdr);padding:0 12px;display:flex;gap:1px;overflow-x:auto;flex-shrink:0;">
+    <div class="out-tab active" id="mh-tab-campaign" onclick="switchMarketingTab('campaign')" style="white-space:nowrap;">📊 Campaign Analyzer</div>
+    <div class="out-tab" id="mh-tab-persona" onclick="switchMarketingTab('persona')" style="white-space:nowrap;">👤 Audience Persona</div>
+    <div class="out-tab" id="mh-tab-funnel" onclick="switchMarketingTab('funnel')" style="white-space:nowrap;">🔽 Funnel Analyzer</div>
+    <div class="out-tab" id="mh-tab-content-score" onclick="switchMarketingTab('content-score')" style="white-space:nowrap;">⭐ Content Scoring</div>
+    <div class="out-tab" id="mh-tab-adcopy" onclick="switchMarketingTab('adcopy')" style="white-space:nowrap;">✍️ Ad Copy</div>
+    <div class="out-tab" id="mh-tab-mhcalendar" onclick="switchMarketingTab('mhcalendar')" style="white-space:nowrap;">📅 Campaign Calendar</div>
+    <div class="out-tab" id="mh-tab-content-writer" onclick="switchMarketingTab('content-writer')" style="white-space:nowrap;">📝 Content Writer</div>
+    <div class="out-tab" id="mh-tab-monthly-plan" onclick="switchMarketingTab('monthly-plan')" style="white-space:nowrap;">🗓 Monthly Plan</div>
+    <div class="out-tab" id="mh-tab-voiceover" onclick="switchMarketingTab('voiceover')" style="white-space:nowrap;">🎙️ Voice Over</div>
+    <div class="out-tab" id="mh-tab-scheduler" onclick="switchMarketingTab('scheduler')" style="white-space:nowrap;">📋 Scheduler</div>
+    <div class="out-tab" id="mh-tab-social" onclick="switchMarketingTab('social')" style="white-space:nowrap;">📱 Social Media</div>
+    <div class="out-tab" id="mh-tab-storybrand" onclick="switchMarketingTab('storybrand')" style="white-space:nowrap;">📖 StoryBrand 7</div>
+    <div class="out-tab" id="mh-tab-brand-personality" onclick="switchMarketingTab('brand-personality')" style="white-space:nowrap;">🧠 Brand Personality</div>
+    <div class="out-tab" id="mh-tab-cta-analyzer" onclick="switchMarketingTab('cta-analyzer')" style="white-space:nowrap;">🎯 CTA Analyzer</div>
+    <div class="out-tab" id="mh-tab-seo" onclick="switchMarketingTab('seo')" style="white-space:nowrap;">🔍 SEO Analyzer</div>
   </div>
 
-  <!-- OVERVIEW TAB -->
-  <div class="out-page active" id="stab-overview-content">
-    <div class="page-body">
+  <div class="page-body" style="overflow-y:auto;">
+
+    <!-- CAMPAIGN ANALYZER -->
+    <div id="mh-campaign" class="mh-panel">
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">📊 Campaign Performance Analyzer</div><div style="font-size:12px;color:var(--txt2);">Input your ad spend and results — AI calculates ROI and tells you exactly what to improve</div></div>
+      <div class="two-col">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <div class="card">
+            <div class="card-hdr"><span class="card-title">Campaign Details</span></div>
+            <div class="two-fields">
+              <div class="field"><div class="field-label">Campaign Name</div><input class="input" id="ca-name" placeholder="e.g. Ramadan 2026"/></div>
+              <div class="field"><div class="field-label">Platform</div>
+                <select class="input" id="ca-platform"><option>Meta (Facebook/Instagram)</option><option>Google Ads</option><option>TikTok Ads</option><option>Snapchat Ads</option><option>Twitter/X Ads</option><option>LinkedIn Ads</option><option>Multi-platform</option></select>
+              </div>
+            </div>
+            <div class="two-fields">
+              <div class="field"><div class="field-label">Total Ad Spend (SAR) *</div><input class="input" id="ca-spend" type="number" placeholder="5000"/></div>
+              <div class="field"><div class="field-label">Revenue Generated (SAR)</div><input class="input" id="ca-revenue" type="number" placeholder="18000"/></div>
+            </div>
+            <div class="three-fields">
+              <div class="field"><div class="field-label">Impressions</div><input class="input" id="ca-impressions" type="number" placeholder="150000"/></div>
+              <div class="field"><div class="field-label">Clicks</div><input class="input" id="ca-clicks" type="number" placeholder="4500"/></div>
+              <div class="field"><div class="field-label">Conversions</div><input class="input" id="ca-conversions" type="number" placeholder="120"/></div>
+            </div>
+            <div class="two-fields">
+              <div class="field"><div class="field-label">Campaign Goal</div>
+                <select class="input" id="ca-goal"><option>Sales / Revenue</option><option>Lead Generation</option><option>Brand Awareness</option><option>App Installs</option><option>Website Traffic</option><option>Engagement</option></select>
+              </div>
+              <div class="field"><div class="field-label">Industry</div><input class="input" id="ca-industry" placeholder="e.g. E-commerce, Restaurant..."/></div>
+            </div>
+            <div class="field"><div class="field-label">Target Audience</div><input class="input" id="ca-audience" placeholder="e.g. Women 25-40 in Riyadh"/></div>
+            <div class="field"><div class="field-label">Campaign Duration</div><input class="input" id="ca-duration" placeholder="e.g. 14 days (March 1-14)"/></div>
+            <button class="btn primary" style="width:100%;padding:10px;" onclick="analyzeCampaign()">🤖 Analyze Campaign</button>
+          </div>
+        </div>
+        <div id="campaignOutput"><div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Fill in your campaign data and click Analyze</div></div>
+      </div>
+    </div>
+
+    <!-- PERSONA -->
+    <div id="mh-persona" class="mh-panel">
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">👤 Audience Persona Builder</div><div style="font-size:12px;color:var(--txt2);">AI builds detailed customer profiles based on your business data</div></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Business Info</span></div>
+          <div class="field"><div class="field-label">Brand Name *</div><input class="input" id="pe-brand" placeholder="Your brand"/></div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Industry</div><input class="input" id="pe-industry" placeholder="Fashion, Food, Tech..."/></div>
+            <div class="field"><div class="field-label">Model</div><select class="input" id="pe-model"><option>B2C</option><option>B2B</option><option>Both</option></select></div>
+          </div>
+          <div class="field"><div class="field-label">Main Product/Service</div><textarea class="input" id="pe-product" rows="2" placeholder="What do you sell?"></textarea></div>
+          <div class="field"><div class="field-label">Price Range</div>
+            <select class="input" id="pe-price"><option>Budget (under 100 SAR)</option><option>Mid-range (100-500 SAR)</option><option>Premium (500-2000 SAR)</option><option>Luxury (2000+ SAR)</option></select>
+          </div>
+          <div class="field"><div class="field-label">Best Customers Description</div><textarea class="input" id="pe-best-customers" rows="2" placeholder="Who buys from you most?"></textarea></div>
+          <div class="field"><div class="field-label">Geography</div><input class="input" id="pe-geo" placeholder="Riyadh, Gulf Region..."/></div>
+          <div class="field"><div class="field-label">Personas Count</div><select class="input" id="pe-count"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select></div>
+          <button class="btn primary" style="width:100%;padding:10px;" onclick="buildPersonas()">🤖 Build Personas</button>
+        </div>
+        <div id="personaOutput"><div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Fill in your business info to build personas</div></div>
+      </div>
+    </div>
+
+    <!-- FUNNEL -->
+    <div id="mh-funnel" class="mh-panel">
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">🔽 Marketing Funnel Analyzer</div><div style="font-size:12px;color:var(--txt2);">Find where you lose customers</div></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Funnel Data</span></div>
+          <div class="field"><div class="field-label">Business *</div><input class="input" id="fn-brand" placeholder="Brand name"/></div>
+          <div class="field"><div class="field-label">Industry</div><input class="input" id="fn-industry" placeholder="E-commerce, SaaS..."/></div>
+          <div style="background:var(--bg3);border-radius:var(--r2);padding:12px;margin-bottom:12px;">
+            <div style="font-size:11px;font-weight:600;color:var(--acc);margin-bottom:10px;">📊 Funnel Numbers</div>
+            <div class="two-fields">
+              <div class="field"><div class="field-label">👁️ Awareness</div><input class="input" id="fn-awareness" type="number" placeholder="50000"/></div>
+              <div class="field"><div class="field-label">💡 Interest</div><input class="input" id="fn-interest" type="number" placeholder="8000"/></div>
+            </div>
+            <div class="two-fields">
+              <div class="field"><div class="field-label">🤔 Consideration</div><input class="input" id="fn-consideration" type="number" placeholder="1200"/></div>
+              <div class="field"><div class="field-label">✅ Action</div><input class="input" id="fn-action" type="number" placeholder="180"/></div>
+            </div>
+          </div>
+          <div class="field"><div class="field-label">Channels</div><input class="input" id="fn-channels" placeholder="Instagram, Google Ads..."/></div>
+          <div class="field"><div class="field-label">Biggest Challenge</div><textarea class="input" id="fn-challenge" rows="2" placeholder="High cart abandonment..."></textarea></div>
+          <button class="btn primary" style="width:100%;padding:10px;" onclick="analyzeFunnel()">🤖 Analyze Funnel</button>
+        </div>
+        <div id="funnelOutput"><div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Enter funnel data to identify drop-off points</div></div>
+      </div>
+    </div>
+
+    <!-- CONTENT SCORING -->
+    <div id="mh-content-score" class="mh-panel">
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">⭐ Content Performance Scoring</div><div style="font-size:12px;color:var(--txt2);">Paste your post — AI predicts engagement before you publish</div></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Content to Score</span></div>
+          <div class="field"><div class="field-label">Platform</div>
+            <select class="input" id="cs-platform"><option>Instagram</option><option>Twitter/X</option><option>TikTok</option><option>LinkedIn</option><option>Snapchat</option><option>Facebook</option></select>
+          </div>
+          <div class="field"><div class="field-label">Post Content *</div><textarea class="input" id="cs-content" rows="5" placeholder="Paste your full post caption..."></textarea></div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Industry</div><input class="input" id="cs-industry" placeholder="Fashion, Food..."/></div>
+            <div class="field"><div class="field-label">Post Type</div><select class="input" id="cs-type"><option>Image Post</option><option>Video / Reel</option><option>Story</option><option>Carousel</option><option>Text Only</option></select></div>
+          </div>
+          <div class="field"><div class="field-label">Target Audience</div><input class="input" id="cs-audience" placeholder="Who are you targeting?"/></div>
+          <div class="field"><div class="field-label">Goal</div><select class="input" id="cs-goal"><option>Increase engagement</option><option>Drive sales</option><option>Build awareness</option><option>Generate leads</option><option>Educate audience</option></select></div>
+          <button class="btn primary" style="width:100%;padding:10px;" onclick="scoreContent()">🤖 Score My Content</button>
+        </div>
+        <div id="contentScoreOutput"><div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Paste content to get a predicted score</div></div>
+      </div>
+    </div>
+
+    <!-- AD COPY -->
+    <div id="mh-adcopy" class="mh-panel">
+      <div style="margin-bottom:16px;"><div style="font-size:15px;font-weight:500;margin-bottom:4px;">✍️ Ad Copy Generator</div><div style="font-size:12px;color:var(--txt2);">Generate optimized ad copy for any platform</div></div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">Ad Details</span></div>
+          <div class="field"><div class="field-label">Platform *</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px;" id="ad-platform-grid">
+              <div class="mod-card sel" id="adp-google" onclick="selectAdPlatform('Google',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">🔍</div><div style="font-size:10px;font-weight:500;color:var(--acc-d);">Google</div></div>
+              <div class="mod-card" id="adp-meta" onclick="selectAdPlatform('Meta',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">📘</div><div style="font-size:10px;font-weight:500;">Meta</div></div>
+              <div class="mod-card" id="adp-snapchat" onclick="selectAdPlatform('Snapchat',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">👻</div><div style="font-size:10px;font-weight:500;">Snapchat</div></div>
+              <div class="mod-card" id="adp-tiktok" onclick="selectAdPlatform('TikTok',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">🎵</div><div style="font-size:10px;font-weight:500;">TikTok</div></div>
+              <div class="mod-card" id="adp-twitter" onclick="selectAdPlatform('Twitter/X',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">🐦</div><div style="font-size:10px;font-weight:500;">Twitter/X</div></div>
+              <div class="mod-card" id="adp-linkedin" onclick="selectAdPlatform('LinkedIn',this)" style="text-align:center;padding:10px 6px;"><div style="font-size:18px;">💼</div><div style="font-size:10px;font-weight:500;">LinkedIn</div></div>
+            </div>
+          </div>
+          <div class="field"><div class="field-label">Product/Service *</div><input class="input" id="ad-product" placeholder="What are you advertising?"/></div>
+          <div class="field"><div class="field-label">Key Benefit/Offer</div><input class="input" id="ad-benefit" placeholder="50% off, Free delivery..."/></div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Target Audience</div><input class="input" id="ad-audience" placeholder="Who should see this?"/></div>
+            <div class="field"><div class="field-label">Goal</div><select class="input" id="ad-goal"><option>Drive Sales</option><option>Generate Leads</option><option>App Downloads</option><option>Website Traffic</option><option>Brand Awareness</option></select></div>
+          </div>
+          <div class="two-fields">
+            <div class="field"><div class="field-label">Tone</div><select class="input" id="ad-tone"><option>Urgent & Direct</option><option>Friendly & Casual</option><option>Professional</option><option>Luxury & Elegant</option><option>Fun & Playful</option></select></div>
+            <div class="field"><div class="field-label">Variations</div><select class="input" id="ad-count"><option value="2">2</option><option value="3" selected>3</option><option value="5">5</option></select></div>
+          </div>
+          <button class="btn primary" style="width:100%;padding:10px;" onclick="generateAdCopy()">🤖 Generate Ad Copy</button>
+        </div>
+        <div id="adCopyOutput"><div style="text-align:center;padding:40px;color:var(--txt2);font-size:12px;">Select platform and fill details</div></div>
+      </div>
+    </div>
+
+    <!-- CAMPAIGN CALENDAR -->
+    <div id="mh-mhcalendar" class="mh-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <div><div style="font-size:15px;font-weight:500;margin-bottom:4px;">📅 Campaign Calendar</div><div style="font-size:12px;color:var(--txt2);">Plan and track all your marketing campaigns</div></div>
+        <button class="btn primary" onclick="openModal('addCampaignModal')">+ Add Campaign</button>
+      </div>
+      <div class="metrics-row" style="margin-bottom:14px;">
+        <div class="metric"><div class="m-label">Total</div><div class="m-val" id="cal-total">0</div></div>
+        <div class="metric"><div class="m-label">Active</div><div class="m-val up" id="cal-active">0</div></div>
+        <div class="metric"><div class="m-label">Budget</div><div class="m-val" id="cal-budget" style="font-size:14px;">0 SAR</div></div>
+        <div class="metric"><div class="m-label">This Month</div><div class="m-val" id="cal-month">0</div></div>
+      </div>
+      <div class="card" id="campaignCalendarBody"><div style="text-align:center;padding:30px;color:var(--txt2);font-size:12px;">No campaigns — click "+ Add Campaign"</div></div>
+    </div>
+
+    <!-- CONTENT WRITER -->
+    <div id="mh-content-writer" class="mh-panel"><div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">✍️ كتابة المحتوى بالذكاء الاصطناعي</div>
+      <div style="font-size:12px;color:var(--txt2);">ولّد محتوى احترافياً لمنصات التواصل، المدونات، الإعلانات وأكثر</div>
+    </div>
+    <div class="two-col" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">إعدادات المحتوى</span></div>
+        <div class="field"><div class="field-label">نوع المحتوى <span class="req">*</span></div>
+          <select class="input" id="cw-type">
+            <option value="instagram">منشور إنستجرام</option>
+            <option value="twitter">تغريدة تويتر X</option>
+            <option value="snapchat">قصة سناب شات</option>
+            <option value="tiktok">كابشن تيك توك</option>
+            <option value="linkedin">منشور لينكد إن</option>
+            <option value="blog">مقال مدونة</option>
+            <option value="ad">إعلان مدفوع</option>
+            <option value="email">رسالة بريد إلكتروني</option>
+            <option value="whatsapp">رسالة واتساب تسويقية</option>
+            <option value="product">وصف منتج</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">الموضوع أو الفكرة الرئيسية <span class="req">*</span></div>
+          <textarea class="input" id="cw-topic" rows="3" placeholder="مثال: إطلاق منتج جديد، عرض موسمي، نصيحة، قصة نجاح..."></textarea>
+        </div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">القطاع / المجال</div>
+            <input class="input" id="cw-industry" placeholder="مثال: مطعم، عيادة، متجر..."/>
+          </div>
+          <div class="field"><div class="field-label">الأسلوب</div>
+            <select class="input" id="cw-tone">
+              <option value="professional">احترافي</option>
+              <option value="friendly">ودّي وعفوي</option>
+              <option value="funny">فكاهي</option>
+              <option value="motivational">تحفيزي</option>
+              <option value="educational">تعليمي</option>
+              <option value="luxury">فاخر وراقي</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="cw-audience" placeholder="مثال: نساء 25-40، رجال أعمال، أمهات..."/>
+        </div>
+        <div class="field"><div class="field-label">الكلمات المفتاحية (اختياري)</div>
+          <input class="input" id="cw-keywords" placeholder="كلمات تريد تضمينها مفصولة بفاصلة..."/>
+        </div>
+        <div class="field"><div class="field-label">عدد النسخ</div>
+          <select class="input" id="cw-count">
+            <option value="1">نسخة واحدة</option>
+            <option value="3" selected>3 نسخ متنوعة</option>
+            <option value="5">5 نسخ</option>
+          </select>
+        </div>
+        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateContent()">🤖 ولّد المحتوى</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:8px;">💡 نصائح لمحتوى أفضل</div>
+          <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--acc-d);">
+            <div>✓ كن محدداً في الموضوع</div>
+            <div>✓ حدد جمهورك بدقة</div>
+            <div>✓ اختر الأسلوب المناسب للمنصة</div>
+            <div>✓ أضف كلمات مفتاحية لنتائج أفضل</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">📊 إحصائيات اليوم</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>محتوى تم توليده</span><span id="cw-count-stat" style="font-weight:500;">0</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:7px;background:var(--bg3);border-radius:var(--r);"><span>آخر نوع</span><span id="cw-last-type" style="font-weight:500;">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="cwOutput"></div>
+  </div>
+</div>
+
+<!-- ───── MONTHLY PLAN ────────────────────────────────────────────── -->
+    </div>
+
+    <!-- MONTHLY PLAN -->
+    <div id="mh-monthly-plan" class="mh-panel"><div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">📅 الخطة الشهرية للمحتوى</div>
+      <div style="font-size:12px;color:var(--txt2);">خطة نشر شاملة لمدة شهر كامل مع مواضيع وأفكار لكل منشور</div>
+    </div>
+    <div class="card" style="margin-bottom:14px;max-width:620px;">
+      <div class="card-hdr"><span class="card-title">إعداد الخطة الشهرية</span></div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">اسم النشاط / الشركة <span class="req">*</span></div>
+          <input class="input" id="mp-name" placeholder="مثال: مطعم نور"/>
+        </div>
+        <div class="field"><div class="field-label">القطاع <span class="req">*</span></div>
+          <input class="input" id="mp-industry" placeholder="مثال: مطاعم، عيادات، ملابس..."/>
+        </div>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">المنصات المستهدفة</div>
+          <div class="chip-row" id="mp-platforms">
+            <div class="chip sel" onclick="this.classList.toggle('sel')">إنستجرام</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">تويتر X</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">سناب شات</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">تيك توك</div>
+            <div class="chip" onclick="this.classList.toggle('sel')">لينكد إن</div>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الشهر</div>
+          <input class="input" id="mp-month" placeholder="مثال: يونيو 2026"/>
+        </div>
+      </div>
+      <div class="field"><div class="field-label">أهداف الشهر</div>
+        <textarea class="input" id="mp-goals" rows="2" placeholder="مثال: زيادة المتابعين، الترويج لمنتج جديد، رمضان..."></textarea>
+      </div>
+      <div class="two-fields">
+        <div class="field"><div class="field-label">عدد المنشورات أسبوعياً</div>
+          <select class="input" id="mp-frequency">
+            <option value="3">3 منشورات</option>
+            <option value="5" selected>5 منشورات</option>
+            <option value="7">يومي (7)</option>
+            <option value="14">يومين (14)</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">الأسلوب العام</div>
+          <select class="input" id="mp-tone">
+            <option>احترافي</option>
+            <option>ودّي</option>
+            <option>تعليمي</option>
+            <option>تحفيزي</option>
+            <option>متنوع</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateMonthlyPlan()">🤖 ولّد الخطة الشهرية</button>
+    </div>
+    <div id="mpOutput"></div>
+  </div>
+</div>
+
+<!-- ───── VOICE OVER ───────────────────────────────────────────────── -->
+    </div>
+
+    <!-- VOICE OVER -->
+    <div id="mh-voiceover" class="mh-panel"><div class="page-body">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🎙️ كتابة نص الفويس أوفر</div>
+      <div style="font-size:12px;color:var(--txt2);">ولّد نصوص فويس أوفر احترافية للإعلانات والفيديوهات والمحتوى المرئي</div>
+    </div>
+    <div class="two-col" style="margin-bottom:14px;">
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">إعدادات الفويس أوفر</span></div>
+        <div class="field"><div class="field-label">نوع الفيديو <span class="req">*</span></div>
+          <select class="input" id="vo-type">
+            <option value="ad">إعلان تجاري (15-30 ثانية)</option>
+            <option value="promo">فيديو ترويجي (30-60 ثانية)</option>
+            <option value="explainer">فيديو شرح (60-90 ثانية)</option>
+            <option value="social">فيديو سوشيال ميديا (15-60 ثانية)</option>
+            <option value="documentary">وثائقي/معرفي (2-5 دقائق)</option>
+            <option value="intro">مقدمة قناة (10-20 ثانية)</option>
+          </select>
+        </div>
+        <div class="field"><div class="field-label">موضوع الفيديو / المنتج <span class="req">*</span></div>
+          <textarea class="input" id="vo-topic" rows="3" placeholder="مثال: إعلان عن افتتاح مطعم جديد في الرياض يقدم مأكولات يمنية أصيلة..."></textarea>
+        </div>
+        <div class="two-fields">
+          <div class="field"><div class="field-label">أسلوب الصوت</div>
+            <select class="input" id="vo-style">
+              <option>رسمي وجاد</option>
+              <option>ودّي وحيوي</option>
+              <option>حماسي</option>
+              <option>هادئ وفاخر</option>
+              <option>إخباري</option>
+              <option>عاطفي</option>
+            </select>
+          </div>
+          <div class="field"><div class="field-label">اللهجة</div>
+            <select class="input" id="vo-dialect">
+              <option>فصحى راقية</option>
+              <option>خليجية</option>
+              <option>سعودية</option>
+              <option>مصرية</option>
+              <option>شامية</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><div class="field-label">الجمهور المستهدف</div>
+          <input class="input" id="vo-audience" placeholder="مثال: عائلات سعودية، شباب 18-30..."/>
+        </div>
+        <div class="field"><div class="field-label">نقاط رئيسية يجب ذكرها</div>
+          <textarea class="input" id="vo-points" rows="2" placeholder="مثال: العنوان، الموعد، رقم التواصل، العرض الخاص..."></textarea>
+        </div>
+        <button class="btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="generateVoiceover()">🤖 ولّد نص الفويس أوفر</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div class="card" style="background:var(--acc-l);border-color:#9b8fe8;">
+          <div style="font-size:13px;font-weight:500;color:var(--acc-d);margin-bottom:10px;">⏱️ معدلات القراءة</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:12px;">
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 15 ثانية:</b> ~37 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>إعلان 30 ثانية:</b> ~75 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو دقيقة:</b> ~150 كلمة</div>
+            <div style="padding:7px;background:rgba(255,255,255,0.5);border-radius:var(--r);"><b>فيديو 3 دقائق:</b> ~450 كلمة</div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:12px;font-weight:500;margin-bottom:8px;">📌 نصائح الفويس أوفر</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:11px;color:var(--txt2);">
+            <div>• ابدأ بجملة تجذب الانتباه</div>
+            <div>• استخدم جمل قصيرة وواضحة</div>
+            <div>• ضع CTA في النهاية دائماً</div>
+            <div>• تجنب الكلمات الصعبة النطق</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="voOutput"></div>
+  </div>
+</div>
+
+<!-- ───── CONTENT SCHEDULER ───────────────────────────────────────── -->
+    </div>
+
+    <!-- SCHEDULER -->
+    <div id="mh-scheduler" class="mh-panel"><div class="page-body" id="schedulerBody">
+    <div style="margin-bottom:16px;">
+      <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🗓️ جدول المحتوى</div>
+      <div style="font-size:12px;color:var(--txt2);">تنظيم ومتابعة خطة نشر المحتوى لجميع المنصات</div>
+    </div>
+    <!-- Stats -->
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;">
+      <div class="metric"><div class="m-label">إجمالي المنشورات</div><div class="m-val" id="sch-total">0</div></div>
+      <div class="metric"><div class="m-label">تم النشر</div><div class="m-val up" id="sch-published">0</div></div>
+      <div class="metric"><div class="m-label">قيد الإعداد</div><div class="m-val" id="sch-draft" style="color:var(--amb);">0</div></div>
+      <div class="metric"><div class="m-label">مجدولة</div><div class="m-val" id="sch-scheduled" style="color:var(--acc);">0</div></div>
+    </div>
+    <!-- Schedule table -->
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">جدول المنشورات</span></div>
+      <div style="overflow-x:auto;">
+        <table class="crm-table" id="scheduleTable">
+          <thead><tr>
+            <th>التاريخ</th><th>المنصة</th><th>الموضوع</th><th>الأسلوب</th><th>الحالة</th><th>إجراء</th>
+          </tr></thead>
+          <tbody id="scheduleBody"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--txt2);font-size:12px;">لا توجد منشورات — اضغط "+ إضافة منشور" أو "ولّد بالذكاء" لإنشاء جدول تلقائي</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Generate schedule -->
+    <div class="card" style="margin-top:14px;">
+      <div class="card-hdr"><span class="card-title">🤖 ولّد جدول تلقائي بالذكاء الاصطناعي</span></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;">
+        <div class="field" style="flex:1;min-width:150px;margin-bottom:0;"><div class="field-label">اسم النشاط</div><input class="input" id="sg-name" placeholder="مثال: مطعم نور"/></div>
+        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">عدد الأسابيع</div>
+          <select class="input" id="sg-weeks"><option value="2">أسبوعان</option><option value="4" selected>شهر كامل</option></select>
+        </div>
+        <div class="field" style="flex:1;min-width:120px;margin-bottom:0;"><div class="field-label">منشورات/أسبوع</div>
+          <select class="input" id="sg-per-week"><option value="3">3</option><option value="5" selected>5</option><option value="7">7</option></select>
+        </div>
+        <button class="btn primary" style="padding:8px 16px;flex-shrink:0;" onclick="generateSchedule()">🤖 ولّد الجدول</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ADD SCHEDULE POST MODAL ── -->
+<div class="modal-overlay" id="addPostModal">
+  <div class="modal-box">
+    <div class="modal-title">إضافة منشور للجدول</div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">التاريخ <span class="req">*</span></div><input class="input" type="date" id="sp-date"/></div>
+      <div class="field"><div class="field-label">المنصة <span class="req">*</span></div>
+        <select class="input" id="sp-platform">
+          <option>إنستجرام</option><option>تويتر X</option><option>سناب شات</option>
+          <option>تيك توك</option><option>لينكد إن</option><option>فيسبوك</option>
+        </select>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">الموضوع <span class="req">*</span></div><input class="input" id="sp-topic" placeholder="موضوع المنشور..."/></div>
+    <div class="two-fields">
+      <div class="field"><div class="field-label">الأسلوب</div>
+        <select class="input" id="sp-tone"><option>احترافي</option><option>ودّي</option><option>تعليمي</option><option>ترفيهي</option></select>
+      </div>
+      <div class="field"><div class="field-label">الحالة</div>
+        <select class="input" id="sp-status"><option value="draft">قيد الإعداد</option><option value="scheduled">مجدول</option><option value="published">تم النشر</option></select>
+      </div>
+    </div>
+    <div class="field"><div class="field-label">ملاحظات</div><input class="input" id="sp-notes" placeholder="أي تفاصيل إضافية..."/></div>
+    <div class="nav-row">
+      <button class="btn primary" onclick="saveSchedulePost()">✓ إضافة</button>
+      <button class="btn" onclick="closeModal('addPostModal')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- ───── DESIGN TOOLS HUB ───────────────────────────────────────── -->
+    </div>
+
+    <!-- SOCIAL MEDIA -->
+    <div id="mh-social" class="mh-panel"><div class="page-body">
 
       <!-- Platform Stats Cards -->
       <div style="margin-bottom:16px;">
@@ -1551,27 +1867,7 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
       <div class="card">
         <div class="card-hdr"><span class="card-title">⏰ Best Times to Post (Gulf Region)</span></div>
         <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;">
-          ${[
-            {p:'Instagram',icon:'📸',color:'#E1306C',times:['7:00 PM','9:00 PM','12:00 PM'],days:'Tue, Wed, Thu'},
-            {p:'Twitter/X',icon:'🐦',color:'#1DA1F2',times:['8:00 AM','12:00 PM','9:00 PM'],days:'Mon, Wed, Sun'},
-            {p:'TikTok',icon:'🎵',color:'#010101',times:['6:00 PM','9:00 PM','10:00 PM'],days:'Tue, Thu, Fri'},
-            {p:'LinkedIn',icon:'💼',color:'#0077B5',times:['8:00 AM','10:00 AM','5:00 PM'],days:'Mon, Tue, Wed'},
-            {p:'Snapchat',icon:'👻',color:'#FFFC00',times:['8:00 PM','10:00 PM','11:00 PM'],days:'Wed, Thu, Fri'},
-            {p:'Facebook',icon:'📘',color:'#1877F2',times:['1:00 PM','4:00 PM','8:00 PM'],days:'Thu, Fri, Sat'},
-            {p:'YouTube',icon:'▶️',color:'#FF0000',times:['5:00 PM','8:00 PM','9:00 PM'],days:'Thu, Fri, Sat'},
-            {p:'Pinterest',icon:'📌',color:'#E60023',times:['8:00 PM','9:00 PM','2:00 AM'],days:'Fri, Sat, Sun'},
-          ].map(t=>`
-          <div style="padding:10px;border:1px solid var(--bdr);border-radius:var(--r2);border-top:3px solid ${t.color};">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-              <span style="font-size:14px;">${t.icon}</span>
-              <span style="font-size:11px;font-weight:600;">${t.p}</span>
-            </div>
-            <div style="display:flex;flex-direction:column;gap:3px;">
-              ${t.times.map(time=>`<div style="font-size:11px;padding:3px 8px;background:var(--bg3);border-radius:5px;text-align:center;">⏰ ${time}</div>`).join('')}
-            </div>
-            <div style="font-size:10px;color:var(--txt2);margin-top:6px;text-align:center;">${t.days}</div>
-          </div>`).join('')}
-        </div>
+          <!-- Best times rendered above -->
       </div>
     </div>
   </div>
@@ -1584,16 +1880,14 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
           <div class="card-hdr"><span class="card-title">✍️ Generate Content for Platform</span></div>
           <div class="field"><div class="field-label">Platform</div>
             <div style="display:flex;flex-wrap:wrap;gap:6px;" id="content-platform-chips">
-              ${[
-                {n:'Instagram',i:'📸',c:'#E1306C'},
-                {n:'Twitter/X',i:'🐦',c:'#1DA1F2'},
-                {n:'TikTok',i:'🎵',c:'#010101'},
-                {n:'LinkedIn',i:'💼',c:'#0077B5'},
-                {n:'Snapchat',i:'👻',c:'#FFFC00'},
-                {n:'Facebook',i:'📘',c:'#1877F2'},
-                {n:'YouTube',i:'▶️',c:'#FF0000'},
-                {n:'Pinterest',i:'📌',c:'#E60023'},
-              ].map(p=>`<div class="chip" onclick="selectContentPlatform('${p.n}',this)" style="display:flex;align-items:center;gap:4px;">${p.i} ${p.n}</div>`).join('')}
+              <div class="chip" onclick="selectContentPlatform('Instagram',this)" style="display:flex;align-items:center;gap:4px;">📸 Instagram</div>
+              <div class="chip" onclick="selectContentPlatform('Twitter/X',this)" style="display:flex;align-items:center;gap:4px;">🐦 Twitter/X</div>
+              <div class="chip" onclick="selectContentPlatform('TikTok',this)" style="display:flex;align-items:center;gap:4px;">🎵 TikTok</div>
+              <div class="chip" onclick="selectContentPlatform('LinkedIn',this)" style="display:flex;align-items:center;gap:4px;">💼 LinkedIn</div>
+              <div class="chip" onclick="selectContentPlatform('Snapchat',this)" style="display:flex;align-items:center;gap:4px;">👻 Snapchat</div>
+              <div class="chip" onclick="selectContentPlatform('Facebook',this)" style="display:flex;align-items:center;gap:4px;">📘 Facebook</div>
+              <div class="chip" onclick="selectContentPlatform('YouTube',this)" style="display:flex;align-items:center;gap:4px;">▶️ YouTube</div>
+              <div class="chip" onclick="selectContentPlatform('Pinterest',this)" style="display:flex;align-items:center;gap:4px;">📌 Pinterest</div>
             </div>
           </div>
           <div class="field"><div class="field-label">Topic / Idea <span class="req">*</span></div>
@@ -1771,56 +2065,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── REPORT HISTORY ──────────────────────────────────────────── -->
-<div class="page" id="page-history">
-  <div class="topbar">
-    <div class="breadcrumb"><b>🕐 <span data-t="page_history">سجل التقارير</span></b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <input class="input" id="history-search" placeholder="بحث..." style="width:200px;padding:6px 10px;font-size:12px;" oninput="renderHistory()"/>
-      <button class="btn red-btn" onclick="if(confirm('حذف كل السجل؟')){submissions=[];saveSubmissions();renderHistory()}">🗑 حذف الكل</button>
     </div>
-  </div>
-  <div class="page-body" id="historyBody">
-    <div style="text-align:center;padding:40px;color:var(--txt2);">لا يوجد سجل بعد</div>
-  </div>
-</div>
 
-<!-- ───── ONBOARDING TOUR ──────────────────────────────────────── -->
-<div id="onboardingOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:9000;align-items:center;justify-content:center;">
-  <div style="background:var(--bg2);border-radius:var(--r3);padding:32px;max-width:520px;width:90%;position:relative;">
-    <div style="position:absolute;top:16px;right:16px;">
-      <button onclick="skipTour()" style="background:none;border:none;color:var(--txt2);cursor:pointer;font-size:12px;font-family:inherit;">تخطي الجولة ✕</button>
-    </div>
-    <!-- Progress dots -->
-    <div style="display:flex;justify-content:center;gap:6px;margin-bottom:20px;" id="tourDots"></div>
-    <!-- Tour content -->
-    <div id="tourContent"></div>
-    <!-- Navigation -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;">
-      <button class="btn" id="tourPrev" onclick="tourStep(-1)">→ السابق</button>
-      <span id="tourCounter" style="font-size:11px;color:var(--txt2);"></span>
-      <button class="btn primary" id="tourNext" onclick="tourStep(1)">التالي ←</button>
-    </div>
-  </div>
-</div>
-
-<!-- ───── STORYBRAND 7 ────────────────────────────────────────────── -->
-<div class="page" id="page-storybrand">
-  <div class="topbar">
-    <div class="breadcrumb">الأدوات › <b>📖 StoryBrand 7 Framework</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <button class="btn" onclick="exportPDF('storybrand','StoryBrand Framework')">⬇ PDF</button>
-      <button class="btn primary" onclick="openShare('storybrand','StoryBrand 7 Framework')">🔗 Share</button>
-    </div>
-  </div>
-  <div class="page-body">
+    <!-- STORYBRAND -->
+    <div id="mh-storybrand" class="mh-panel"><div class="page-body">
     <div style="margin-bottom:16px;">
       <div style="font-size:15px;font-weight:500;margin-bottom:4px;">📖 StoryBrand 7 Framework</div>
       <div style="font-size:12px;color:var(--txt2);line-height:1.7;">بناء قصة العلامة التجارية باستخدام إطار StoryBrand 7 عناصر — البطل، المرشد، المشكلة، الخطة، النجاح، الفشل، والدعوة للعمل</div>
@@ -1860,18 +2108,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── BRAND PERSONALITY ENGINE ───────────────────────────────── -->
-<div class="page" id="page-brand-personality">
-  <div class="topbar">
-    <div class="breadcrumb">الأدوات › <b>🧠 Brand Personality Engine</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <button class="btn" onclick="exportPDF('brand-personality','Brand Personality Report')">⬇ PDF</button>
     </div>
-  </div>
-  <div class="page-body">
+
+    <!-- BRAND PERSONALITY -->
+    <div id="mh-brand-personality" class="mh-panel"><div class="page-body">
     <div style="margin-bottom:16px;">
       <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🧠 محرك تحليل شخصية العلامة التجارية</div>
       <div style="font-size:12px;color:var(--txt2);">يحدد شخصيتك التجارية (B2B أو B2C) ومدى التجانس بين Business، Brand، وBehavior</div>
@@ -1924,7 +2164,16 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
         <div class="card">
           <div style="font-size:12px;font-weight:500;margin-bottom:8px;">🎭 الشخصيات العالمية</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-            ${['البطل','المرشد','المستكشف','المبدع','الحاكم','المحب','المهرج','الرعاية','الساحر','البطل الثوري'].map(p=>`<div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">${p}</div>`).join('')}
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">البطل</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">المرشد</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">المستكشف</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">المبدع</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">الحاكم</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">المحب</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">المهرج</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">الرعاية</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">الساحر</div>
+            <div style="padding:6px 8px;background:var(--bg3);border-radius:var(--r);font-size:11px;text-align:center;">البطل الثوري</div>
           </div>
         </div>
       </div>
@@ -1934,11 +2183,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── CTA ANALYZER ────────────────────────────────────────────── -->
-<div class="page" id="page-cta-analyzer">
-  <div class="topbar">
-    <div class="breadcrumb">الأدوات › <b>🎯 CTA Analyzer</b></div>
-  </div>
-  <div class="page-body">
+    </div>
+
+    <!-- CTA ANALYZER -->
+    <div id="mh-cta-analyzer" class="mh-panel"><div class="page-body">
     <div style="margin-bottom:16px;">
       <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🎯 محلل وضوح الرسائل التسويقية (CTA)</div>
       <div style="font-size:12px;color:var(--txt2);">تحليل مدى وضوح دعوة الجمهور للتصرف في منشوراتك وإعلاناتك</div>
@@ -1989,18 +2237,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── SEO ANALYZER ────────────────────────────────────────────── -->
-<div class="page" id="page-seo">
-  <div class="topbar">
-    <div class="breadcrumb">الأدوات › <b>🔍 SEO Analyzer</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-      <button class="btn" onclick="exportPDF('seo','SEO Analysis Report')">⬇ PDF</button>
     </div>
-  </div>
-  <div class="page-body">
+
+    <!-- SEO ANALYZER -->
+    <div id="mh-seo" class="mh-panel"><div class="page-body">
     <div style="margin-bottom:16px;">
       <div style="font-size:15px;font-weight:500;margin-bottom:4px;">🔍 تحليل SEO للمواقع والمتاجر</div>
       <div style="font-size:12px;color:var(--txt2);">تحليل تقني وتسويقي لمحركات البحث — كلمات مفتاحية، بنية الصفحة، توصيات التحسين</div>
@@ -2048,135 +2288,10 @@ textarea.input{resize:vertical;min-height:64px;line-height:1.7;}
 </div>
 
 <!-- ───── FORMS GENERATOR ────────────────────────────────────────── -->
-<div class="page" id="page-forms">
-  <div class="topbar">
-    <div class="breadcrumb"><b data-t="nav_forms">النماذج</b></div>
-    <div class="tb-right">
-      <div style="display:flex;border:1px solid var(--bdr2);border-radius:var(--r);overflow:hidden;flex-shrink:0;">
-        <button onclick="setLang('ar')" class="lang-btn-ar" style="padding:5px 10px;border:none;background:var(--acc);color:#fff;cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">ع</button>
-        <button onclick="setLang('en')" class="lang-btn-en" style="padding:5px 10px;border:none;background:transparent;color:var(--txt2);cursor:pointer;font-family:inherit;font-size:11px;font-weight:500;">EN</button>
-      </div>
-    </div>
-  </div>
-  <div class="page-body">
-    <div style="margin-bottom:18px;">
-      <div style="font-size:15px;font-weight:500;margin-bottom:4px;" data-t="forms_title">مولّد النماذج</div>
-      <div style="font-size:12px;color:var(--txt2);" data-t="forms_subtitle">أنشئ نماذج احترافية جاهزة للطباعة والتنزيل</div>
     </div>
 
-    <!-- Form Type Selector -->
-    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:20px;">
-      <div class="tool-card" id="ftype-quotation" onclick="selectFormType('quotation',this)" style="text-align:center;padding:14px 8px;border-color:var(--acc);background:var(--acc-l);">
-        <div style="font-size:24px;margin-bottom:6px;">📄</div>
-        <div style="font-size:11px;font-weight:600;color:var(--acc-d);">عرض سعر<br><span style="font-size:9px;">Quotation</span></div>
-      </div>
-      <div class="tool-card" id="ftype-invoice" onclick="selectFormType('invoice',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">🧾</div>
-        <div style="font-size:11px;font-weight:600;">فاتورة<br><span style="font-size:9px;color:var(--txt2);">Invoice</span></div>
-      </div>
-      <div class="tool-card" id="ftype-contract" onclick="selectFormType('contract',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">📝</div>
-        <div style="font-size:11px;font-weight:600;">عقد<br><span style="font-size:9px;color:var(--txt2);">Contract</span></div>
-      </div>
-      <div class="tool-card" id="ftype-proposal" onclick="selectFormType('proposal',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">📊</div>
-        <div style="font-size:11px;font-weight:600;">عرض مشروع<br><span style="font-size:9px;color:var(--txt2);">Proposal</span></div>
-      </div>
-      <div class="tool-card" id="ftype-receipt" onclick="selectFormType('receipt',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">🧾</div>
-        <div style="font-size:11px;font-weight:600;">إيصال دفع<br><span style="font-size:9px;color:var(--txt2);">Receipt</span></div>
-      </div>
-      <div class="tool-card" id="ftype-po" onclick="selectFormType('po',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">🛒</div>
-        <div style="font-size:11px;font-weight:600;">أمر شراء<br><span style="font-size:9px;color:var(--txt2);">Purchase Order</span></div>
-      </div>
-      <div class="tool-card" id="ftype-minutes" onclick="selectFormType('minutes',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">📋</div>
-        <div style="font-size:11px;font-weight:600;">محضر اجتماع<br><span style="font-size:9px;color:var(--txt2);">Meeting Minutes</span></div>
-      </div>
-      <div class="tool-card" id="ftype-nda" onclick="selectFormType('nda',this)" style="text-align:center;padding:14px 8px;">
-        <div style="font-size:24px;margin-bottom:6px;">🔒</div>
-        <div style="font-size:11px;font-weight:600;">اتفاقية سرية<br><span style="font-size:9px;color:var(--txt2);">NDA</span></div>
-      </div>
-    </div>
-
-    <div class="two-col">
-      <!-- Left: Input Panel -->
-      <div style="display:flex;flex-direction:column;gap:12px;">
-
-        <!-- Company Info -->
-        <div class="card">
-          <div class="card-hdr"><span class="card-title">🏢 <span data-t="forms_company">معلومات الشركة</span></span><button class="btn xs" onclick="autoFillCompany()">🤖 Auto-fill</button></div>
-          <div class="two-fields">
-            <div class="field"><div class="field-label" data-t="forms_company_name">اسم الشركة</div><input class="input" id="fc-name" placeholder="بصمة لحلول الأعمال"/></div>
-            <div class="field"><div class="field-label">الشخص المسؤول</div><input class="input" id="fc-contact" placeholder="اسم المسؤول"/></div>
-          </div>
-          <div class="field"><div class="field-label" data-t="forms_company_address">العنوان</div><input class="input" id="fc-address" placeholder="الرياض، المملكة العربية السعودية"/></div>
-          <div class="two-fields">
-            <div class="field"><div class="field-label" data-t="forms_company_phone">رقم الهاتف</div><input class="input" id="fc-phone" placeholder="+966 5X XXX XXXX"/></div>
-            <div class="field"><div class="field-label" data-t="forms_company_email">البريد الإلكتروني</div><input class="input" id="fc-email" placeholder="info@company.com"/></div>
-          </div>
-          <div class="two-fields">
-            <div class="field"><div class="field-label" data-t="forms_company_cr">رقم السجل التجاري</div><input class="input" id="fc-cr" placeholder="1234567890"/></div>
-            <div class="field"><div class="field-label" data-t="forms_company_vat">الرقم الضريبي</div><input class="input" id="fc-vat" placeholder="300XXXXXXXXX"/></div>
-          </div>
-        </div>
-
-        <!-- Logo & Branding -->
-        <div class="card">
-          <div class="card-hdr"><span class="card-title">🎨 الشعار والألوان</span></div>
-          <div class="field"><div class="field-label" data-t="forms_logo_url">رابط الشعار (URL)</div>
-            <input class="input" id="fc-logo-url" placeholder="https://yoursite.com/logo.png" oninput="updateLogoPreview()"/>
-          </div>
-          <div class="field"><div class="field-label" data-t="forms_logo_upload">أو رفع الشعار</div>
-            <input type="file" id="fc-logo-file" accept="image/*" onchange="handleLogoUpload(this)" style="font-size:12px;"/>
-            <div id="logo-preview" style="margin-top:8px;display:none;"><img id="logo-preview-img" style="max-height:60px;max-width:180px;object-fit:contain;border:1px solid var(--bdr);border-radius:var(--r);padding:4px;"/></div>
-          </div>
-          <div class="two-fields">
-            <div class="field"><div class="field-label" data-t="forms_color">لون العلامة التجارية</div>
-              <div style="display:flex;gap:8px;align-items:center;">
-                <input type="color" id="fc-color" value="#6b5fcd" style="width:40px;height:36px;border:1px solid var(--bdr2);border-radius:var(--r);cursor:pointer;padding:2px;" oninput="document.getElementById('fc-color-hex').value=this.value"/>
-                <input class="input" id="fc-color-hex" value="#6b5fcd" style="flex:1;" oninput="document.getElementById('fc-color').value=this.value"/>
-              </div>
-            </div>
-            <div class="field"><div class="field-label" data-t="forms_lang">لغة النموذج</div>
-              <select class="input" id="fc-form-lang">
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-                <option value="both">ثنائي</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Dynamic Form Fields -->
-        <div class="card" id="formDynamicFields">
-          <div class="card-hdr"><span class="card-title" id="formTypeTitle">📄 بيانات عرض السعر</span></div>
-          <div id="dynamicFieldsContent"></div>
-          <button class="btn primary" style="width:100%;padding:10px;margin-top:8px;" onclick="generateForm()">🤖 توليد النموذج</button>
-        </div>
-      </div>
-
-      <!-- Right: Preview Panel -->
-      <div class="card" style="padding:0;overflow:hidden;display:flex;flex-direction:column;">
-        <div style="padding:12px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;">
-          <span class="card-title" data-t="forms_preview">معاينة النموذج</span>
-          <div style="display:flex;gap:7px;">
-            <button class="btn sm" onclick="printForm()">🖨️ طباعة / PDF</button>
-            <button class="btn sm primary" onclick="downloadWordForm()">📄 Word</button>
-          </div>
-        </div>
-        <div id="formPreview" style="flex:1;overflow-y:auto;padding:0;background:#f5f5f5;min-height:500px;display:flex;align-items:center;justify-content:center;">
-          <div style="text-align:center;color:var(--txt2);">
-            <div style="font-size:40px;margin-bottom:10px;">📄</div>
-            <div style="font-size:13px;">اختر نوع النموذج وأدخل البيانات<br>ثم اضغط "توليد النموذج"</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
-
 </div><!-- /main -->
 </div><!-- /app -->
 
@@ -2414,6 +2529,17 @@ function go(id, navEl){
   if(id==='voiceover') initVoiceover()
   if(id==='scheduler') initScheduler()
   if(id==='admin') renderAdminPanel()
+  if(id==='marketing-hub') initMarketingHub()
+  // Redirect old page routes to marketing hub tabs
+  if(id==='content-writer'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('content-writer'),100)}
+  if(id==='monthly-plan'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('monthly-plan'),100)}
+  if(id==='voiceover'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('voiceover'),100)}
+  if(id==='scheduler'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('scheduler'),100)}
+  if(id==='social'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('social'),100)}
+  if(id==='storybrand'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('storybrand'),100)}
+  if(id==='brand-personality'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('brand-personality'),100)}
+  if(id==='cta-analyzer'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('cta-analyzer'),100)}
+  if(id==='seo'){go('marketing-hub',null);setTimeout(()=>switchMarketingTab('seo'),100)}
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
@@ -5910,6 +6036,8 @@ const TRANSLATIONS = {
     'sec_design': 'استوديو التصميم',
     'sec_social': 'السوشيال ميديا',
     'sec_settings': 'الإعدادات',
+    'sec_marketing': 'التسويق',
+    'nav_marketing_hub': 'مركز التسويق',
   },
   en: {
     // Nav
@@ -6102,6 +6230,8 @@ const TRANSLATIONS = {
     'sec_design': 'Design Studio',
     'sec_social': 'Social Media',
     'sec_settings': 'Settings',
+    'sec_marketing': 'Marketing',
+    'nav_marketing_hub': 'Marketing Hub',
   }
 }
 
@@ -6545,6 +6675,519 @@ function downloadWordForm(){
   a.href=url; a.download=title+'-'+new Date().toISOString().split('T')[0]+'.doc'; a.click()
   URL.revokeObjectURL(url)
 }
+
+// ══════════════════════════════════════════════════════════════════
+// MARKETING HUB
+// ══════════════════════════════════════════════════════════════════
+let campaigns = JSON.parse(localStorage.getItem('sp_campaigns')||'[]')
+let selectedAdPlatform = 'Google'
+
+function saveCampaigns(){ localStorage.setItem('sp_campaigns', JSON.stringify(campaigns)) }
+
+function initMarketingHub(){
+  switchMarketingTab('campaign')
+  renderCampaignCalendar()
+}
+
+function switchMarketingTab(tab){
+  document.querySelectorAll('.mh-panel').forEach(p=>p.style.display='none')
+  document.querySelectorAll('[id^=mh-tab-]').forEach(t=>t.classList.remove('active'))
+  const panel = document.getElementById('mh-'+tab)
+  const tabEl = document.getElementById('mh-tab-'+tab)
+  if(panel) panel.style.display='block'
+  if(tabEl){ tabEl.classList.add('active'); tabEl.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}) }
+  // Init specific tabs
+  if(tab==='social') initSocialDashboard()
+  if(tab==='storybrand') initStoryBrand()
+  if(tab==='brand-personality') initBrandPersonality()
+  if(tab==='cta-analyzer') initCTAAnalyzer()
+  if(tab==='seo') initSEO()
+  if(tab==='content-writer') initContentWriter()
+  if(tab==='monthly-plan') initMonthlyPlan()
+  if(tab==='voiceover') initVoiceover()
+  if(tab==='scheduler') initScheduler()
+  if(tab==='mhcalendar') renderCampaignCalendar()
+}
+
+function loadMHContentWriter(){
+  const inner = document.getElementById('mh-cw-inner')
+  if(!inner) return
+  const src = document.getElementById('page-content-writer')
+  if(src) inner.innerHTML = src.querySelector('.page-body')?.innerHTML||''
+}
+
+function loadMHMonthlyPlan(){
+  const inner = document.getElementById('mh-mp-inner')
+  if(!inner) return
+  const src = document.getElementById('page-monthly-plan')
+  if(src) inner.innerHTML = src.querySelector('.page-body')?.innerHTML||''
+}
+
+function loadMHVoiceover(){
+  const inner = document.getElementById('mh-vo-inner')
+  if(!inner) return
+  const src = document.getElementById('page-voiceover')
+  if(src) inner.innerHTML = src.querySelector('.page-body')?.innerHTML||''
+}
+
+function selectAdPlatform(platform, el){
+  selectedAdPlatform = platform
+  document.querySelectorAll('#ad-platform-grid .mod-card').forEach(e=>{
+    e.classList.remove('sel'); e.style.borderColor='var(--bdr)'; e.style.background='var(--bg2)'
+    const label = e.querySelector('div:last-child'); if(label) label.style.color='var(--txt)'
+  })
+  el.classList.add('sel'); el.style.borderColor='var(--acc)'; el.style.background='var(--acc-l)'
+  const label = el.querySelector('div:last-child'); if(label) label.style.color='var(--acc-d)'
+}
+
+// ── Campaign Performance Analyzer ────────────────────────────────
+async function analyzeCampaign(){
+  const spend = parseFloat(document.getElementById('ca-spend')?.value||'0')
+  if(!spend){alert(currentLang==='ar'?'يرجى إدخال الميزانية المنفقة':'Please enter your ad spend');return}
+  const key=getKey(); if(!key){alert('Please add API key');go('settings',null);return}
+
+  const name = document.getElementById('ca-name')?.value||'Campaign'
+  const platform = document.getElementById('ca-platform')?.value||''
+  const revenue = parseFloat(document.getElementById('ca-revenue')?.value||'0')
+  const impressions = parseInt(document.getElementById('ca-impressions')?.value||'0')
+  const clicks = parseInt(document.getElementById('ca-clicks')?.value||'0')
+  const conversions = parseInt(document.getElementById('ca-conversions')?.value||'0')
+  const goal = document.getElementById('ca-goal')?.value||''
+  const industry = document.getElementById('ca-industry')?.value||''
+  const audience = document.getElementById('ca-audience')?.value||''
+  const duration = document.getElementById('ca-duration')?.value||''
+
+  // Calculate metrics
+  const roas = spend>0?(revenue/spend).toFixed(2):0
+  const ctr = impressions>0?((clicks/impressions)*100).toFixed(2):0
+  const cpc = clicks>0?(spend/clicks).toFixed(2):0
+  const cpa = conversions>0?(spend/conversions).toFixed(2):0
+  const convRate = clicks>0?((conversions/clicks)*100).toFixed(2):0
+
+  const out = document.getElementById('campaignOutput')
+  out.innerHTML='<div class="loading-box"><div class="spin">📊</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Analyzing campaign performance...</div></div>'
+
+  const lang = currentLang==='ar'?'Arabic':'English'
+  const prompt=`You are a senior digital marketing analyst for the Gulf/Saudi market. Analyze this ad campaign and provide detailed insights. Respond in ${lang}.
+
+Campaign: ${name} on ${platform}
+Spend: ${spend} SAR | Revenue: ${revenue} SAR | ROAS: ${roas}
+Impressions: ${impressions} | Clicks: ${clicks} | CTR: ${ctr}%
+Conversions: ${conversions} | CPA: ${cpa} SAR | Conv Rate: ${convRate}%
+Goal: ${goal} | Industry: ${industry} | Audience: ${audience} | Duration: ${duration}
+
+Return JSON only:
+{
+  "overallScore": 75,
+  "performanceSummary": "2-3 sentence assessment",
+  "roasAssessment": "Is ${roas} ROAS good/bad for ${industry}?",
+  "keyMetrics": [
+    {"metric":"ROAS","value":"${roas}x","benchmark":"Industry benchmark","status":"good/warning/poor","insight":"..."}
+  ],
+  "strengths": ["strength 1","strength 2"],
+  "weaknesses": ["weakness 1","weakness 2"],
+  "recommendations": [
+    {"priority":1,"action":"Specific action to improve","expectedImpact":"...","effort":"low/medium/high"}
+  ],
+  "budgetAllocation": "How to reallocate budget for better results",
+  "nextSteps": ["step 1","step 2","step 3"],
+  "estimatedImprovement": "What % improvement is realistic with these changes"
+}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const sc=data.overallScore||0
+    const scoreColor=sc>=80?'var(--grn)':sc>=60?'var(--amb)':'var(--red)'
+
+    out.innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card" style="border-top:3px solid ${scoreColor};">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="text-align:center;">
+            <div style="font-size:40px;font-weight:700;color:${scoreColor};">${sc}</div>
+            <div style="font-size:10px;color:var(--txt2);">Campaign Score</div>
+          </div>
+          <div style="flex:1;"><div style="font-size:12px;color:var(--txt2);line-height:1.7;">${data.performanceSummary||''}</div>
+          <div style="font-size:11px;margin-top:6px;padding:6px 10px;background:var(--acc-l);border-radius:var(--r);color:var(--acc-d);">ROAS Assessment: ${data.roasAssessment||''}</div></div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric"><div class="m-label">ROAS</div><div class="m-val" style="color:${parseFloat(roas)>=3?'var(--grn)':'var(--red)'};">${roas}x</div></div>
+        <div class="metric"><div class="m-label">CTR</div><div class="m-val">${ctr}%</div></div>
+        <div class="metric"><div class="m-label">CPA</div><div class="m-val" style="font-size:14px;">${cpa} SAR</div></div>
+        <div class="metric"><div class="m-label">Conv. Rate</div><div class="m-val">${convRate}%</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">✅ Strengths</span></div>
+          ${(data.strengths||[]).map(s=>`<div style="font-size:11px;padding:6px;background:var(--grn-l);border-radius:var(--r);margin-bottom:4px;color:var(--grn);">✓ ${s}</div>`).join('')}
+          <div style="margin-top:10px;"><div class="card-hdr" style="margin-bottom:6px;"><span class="card-title">⚠️ Weaknesses</span></div>
+          ${(data.weaknesses||[]).map(w=>`<div style="font-size:11px;padding:6px;background:var(--red-l);border-radius:var(--r);margin-bottom:4px;color:var(--red);">✕ ${w}</div>`).join('')}</div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">📋 Recommendations</span></div>
+          ${(data.recommendations||[]).map((r,i)=>`<div style="display:flex;gap:8px;margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:var(--r);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--acc);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;">${r.priority}</div>
+            <div><div style="font-size:11px;font-weight:500;">${r.action}</div>
+            <div style="font-size:10px;color:var(--grn);margin-top:2px;">Impact: ${r.expectedImpact} · Effort: ${r.effort}</div></div>
+          </div>`).join('')}
+          <div style="padding:8px;background:var(--acc-l);border-radius:var(--r);font-size:11px;color:var(--acc-d);margin-top:6px;">
+            🎯 Estimated improvement: ${data.estimatedImprovement||''}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><span class="card-title">💰 Budget Allocation</span></div>
+        <div style="font-size:12px;line-height:1.7;">${data.budgetAllocation||''}</div>
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+// ── Audience Persona Builder ──────────────────────────────────────
+async function buildPersonas(){
+  const brand = document.getElementById('pe-brand')?.value?.trim()
+  if(!brand){alert('Please enter your brand name');return}
+  const key=getKey(); if(!key){alert('Please add API key');go('settings',null);return}
+  const industry=document.getElementById('pe-industry')?.value||''
+  const model=document.getElementById('pe-model')?.value||'B2C'
+  const product=document.getElementById('pe-product')?.value||''
+  const price=document.getElementById('pe-price')?.value||''
+  const bestCustomers=document.getElementById('pe-best-customers')?.value||''
+  const geo=document.getElementById('pe-geo')?.value||''
+  const count=parseInt(document.getElementById('pe-count')?.value||'2')
+  const lang=currentLang==='ar'?'Arabic':'English'
+  const out=document.getElementById('personaOutput')
+  out.innerHTML='<div class="loading-box"><div class="spin">👤</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Building customer personas...</div></div>'
+
+  const prompt=`You are a market research expert for the Gulf/Saudi market. Build detailed customer personas. Respond in ${lang}.
+
+Brand: ${brand} | Industry: ${industry} | Model: ${model}
+Product: ${product} | Price: ${price} | Geography: ${geo}
+Best customers description: ${bestCustomers}
+
+Return JSON only (${count} personas):
+{"personas":[{"name":"Persona name (Arabic name if Arabic)","age":"Age range","gender":"Male/Female/Both","job":"Job title/role","income":"Monthly income range","location":"City/Region","education":"Education level","lifestyle":"Daily life description","goals":["goal1","goal2","goal3"],"painPoints":["pain1","pain2","pain3"],"buyingBehavior":"How and why they buy","preferredChannels":["channel1","channel2"],"contentPreferences":"What content they engage with","triggersToBuy":["trigger1","trigger2"],"barriersToBuy":["barrier1","barrier2"],"quote":"A quote this person might say about the problem you solve","howToReach":"Best way to reach and convert this persona","messagingAngle":"Key message that resonates with them"}]}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:3000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const colors=['#6b5fcd','#1D9E75','#D85A30']
+    out.innerHTML=`<div style="display:flex;flex-direction:column;gap:12px;">
+      ${(data.personas||[]).map((p,i)=>`
+      <div class="card" style="border-top:3px solid ${colors[i]||'var(--acc)'};">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:${colors[i]||'var(--acc)'}20;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">👤</div>
+          <div><div style="font-size:15px;font-weight:600;">${p.name}</div>
+          <div style="font-size:11px;color:var(--txt2);">${p.age} · ${p.gender} · ${p.job}</div>
+          <div style="font-size:11px;color:var(--txt2);">${p.location} · ${p.income}</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px;">
+          <div><div style="font-size:10px;font-weight:600;color:var(--grn);margin-bottom:4px;">🎯 Goals</div>${(p.goals||[]).map(g=>`<div style="font-size:11px;display:flex;gap:5px;margin-bottom:3px;"><span style="color:var(--grn);">→</span>${g}</div>`).join('')}</div>
+          <div><div style="font-size:10px;font-weight:600;color:var(--red);margin-bottom:4px;">😤 Pain Points</div>${(p.painPoints||[]).map(g=>`<div style="font-size:11px;display:flex;gap:5px;margin-bottom:3px;"><span style="color:var(--red);">!</span>${g}</div>`).join('')}</div>
+        </div>
+        <div style="padding:8px 10px;background:var(--bg3);border-radius:var(--r);font-style:italic;font-size:12px;margin-bottom:8px;">"${p.quote||''}"</div>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+          <div style="font-size:11px;"><b>Buying Behavior:</b> ${p.buyingBehavior||''}</div>
+          <div style="font-size:11px;"><b>Best Channels:</b> ${(p.preferredChannels||[]).join(', ')}</div>
+          <div style="font-size:11px;"><b>How to Reach:</b> ${p.howToReach||''}</div>
+          <div style="font-size:11px;"><b>Key Message:</b> <span style="color:${colors[i]||'var(--acc)'};">${p.messagingAngle||''}</span></div>
+        </div>
+        <div style="margin-top:8px;"><div style="font-size:10px;font-weight:600;color:var(--grn);margin-bottom:4px;">✅ Triggers to Buy</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${(p.triggersToBuy||[]).map(t=>`<span style="font-size:10px;padding:2px 8px;background:var(--grn-l);color:var(--grn);border-radius:999px;">${t}</span>`).join('')}</div></div>
+        <div style="margin-top:6px;"><div style="font-size:10px;font-weight:600;color:var(--red);margin-bottom:4px;">🚫 Barriers</div><div style="display:flex;flex-wrap:wrap;gap:5px;">${(p.barriersToBuy||[]).map(t=>`<span style="font-size:10px;padding:2px 8px;background:var(--red-l);color:var(--red);border-radius:999px;">${t}</span>`).join('')}</div></div>
+      </div>`).join('')}
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+// ── Funnel Analyzer ───────────────────────────────────────────────
+async function analyzeFunnel(){
+  const brand=document.getElementById('fn-brand')?.value?.trim()
+  if(!brand){alert('Please enter your business name');return}
+  const key=getKey(); if(!key){alert('Please add API key');go('settings',null);return}
+  const awareness=parseInt(document.getElementById('fn-awareness')?.value||'0')
+  const interest=parseInt(document.getElementById('fn-interest')?.value||'0')
+  const consideration=parseInt(document.getElementById('fn-consideration')?.value||'0')
+  const action=parseInt(document.getElementById('fn-action')?.value||'0')
+  const industry=document.getElementById('fn-industry')?.value||''
+  const channels=document.getElementById('fn-channels')?.value||''
+  const challenge=document.getElementById('fn-challenge')?.value||''
+  const lang=currentLang==='ar'?'Arabic':'English'
+  const out=document.getElementById('funnelOutput')
+  out.innerHTML='<div class="loading-box"><div class="spin">🔽</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Analyzing your marketing funnel...</div></div>'
+
+  const aToI = awareness>0?((interest/awareness)*100).toFixed(1):0
+  const iToC = interest>0?((consideration/interest)*100).toFixed(1):0
+  const cToA = consideration>0?((action/consideration)*100).toFixed(1):0
+  const overallConv = awareness>0?((action/awareness)*100).toFixed(2):0
+
+  const prompt=`You are a conversion optimization expert for the Gulf/Saudi market. Analyze this marketing funnel and identify the biggest drop-off points. Respond in ${lang}.
+
+Business: ${brand} | Industry: ${industry}
+Funnel: Awareness=${awareness} → Interest=${interest}(${aToI}%) → Consideration=${consideration}(${iToC}%) → Action=${action}(${cToA}%)
+Overall conversion: ${overallConv}% | Channels: ${channels} | Main challenge: ${challenge}
+
+Return JSON only:
+{"overallHealth":"Good/Moderate/Poor","biggestDropOff":"Where most people are lost","stages":[{"stage":"Awareness","count":${awareness},"conversionToNext":"${aToI}%","health":"good/warning/poor","issue":"Main issue at this stage","fix":"Specific fix"}],"topPriority":"Single most important thing to fix now","recommendations":[{"stage":"...","action":"...","expectedLift":"..."}],"quickWins":["quick win 1","quick win 2"],"benchmarks":"How this compares to industry standards for ${industry}"}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const hColors={'Good':'var(--grn)','Moderate':'var(--amb)','Poor':'var(--red)'}
+    const stageColors={'good':'var(--grn)','warning':'var(--amb)','poor':'var(--red)'}
+    const stages=[{label:'👁️ Awareness',val:awareness,conv:aToI},{label:'💡 Interest',val:interest,conv:aToI},{label:'🤔 Consideration',val:consideration,conv:iToC},{label:'✅ Action',val:action,conv:cToA}]
+
+    out.innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+          <div><div style="font-size:13px;font-weight:500;">Funnel Health: <span style="color:${hColors[data.overallHealth]||'var(--amb)'};">${data.overallHealth}</span></div>
+          <div style="font-size:11px;color:var(--red);margin-top:3px;">⚠️ Biggest drop: ${data.biggestDropOff||''}</div></div>
+          <div style="text-align:center;padding:10px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:18px;font-weight:700;color:var(--acc);">${overallConv}%</div><div style="font-size:10px;color:var(--txt2);">Overall Conv.</div></div>
+        </div>
+        <!-- Funnel visualization -->
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:12px;">
+          ${stages.map((s,i)=>{
+            const maxVal=awareness||1; const pct=Math.max(10,Math.round((s.val/maxVal)*100))
+            const stageData=(data.stages||[])[i]||{}
+            const color=stageColors[stageData.health]||'var(--acc)'
+            return`<div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                <span style="font-size:11px;font-weight:500;">${s.label}</span>
+                <span style="font-size:11px;font-weight:600;color:${color};">${s.val.toLocaleString()}</span>
+              </div>
+              <div style="height:28px;background:var(--bg3);border-radius:var(--r);overflow:hidden;position:relative;">
+                <div style="width:${pct}%;height:100%;background:${color};border-radius:var(--r);opacity:0.8;"></div>
+                <div style="position:absolute;inset:0;display:flex;align-items:center;padding:0 10px;font-size:10px;color:var(--txt2);">${stageData.issue||''}</div>
+              </div>
+              ${i<3?`<div style="font-size:10px;color:${color};text-align:right;margin-top:1px;">↓ ${s.conv}% continue</div>`:''}</div>`}).join('')}
+        </div>
+        <div style="padding:10px;background:var(--acc-l);border-radius:var(--r);font-size:12px;color:var(--acc-d);"><b>🎯 Top Priority:</b> ${data.topPriority||''}</div>
+      </div>
+      <div class="two-col">
+        <div class="card"><div class="card-hdr"><span class="card-title">📋 Recommendations</span></div>
+          ${(data.recommendations||[]).map(r=>`<div style="margin-bottom:8px;padding:8px;background:var(--bg3);border-radius:var(--r);"><div style="font-size:11px;font-weight:500;color:var(--acc);">${r.stage}</div><div style="font-size:11px;">${r.action}</div><div style="font-size:10px;color:var(--grn);margin-top:2px;">Expected lift: ${r.expectedLift}</div></div>`).join('')}
+        </div>
+        <div class="card"><div class="card-hdr"><span class="card-title">⚡ Quick Wins</span></div>
+          ${(data.quickWins||[]).map(w=>`<div style="padding:7px;background:var(--grn-l);border-radius:var(--r);font-size:11px;color:var(--grn);margin-bottom:5px;">→ ${w}</div>`).join('')}
+          <div style="margin-top:8px;padding:8px;background:var(--bg3);border-radius:var(--r);font-size:11px;color:var(--txt2);">${data.benchmarks||''}</div>
+        </div>
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+// ── Content Performance Scoring ───────────────────────────────────
+async function scoreContent(){
+  const content_text=document.getElementById('cs-content')?.value?.trim()
+  if(!content_text){alert('Please paste your content first');return}
+  const key=getKey(); if(!key){alert('Please add API key');go('settings',null);return}
+  const platform=document.getElementById('cs-platform')?.value||'Instagram'
+  const industry=document.getElementById('cs-industry')?.value||''
+  const type=document.getElementById('cs-type')?.value||'Image Post'
+  const audience=document.getElementById('cs-audience')?.value||''
+  const goal=document.getElementById('cs-goal')?.value||''
+  const lang=currentLang==='ar'?'Arabic':'English'
+  const out=document.getElementById('contentScoreOutput')
+  out.innerHTML='<div class="loading-box"><div class="spin">⭐</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Scoring your content...</div></div>'
+
+  const prompt=`You are a social media performance expert for the Gulf/Saudi market. Score this content and predict its engagement. Respond in ${lang}.
+
+Platform: ${platform} | Type: ${type} | Industry: ${industry}
+Audience: ${audience} | Goal: ${goal}
+Content:
+---
+${content_text}
+---
+
+Return JSON only:
+{"overallScore":78,"predictedEngagementRate":"3.2%","viralPotential":"Low/Medium/High","scores":{"hook":80,"clarity":75,"emotion":70,"cta":65,"hashtags":80,"readability":85},"strengths":["strength 1","strength 2"],"weaknesses":["weakness 1","weakness 2"],"improvedVersion":"Complete rewritten version that would score higher","hashtagSuggestions":["#tag1","#tag2","#tag3","#tag4","#tag5"],"bestTimeToPost":"Best time for ${platform} in Gulf region","estimatedReach":"Estimated organic reach range","tips":["tip 1","tip 2","tip 3"]}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2000,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const sc=data.overallScore||0; const scoreColor=sc>=80?'var(--grn)':sc>=60?'var(--amb)':'var(--red)'
+    const scores=data.scores||{}
+
+    out.innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="card" style="border-top:3px solid ${scoreColor};">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:12px;">
+          <div style="text-align:center;"><div style="font-size:44px;font-weight:700;color:${scoreColor};line-height:1;">${sc}</div><div style="font-size:10px;color:var(--txt2);">Content Score</div></div>
+          <div style="flex:1;">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <div style="padding:6px 10px;background:var(--bg3);border-radius:var(--r);text-align:center;"><div style="font-size:12px;font-weight:600;color:var(--acc);">${data.predictedEngagementRate||'—'}</div><div style="font-size:9px;color:var(--txt2);">Predicted Engagement</div></div>
+              <div style="padding:6px 10px;background:var(--bg3);border-radius:var(--r);text-align:center;"><div style="font-size:12px;font-weight:600;color:var(--acc);">${data.viralPotential||'—'}</div><div style="font-size:9px;color:var(--txt2);">Viral Potential</div></div>
+              <div style="padding:6px 10px;background:var(--bg3);border-radius:var(--r);text-align:center;"><div style="font-size:12px;font-weight:600;color:var(--acc);">${data.estimatedReach||'—'}</div><div style="font-size:9px;color:var(--txt2);">Est. Reach</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          ${Object.entries(scores).map(([k,v])=>`<div style="text-align:center;"><div style="font-size:11px;color:var(--txt2);margin-bottom:3px;text-transform:capitalize;">${k}</div><div style="font-size:16px;font-weight:600;color:${v>=80?'var(--grn)':v>=60?'var(--amb)':'var(--red)'};">${v}</div><div style="height:4px;background:var(--bg3);border-radius:999px;overflow:hidden;"><div style="width:${v}%;height:100%;background:${v>=80?'var(--grn)':v>=60?'var(--amb)':'var(--red)'}"></div></div></div>`).join('')}
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">✅ Strengths / ⚠️ Issues</span></div>
+          ${(data.strengths||[]).map(s=>`<div style="font-size:11px;padding:5px;background:var(--grn-l);border-radius:var(--r);margin-bottom:4px;color:var(--grn);">✓ ${s}</div>`).join('')}
+          ${(data.weaknesses||[]).map(w=>`<div style="font-size:11px;padding:5px;background:var(--red-l);border-radius:var(--r);margin-bottom:4px;color:var(--red);">✕ ${w}</div>`).join('')}
+          <div style="margin-top:8px;font-size:11px;"><b>⏰ Best time:</b> ${data.bestTimeToPost||''}</div>
+          <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;">${(data.hashtagSuggestions||[]).map(h=>`<span style="font-size:10px;padding:2px 8px;background:var(--acc-l);color:var(--acc-d);border-radius:999px;">${h}</span>`).join('')}</div>
+        </div>
+        <div class="card">
+          <div class="card-hdr"><span class="card-title">🚀 Improved Version</span><button class="btn xs" onclick="navigator.clipboard.writeText(document.getElementById('improved-content')?.textContent||'').catch(()=>{});this.textContent='✓';setTimeout(()=>this.textContent='Copy',2000)">Copy</button></div>
+          <div id="improved-content" style="font-size:12px;line-height:1.9;white-space:pre-line;padding:10px;background:var(--bg3);border-radius:var(--r);margin-bottom:8px;">${data.improvedVersion||''}</div>
+          <div class="card-hdr" style="margin-top:8px;"><span class="card-title">💡 Tips</span></div>
+          ${(data.tips||[]).map(t=>`<div style="font-size:11px;display:flex;gap:5px;margin-bottom:4px;"><span style="color:var(--acc);">→</span>${t}</div>`).join('')}
+        </div>
+      </div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+// ── Ad Copy Generator ─────────────────────────────────────────────
+async function generateAdCopy(){
+  const product=document.getElementById('ad-product')?.value?.trim()
+  if(!product){alert('Please enter your product or service');return}
+  const key=getKey(); if(!key){alert('Please add API key');go('settings',null);return}
+  const benefit=document.getElementById('ad-benefit')?.value||''
+  const audience=document.getElementById('ad-audience')?.value||''
+  const goal=document.getElementById('ad-goal')?.value||''
+  const tone=document.getElementById('ad-tone')?.value||''
+  const count=parseInt(document.getElementById('ad-count')?.value||'3')
+  const lang=currentLang==='ar'?'Arabic':'English'
+  const out=document.getElementById('adCopyOutput')
+  out.innerHTML='<div class="loading-box"><div class="spin">✍️</div><div style="font-size:12px;color:var(--txt2);margin-top:8px;">Generating ad copy for '+selectedAdPlatform+'...</div></div>'
+
+  const platformGuides={
+    'Google':'Search ads: Headline 1 (30 chars), Headline 2 (30 chars), Headline 3 (30 chars), Description (90 chars). Include keywords.',
+    'Meta':'Feed ads: Hook (first line critical), Body (125 chars ideal), CTA button. Also create a carousel headline.',
+    'Snapchat':'Story ads: Very short, punchy, emoji-friendly. Top text overlay + bottom CTA. 6 second rule.',
+    'TikTok':'In-feed ads: Hook in first 2 seconds, casual tone, trending language, strong CTA. Script style.',
+    'Twitter/X':'280 chars max. Punchy, direct, hashtags (1-2 only). Thread option for longer.',
+    'LinkedIn':'Professional tone. Problem-solution format. Data/stats if available. Clear CTA.'
+  }
+
+  const prompt=`You are an expert ad copywriter for the Gulf/Saudi market. Create ${count} high-converting ad variations for ${selectedAdPlatform}. Respond in ${lang}.
+
+Platform format guide: ${platformGuides[selectedAdPlatform]||'Platform-specific best practices'}
+Product/Service: ${product}
+Key benefit/offer: ${benefit}
+Target audience: ${audience}
+Goal: ${goal}
+Tone: ${tone}
+
+Return JSON only:
+{"platform":"${selectedAdPlatform}","variations":[{"version":"Version 1","headline":"...","body":"...","cta":"...","characterCount":{"headline":0,"body":0},"emotionalHook":"What emotion this triggers","strengthScore":85,"note":"Why this variation works"}],"generalTips":["tip 1","tip 2","tip 3"],"abTestSuggestion":"What to A/B test first"}`
+
+  try{
+    const r=await fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:MODEL,max_tokens:2500,messages:[{role:'user',content:prompt}]})})
+    const d=await r.json(); const text=d.content?.[0]?.text||''
+    const data=JSON.parse(text.replace(/```json|```/g,'').trim())
+    const platColors={'Google':'#4285F4','Meta':'#1877F2','Snapchat':'#FFC107','TikTok':'#010101','Twitter/X':'#1DA1F2','LinkedIn':'#0077B5'}
+    const color=platColors[selectedAdPlatform]||'var(--acc)'
+
+    out.innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div style="padding:10px 14px;background:${color}15;border-radius:var(--r2);border-right:3px solid ${color};font-size:11px;color:var(--txt2);">
+        A/B Test Suggestion: <b>${data.abTestSuggestion||''}</b>
+      </div>
+      ${(data.variations||[]).map((v,i)=>`
+      <div class="card" style="border-top:2px solid ${color};">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <span style="font-size:12px;font-weight:600;">${v.version}</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:11px;padding:2px 8px;background:${v.strengthScore>=80?'var(--grn-l)':'var(--amb-l)'};color:${v.strengthScore>=80?'var(--grn)':'var(--amb)'};border-radius:999px;">Score: ${v.strengthScore}</span>
+            <button class="btn xs" onclick="navigator.clipboard.writeText('${(v.headline+'\n\n'+v.body+'\n\n'+v.cta).replace(/'/g,"\'")}').catch(()=>{});this.textContent='✓';setTimeout(()=>this.textContent='Copy',2000)">Copy</button>
+          </div>
+        </div>
+        ${v.headline?`<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:700;color:${color};text-transform:uppercase;margin-bottom:3px;">HEADLINE (${v.characterCount?.headline||0} chars)</div><div style="font-size:14px;font-weight:600;line-height:1.4;">${v.headline}</div></div>`:''}
+        ${v.body?`<div style="margin-bottom:6px;"><div style="font-size:9px;font-weight:700;color:${color};text-transform:uppercase;margin-bottom:3px;">BODY (${v.characterCount?.body||0} chars)</div><div style="font-size:12px;line-height:1.7;white-space:pre-line;">${v.body}</div></div>`:''}
+        ${v.cta?`<div style="display:inline-block;padding:7px 14px;background:${color};color:#fff;border-radius:var(--r);font-size:12px;font-weight:500;margin-bottom:8px;">${v.cta}</div>`:''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+          <div style="font-size:10px;color:var(--txt2);">Hook: <span style="color:var(--acc);">${v.emotionalHook||''}</span></div>
+          <div style="font-size:10px;color:var(--txt2);">${v.note||''}</div>
+        </div>
+      </div>`).join('')}
+      <div class="card"><div class="card-hdr"><span class="card-title">💡 ${selectedAdPlatform} Tips</span></div>${(data.generalTips||[]).map(t=>`<div style="font-size:11px;display:flex;gap:5px;margin-bottom:4px;"><span style="color:var(--acc);">→</span>${t}</div>`).join('')}</div>
+    </div>`
+  }catch(e){out.innerHTML=`<div style="color:var(--red);font-size:12px;">Error: ${e.message}</div>`}
+}
+
+// ── Campaign Calendar ─────────────────────────────────────────────
+function saveCampaign(){
+  const name=document.getElementById('camp-name')?.value?.trim()
+  if(!name){alert('Please enter campaign name');return}
+  campaigns.push({
+    id:Date.now(),
+    name,
+    platform:document.getElementById('camp-platform')?.value||'',
+    start:document.getElementById('camp-start')?.value||'',
+    end:document.getElementById('camp-end')?.value||'',
+    budget:parseFloat(document.getElementById('camp-budget')?.value||'0'),
+    goal:document.getElementById('camp-goal')?.value||'',
+    status:document.getElementById('camp-status')?.value||'planned',
+    notes:document.getElementById('camp-notes')?.value||'',
+    createdAt:new Date().toISOString()
+  })
+  saveCampaigns()
+  closeModal('addCampaignModal')
+  renderCampaignCalendar()
+  // Clear form
+  ;['camp-name','camp-start','camp-end','camp-budget','camp-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''})
+}
+
+function renderCampaignCalendar(){
+  const now=new Date()
+  const active=campaigns.filter(c=>c.status==='active').length
+  const totalBudget=campaigns.reduce((s,c)=>s+c.budget,0)
+  const thisMonth=campaigns.filter(c=>{
+    const start=new Date(c.start); return start.getMonth()===now.getMonth()&&start.getFullYear()===now.getFullYear()
+  }).length
+
+  const el1=document.getElementById('cal-total'); if(el1)el1.textContent=campaigns.length
+  const el2=document.getElementById('cal-active'); if(el2)el2.textContent=active
+  const el3=document.getElementById('cal-budget'); if(el3)el3.textContent=totalBudget.toLocaleString()+' SAR'
+  const el4=document.getElementById('cal-month'); if(el4)el4.textContent=thisMonth
+
+  const body=document.getElementById('campaignCalendarBody'); if(!body) return
+  if(!campaigns.length){body.innerHTML='<div style="text-align:center;padding:30px;color:var(--txt2);font-size:12px;">No campaigns yet — click "+ Add Campaign" to start tracking</div>';return}
+
+  const statusConfig={planned:{bg:'var(--acc-l)',c:'var(--acc-d)',l:'Planned'},active:{bg:'var(--grn-l)',c:'var(--grn)',l:'Active'},paused:{bg:'var(--amb-l)',c:'var(--amb)',l:'Paused'},completed:{bg:'var(--bg3)',c:'var(--txt2)',l:'Completed'}}
+  const platColors={'Meta':'#1877F2','Google':'#4285F4','TikTok':'#010101','Snapchat':'#FFC107','Twitter/X':'#1DA1F2','LinkedIn':'#0077B5','Multi-platform':'var(--acc)'}
+
+  body.innerHTML=`<div style="overflow-x:auto;">
+  <table class="crm-table">
+    <thead><tr><th>Campaign</th><th>Platform</th><th>Dates</th><th>Budget</th><th>Goal</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>${[...campaigns].reverse().map((c,ri)=>{
+      const idx=campaigns.length-1-ri
+      const sc=statusConfig[c.status]||statusConfig.planned
+      const pc=platColors[c.platform]||'var(--acc)'
+      return`<tr>
+        <td><div style="font-weight:500;">${c.name}</div>${c.notes?`<div style="font-size:10px;color:var(--txt2);">${c.notes}</div>`:''}</td>
+        <td><span style="font-size:10px;padding:2px 8px;border-radius:999px;background:${pc}20;color:${pc};font-weight:500;">${c.platform}</span></td>
+        <td style="font-size:11px;color:var(--txt2);">${c.start||'—'}<br>${c.end||'—'}</td>
+        <td style="font-weight:500;color:var(--grn);">${c.budget.toLocaleString()} SAR</td>
+        <td style="font-size:11px;">${c.goal}</td>
+        <td><select onchange="updateCampaignStatus(${idx},this.value)" style="font-size:10px;padding:3px 6px;border-radius:5px;border:1px solid var(--bdr2);background:${sc.bg};color:${sc.c};font-family:inherit;">
+          <option value="planned" ${c.status==='planned'?'selected':''}>Planned</option>
+          <option value="active" ${c.status==='active'?'selected':''}>Active</option>
+          <option value="paused" ${c.status==='paused'?'selected':''}>Paused</option>
+          <option value="completed" ${c.status==='completed'?'selected':''}>Completed</option>
+        </select></td>
+        <td><button class="btn xs red-btn" onclick="deleteCampaign(${idx})">🗑</button></td>
+      </tr>`}).join('')}
+    </tbody>
+  </table></div>`
+}
+
+function updateCampaignStatus(idx,status){campaigns[idx].status=status;saveCampaigns();renderCampaignCalendar()}
+function deleteCampaign(idx){if(confirm('Delete this campaign?')){campaigns.splice(idx,1);saveCampaigns();renderCampaignCalendar()}}
 // ══════════════════════════════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════════════════════════════
